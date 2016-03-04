@@ -11,7 +11,6 @@ import android.widget.TabHost;
 public class MainActivity extends TabActivity
 {
     /** Called when the activity is first created. */
-//    taoh
     @Override
     public void onCreate(Bundle savedInstanceState)
     {

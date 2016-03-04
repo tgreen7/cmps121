@@ -18,7 +18,7 @@
         <activity android:name=".Tab1Activity" />
         <activity android:name=".Tab2Activity" />
         <activity android:name=".Tab3Activity" />
-        <activity android:name=".Tab4Activity"></activity>
+        <activity android:name=".Tab4Activity" />
     </application>
 
 </manifest>
