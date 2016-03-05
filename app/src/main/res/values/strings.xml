@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Final_project</string>
+    <string name="Amount"><b>Amount</b></string>
+    <string name="Name"><b>Name</b></string>
+    <string name="Type"><b>Type</b></string>
+    <string name="Time"><b>Time</b></string>
+    <string name="Bitter"><b>%/IBU</b></string>
+    <string name="ingredients">Ingredients</string>
+
 </resources>

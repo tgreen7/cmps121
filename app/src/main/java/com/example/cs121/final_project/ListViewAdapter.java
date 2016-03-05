@@ -4,6 +4,7 @@ package com.example.cs121.final_project;
 /**
  * Created by Taoh on 3/4/2016.
  */
+import static com.example.cs121.final_project.Constant.FIFTH_COLUMN;
 import static com.example.cs121.final_project.Constant.FIRST_COLUMN;
 import static com.example.cs121.final_project.Constant.SECOND_COLUMN;
 import static com.example.cs121.final_project.Constant.THIRD_COLUMN;
@@ -18,8 +19,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class ListViewAdapter extends BaseAdapter
-{
+public class ListViewAdapter extends BaseAdapter {
     public ArrayList<HashMap> list;
     Activity activity;
 
@@ -52,6 +52,7 @@ public class ListViewAdapter extends BaseAdapter
         TextView txtSecond;
         TextView txtThird;
         TextView txtFourth;
+        TextView txtFifth;
     }
 
     @Override
@@ -70,6 +71,7 @@ public class ListViewAdapter extends BaseAdapter
             holder.txtSecond = (TextView) convertView.findViewById(R.id.SecondText);
             holder.txtThird = (TextView) convertView.findViewById(R.id.ThirdText);
             holder.txtFourth = (TextView) convertView.findViewById(R.id.FourthText);
+            holder.txtFifth = (TextView) convertView.findViewById(R.id.FifthText);
             convertView.setTag(holder);
         }
         else
@@ -82,6 +84,7 @@ public class ListViewAdapter extends BaseAdapter
         holder.txtSecond.setText(map.get(SECOND_COLUMN).toString());
         holder.txtThird.setText(map.get(THIRD_COLUMN).toString());
         holder.txtFourth.setText(map.get(FOURTH_COLUMN).toString());
+        holder.txtFifth.setText(map.get(FIFTH_COLUMN).toString());
 
         return convertView;
     }

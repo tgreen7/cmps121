@@ -5,6 +5,9 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="bright_white">#ffffff</color>
+    <color name="dark_grey">#4e4d4d</color>
+
+    <color name="main_green">#BDE674</color>
 
     <color name="light_grey">#cccccc</color>
     <color name="shadow">#595858</color>

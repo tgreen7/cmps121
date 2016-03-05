@@ -8,8 +8,8 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="2dp"
     android:layout_marginRight="2dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginBottom="4dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
     android:paddingTop="15dp"
     android:paddingBottom="15dp"
     android:background="@drawable/list_item_background">
@@ -55,7 +55,21 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Fourth"
+            android:layout_weight="1"
+            android:paddingLeft="3dp"
+            android:paddingStart="3dp"
+            android:paddingRight="3dp"
+            android:paddingEnd="3dp">
+        </TextView>
+
+
+        <TextView
+            android:id="@+id/FifthText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Fifth"
             android:layout_weight="1">
         </TextView>
+
     </LinearLayout>
 </FrameLayout>
