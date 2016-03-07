@@ -7,4 +7,65 @@
     <string name="Bitter"><b>%/IBU</b></string>
     <string name="ingredients">Ingredients</string>
 
+    <string-array name="beer_types_array">
+        <item>All Grain</item>
+        <item>BIAB</item>
+        <item>Extract</item>
+    </string-array>
+
+    <string-array name="beer_styles_array">
+        <item> Altbier </item>
+        <item> Amber ale </item>
+        <item> American Brown Ale </item>
+        <item> Barley wine </item>
+        <item> American </item>
+        <item> Berliner weisse </item>
+        <item> Bière de Garde </item>
+        <item> Bitter </item>
+        <item> Blonde Ale </item>
+        <item> Bock </item>
+        <item> Brown ale </item>
+        <item> California Common/Steam Beer </item>
+        <item> Cream Ale </item>
+        <item> Dortmunder Export </item>
+        <item> Doppelbock </item>
+        <item> Dunkel </item>
+        <item> Dunkelweizen </item>
+        <item> Eisbock </item>
+        <item> Flanders red ale </item>
+        <item> Golden Ale </item>
+        <item> Gose </item>
+        <item> Gueuze </item>
+        <item> Hefeweizen </item>
+        <item> Helles </item>
+        <item> India pale ale </item>
+        <item> American IPA </item>
+        <item> Imperial IPA </item>
+        <item> Kölsch </item>
+        <item> Lambic </item>
+        <item> Light ale </item>
+        <item> Maibock/Helles bock </item>
+        <item> Malt liquor </item>
+        <item> Mild </item>
+        <item> Oktoberfestbier/Märzenbier </item>
+        <item> Old ale </item>
+        <item> Oud bruin </item>
+        <item> Pale ale </item>
+        <item> Pilsener/Pilsner/Pils </item>
+        <item> German-Style Pilsener </item>
+        <item> Bohemian Pilsener </item>
+        <item> Classic American Pilsner </item>
+        <item> Porter </item>
+        <item> Red ale </item>
+        <item> Roggenbier </item>
+        <item> Saison </item>
+        <item> Scotch ale </item>
+        <item> Stout </item>
+        <item> Schwarzbier </item>
+        <item> Vienna lager </item>
+        <item> Witbier </item>
+        <item> Weissbier </item>
+        <item> Weizenbock  </item>
+    </string-array>
+
 </resources>

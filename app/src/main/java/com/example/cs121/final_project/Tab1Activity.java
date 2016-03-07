@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -40,6 +42,35 @@ public class Tab1Activity extends Activity
         populateList();
         ListViewAdapter adapter = new ListViewAdapter(this, list);
         lview.setAdapter(adapter);
+
+
+        Spinner spinner = (Spinner) findViewById(R.id.spinner_types);
+// Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> spin_adapter = ArrayAdapter.createFromResource(this,
+                R.array.beer_types_array, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+        spin_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+        spinner.setAdapter(spin_adapter);
+
+
+        spinner = (Spinner) findViewById(R.id.spinner_styles);
+// Create an ArrayAdapter using the string array and a default spinner layout
+        spin_adapter = ArrayAdapter.createFromResource(this,
+                R.array.beer_styles_array, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+        spin_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+        spinner.setAdapter(spin_adapter);
+
+
+        EditText efficiency =(EditText) findViewById(R.id.efficiency);
+        EditText boil_time =(EditText) findViewById(R.id.boil_time);
+        EditText batch_size =(EditText) findViewById(R.id.batch);
+
+        efficiency.setText("70");
+        boil_time.setText("60");
+        batch_size.setText("5.00");
     }
 
     private void populateList() {
