@@ -11,15 +11,21 @@
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/name_layout">
+        android:id="@+id/name_layout"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="15dp"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentRight="false"
+        android:layout_toLeftOf="@+id/efficiency_layout">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"/>
+            android:text="@string/name"/>
         <EditText
             android:id="@+id/recipeName"
             android:inputType="text"
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -28,18 +34,21 @@
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/name_layout"
-        android:layout_toEndOf="@id/name_layout">
+        android:id="@+id/efficiency_layout"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Efficiency"/>
+            android:text="@string/efficiency"/>
         <EditText
             android:id="@+id/efficiency"
             android:inputType="numberDecimal"
             android:layout_width="40dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textAlignment="center" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,54 +59,68 @@
 
     <!--row 2-->
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/type_layout"
-        android:layout_below="@id/name_layout">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Type"/>
-        <Spinner
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner_types"
-            android:layout_weight="1" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/beer_style"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_toRightOf="@id/type_layout"
-        android:layout_toEndOf="@id/type_layout"
-        android:layout_below="@id/name_layout">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Style"/>
-        <Spinner
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner_styles"
-            android:layout_weight="1" />
-    </LinearLayout>
-
 
     <!--row 3-->
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name_layout"
+        android:id="@+id/Spinnerlayout">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/type_layout"
+            android:layout_below="@id/name_layout"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toLeftOf="@+id/beer_style"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Type"/>
+            <Spinner
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner_types"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/beer_style"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/efficiency_layout"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Style"/>
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner_styles"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/boil_layout"
-        android:layout_below="@id/type_layout">
+        android:layout_marginLeft="15dp"
+        android:layout_below="@+id/Spinnerlayout">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,7 +130,8 @@
             android:inputType="numberDecimal"
             android:layout_width="50dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textAlignment="center" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -119,12 +143,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/batch_layout"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
 
-        android:layout_toRightOf="@id/boil_layout"
-        android:layout_toEndOf="@id/boil_layout"
-        android:layout_below="@id/type_layout">
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/Spinnerlayout"
+        android:layout_marginRight="15dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -134,7 +156,8 @@
             android:inputType="numberDecimal"
             android:layout_width="50dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:textAlignment="center" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -145,7 +168,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/add_items"
-        android:background="#77a02e"
+        android:background="#571f0f"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/boil_layout"
@@ -160,7 +183,7 @@
             android:scaleType="fitCenter"
             android:padding="0dp"
             style="@style/Base.TextAppearance.AppCompat.Button"
-            android:backgroundTint="#3b5017"
+            android:backgroundTint="#c29624"
             android:layout_gravity="left"
             android:onClick="startGrain"/>
         <ImageButton
@@ -171,14 +194,13 @@
             android:scaleType="fitCenter"
             android:padding="0dp"
             style="@style/Base.TextAppearance.AppCompat.Button"
-            android:backgroundTint="#3b5017"
+            android:backgroundTint="#c29624"
             android:onClick="startHop"/>
 
         <TextView
             android:layout_width="130dp"
             android:layout_height="fill_parent"
             android:textSize="20sp"
-            android:textColor="#3b4f19"
             android:gravity="center"
             android:text="@string/ingredients"
             android:id="@+id/textView5"
@@ -191,7 +213,8 @@
             android:paddingRight="3dp"
             android:paddingEnd="3dp"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/add_items" />
+            android:layout_below="@+id/add_items"
+            android:textColor="#ffffff" />
 
         <ImageButton
             android:layout_width="50dp"
@@ -201,7 +224,7 @@
             android:scaleType="fitCenter"
             android:padding="0dp"
             style="@style/Base.TextAppearance.AppCompat.Button"
-            android:backgroundTint="#3b5017"
+            android:backgroundTint="#c29624"
             android:layout_gravity="right"
             android:onClick="startYeast"/>
         <ImageButton
@@ -212,7 +235,7 @@
             android:scaleType="fitCenter"
             android:padding="0dp"
             style="@style/Base.TextAppearance.AppCompat.Button"
-            android:backgroundTint="#3b5017"
+            android:backgroundTint="#c29624"
             android:layout_gravity="right"
             android:onClick="startMisc"/>
 
@@ -239,19 +262,18 @@
 
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:id="@+id/headers"
-        android:background="@drawable/list_header_background"
-        android:layout_below="@+id/add_items">
+        android:background="#7e2d16"
+        android:layout_below="@+id/add_items"
+        android:paddingLeft="5dp">
 
         <TextView
             android:id="@+id/FirstHeaderText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/dark_grey"
+            android:textColor="#ffffff"
             android:text="@string/Amount"
             android:layout_weight="1"
             android:paddingLeft="3dp"
@@ -264,7 +286,7 @@
             android:id="@+id/SecondHeaderText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/dark_grey"
+            android:textColor="#ffffff"
             android:text="@string/Name"
             android:layout_weight="2"
             android:paddingLeft="3dp"
@@ -277,7 +299,7 @@
             android:id="@+id/ThirdHeaderText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/dark_grey"
+            android:textColor="#ffffff"
             android:text="@string/Type"
             android:layout_weight="1"
             android:paddingLeft="3dp"
@@ -290,7 +312,7 @@
             android:id="@+id/FourthHeaderText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/dark_grey"
+            android:textColor="#ffffff"
             android:text="@string/Time"
             android:layout_weight="1"
             android:paddingLeft="3dp"
@@ -304,7 +326,7 @@
             android:id="@+id/FifthHeaderText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/dark_grey"
+            android:textColor="#ffffff"
             android:text="@string/Bitter"
             android:layout_weight="1">
         </TextView>

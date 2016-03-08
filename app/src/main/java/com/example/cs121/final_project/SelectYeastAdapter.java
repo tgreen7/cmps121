@@ -4,7 +4,6 @@ package com.example.cs121.final_project;
 /**
  * Created by Taoh on 3/4/2016.
  */
-import static com.example.cs121.final_project.Constant.FIFTH_COLUMN;
 import static com.example.cs121.final_project.Constant.FIRST_COLUMN;
 import static com.example.cs121.final_project.Constant.FOURTH_COLUMN;
 import static com.example.cs121.final_project.Constant.SECOND_COLUMN;
@@ -52,7 +51,6 @@ public class SelectYeastAdapter extends BaseAdapter {
         TextView txtSecond;
         TextView txtThird;
         TextView txtFourth;
-        TextView txtFifth;
     }
 
     @Override
@@ -71,7 +69,6 @@ public class SelectYeastAdapter extends BaseAdapter {
             holder.txtSecond = (TextView) convertView.findViewById(R.id.SecondText);
             holder.txtThird = (TextView) convertView.findViewById(R.id.ThirdText);
             holder.txtFourth = (TextView) convertView.findViewById(R.id.FourthText);
-            holder.txtFifth = (TextView) convertView.findViewById(R.id.FifthText);
             convertView.setTag(holder);
         }
         else
@@ -84,7 +81,6 @@ public class SelectYeastAdapter extends BaseAdapter {
         holder.txtSecond.setText(map.get(SECOND_COLUMN).toString());
         holder.txtThird.setText(map.get(THIRD_COLUMN).toString());
         holder.txtFourth.setText(map.get(FOURTH_COLUMN).toString());
-        holder.txtFifth.setText(map.get(FIFTH_COLUMN).toString());
 
         return convertView;
     }

@@ -2,6 +2,7 @@ package com.example.cs121.final_project;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -109,7 +110,9 @@ public class PickHopDialog extends Dialog implements
                 break;
 
             case R.id.addItem:
-                c.finish();
+                Intent intent = new Intent(getBaseContext(), Tab1Activity.class);
+                intent.putExtra("wortchecked", wort.isChecked());
+                startActivity(intent);
                 break;
 
             case R.id.cancel:
