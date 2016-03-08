@@ -140,7 +140,79 @@
             android:layout_height="wrap_content"
             android:text="gal"/>
     </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/add_items"
+        android:background="#77a02e"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/boil_layout"
+        android:layout_alignParentStart="true"
+        android:gravity="center_horizontal">
 
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/wheatButton"
+            android:src="@drawable/wheat"
+            android:scaleType="fitCenter"
+            android:padding="0dp"
+            style="@style/Base.TextAppearance.AppCompat.Button"
+            android:backgroundTint="#3b5017"
+            android:layout_gravity="left" />
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/hopsButton"
+            android:src="@drawable/hop"
+            android:scaleType="fitCenter"
+            android:padding="0dp"
+            style="@style/Base.TextAppearance.AppCompat.Button"
+            android:backgroundTint="#3b5017" />
+
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="fill_parent"
+            android:textSize="20sp"
+            android:textColor="#3b4f19"
+            android:gravity="center"
+            android:text="@string/ingredients"
+            android:id="@+id/textView5"
+            android:layout_marginLeft="2dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginEnd="2dp"
+            android:paddingLeft="3dp"
+            android:paddingStart="3dp"
+            android:paddingRight="3dp"
+            android:paddingEnd="3dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/add_items" />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/yeastButton"
+            android:src="@drawable/yeast"
+            android:scaleType="fitCenter"
+            android:padding="0dp"
+            style="@style/Base.TextAppearance.AppCompat.Button"
+            android:backgroundTint="#3b5017"
+            android:layout_gravity="right" />
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/miscButton"
+            android:src="@drawable/misc"
+            android:scaleType="fitCenter"
+            android:padding="0dp"
+            style="@style/Base.TextAppearance.AppCompat.Button"
+            android:backgroundTint="#3b5017"
+            android:layout_gravity="right" />
+
+    </LinearLayout>
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -159,7 +231,7 @@
         android:paddingRight="3dp"
         android:paddingEnd="3dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/boil_layout"/>
+        android:layout_below="@+id/add_items" />
 
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -169,7 +241,7 @@
         android:paddingBottom="10dp"
         android:id="@+id/headers"
         android:background="@drawable/list_header_background"
-        android:layout_below="@+id/ing">
+        android:layout_below="@+id/add_items">
 
         <TextView
             android:id="@+id/FirstHeaderText"

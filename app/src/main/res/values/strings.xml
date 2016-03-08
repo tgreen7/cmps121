@@ -6,6 +6,8 @@
     <string name="Time"><b>Time</b></string>
     <string name="Bitter"><b>%/IBU</b></string>
     <string name="ingredients">Ingredients</string>
+    <string name="AddItems">Add Items \n
+    to Recipe</string>
 
     <string-array name="beer_types_array">
         <item>All Grain</item>
