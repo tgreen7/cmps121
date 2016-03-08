@@ -14,6 +14,8 @@
     <string name="form"><b>Form</b></string>
     <string name="potential"><b>Potential</b></string>
     <string name="color"><b>Color</b></string>
+    <string name="AddItems">Add Items \n
+    to Recipe</string>
 
     <string-array name="beer_types_array">
         <item>All Grain</item>
