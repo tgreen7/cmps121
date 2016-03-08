@@ -14,6 +14,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.cs121.final_project.Tab1Activity;
+import com.example.cs121.final_project.PickHopActivity;
+
 import org.w3c.dom.Text;
 
 /**
@@ -56,6 +59,8 @@ public class PickHopDialog extends Dialog implements
         name = (EditText) findViewById(R.id.nameText);
         alpha = (EditText) findViewById(R.id.alphaText);
         type = (EditText) findViewById(R.id.typeText);
+        boilTime = (EditText) findViewById(R.id.boil);
+        weight = (EditText) findViewById(R.id.weight);
 
         name.setText(name_text);
         alpha.setText(alpha_text);
@@ -98,6 +103,20 @@ public class PickHopDialog extends Dialog implements
         }
     }
 
+    public void sendItem() {
+//        Item (String ing_type, String name,  String type, Float color,
+//                Float potential, Float alpha, String lab,
+//                String form, String use, Boolean wort, Boolean dry,
+//                String time, Float weight){
+        PickHopActivity.make_item("hop", name.getText().toString(), type.getText().toString(), null,
+                null, null, alpha.getText().toString(), null, null, wort.isChecked(), dry.isChecked(),
+                boilTime.getText().toString(), Float.parseFloat(weight.getText().toString()));
+//        System.out.println(boilTime.getText().toString());
+
+        MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
+        activity.onReturnValue("done");
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -110,9 +129,8 @@ public class PickHopDialog extends Dialog implements
                 break;
 
             case R.id.addItem:
-                Intent intent = new Intent(getBaseContext(), Tab1Activity.class);
-                intent.putExtra("wortchecked", wort.isChecked());
-                startActivity(intent);
+                sendItem();
+                dismiss();
                 break;
 
             case R.id.cancel:
@@ -122,5 +140,9 @@ public class PickHopDialog extends Dialog implements
             default:
                 break;
         }
+    }
+
+    public interface MyDialogFragmentListener {
+        void onReturnValue(String foo);
     }
 }

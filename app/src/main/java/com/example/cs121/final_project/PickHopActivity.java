@@ -11,6 +11,7 @@ import android.database.Cursor;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -28,16 +29,21 @@ import static com.example.cs121.final_project.Constant.FIRST_COLUMN;
 import static com.example.cs121.final_project.Constant.SECOND_COLUMN;
 import static com.example.cs121.final_project.Constant.THIRD_COLUMN;
 
-public class PickHopActivity extends AppCompatActivity {
+public class PickHopActivity extends AppCompatActivity implements PickHopDialog.MyDialogFragmentListener {
 
     private ArrayList<HashMap> list;
+    private ArrayList<Item> aList;
     DataBaseHelper myDbHelper;
     String[] HopType = {"", "Bittering", "Aroma", "Flavor", "Bittering/Aroma", "Aroma/Flavor", "Bittering/Flavor", "Bittering/Aroma/Flavor"};
 
+    private static Item my_item;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_hop);
+
+        aList = new ArrayList<Item>();
 
         ListView lview = (ListView) findViewById(R.id.hop_list);
         myDbHelper = new DataBaseHelper(this);
@@ -73,6 +79,25 @@ public class PickHopActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onReturnValue(String s) {
+        Log.i("onReturnValue", "Got value " + s + " back from Dialog!");
+    }
+    
+    public static void make_item (String ing_type, String name,  String type, Float color,
+                      Float potential, Float alpha, String lab,
+                      String form, String use, Boolean wort, Boolean dry,
+                      String time, Float weight){
+
+        my_item = new Item(ing_type, name, type,  color,
+         potential,  alpha, lab,
+        form, use,  wort,  dry,
+        time,  weight);
+
+        System.out.println(my_item.ing_type);
+        
+    }
+
     private void populateList() {
 
         list = new ArrayList<HashMap>();
@@ -89,4 +114,6 @@ public class PickHopActivity extends AppCompatActivity {
         }
         myDbHelper.close();
     }
+
+
 }
