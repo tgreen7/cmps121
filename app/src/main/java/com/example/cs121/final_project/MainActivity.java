@@ -26,7 +26,7 @@ public class MainActivity extends TabActivity
 
         // Set the Tab name and Activity
         // that will be opened when particular Tab will be selected
-        tab1.setIndicator("Fermentables");
+        tab1.setIndicator("Recipe");
         tab1.setContent(new Intent(this,Tab1Activity.class));
 
         tab2.setIndicator("select grain");

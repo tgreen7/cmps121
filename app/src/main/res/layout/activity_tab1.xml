@@ -145,7 +145,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/add_items"
-        android:background="#77a02e"
+        android:background="#571f0f"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/boil_layout"
@@ -160,7 +160,7 @@
             android:scaleType="fitCenter"
             android:padding="0dp"
             style="@style/Base.TextAppearance.AppCompat.Button"
-            android:backgroundTint="#3b5017"
+            android:backgroundTint="#c29624"
             android:layout_gravity="left"
             android:onClick="startGrain"/>
         <ImageButton
@@ -171,14 +171,13 @@
             android:scaleType="fitCenter"
             android:padding="0dp"
             style="@style/Base.TextAppearance.AppCompat.Button"
-            android:backgroundTint="#3b5017"
+            android:backgroundTint="#c29624"
             android:onClick="startHop"/>
 
         <TextView
             android:layout_width="130dp"
             android:layout_height="fill_parent"
             android:textSize="20sp"
-            android:textColor="#3b4f19"
             android:gravity="center"
             android:text="@string/ingredients"
             android:id="@+id/textView5"
@@ -191,7 +190,8 @@
             android:paddingRight="3dp"
             android:paddingEnd="3dp"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/add_items" />
+            android:layout_below="@+id/add_items"
+            android:textColor="#ffffff" />
 
         <ImageButton
             android:layout_width="50dp"
@@ -201,7 +201,7 @@
             android:scaleType="fitCenter"
             android:padding="0dp"
             style="@style/Base.TextAppearance.AppCompat.Button"
-            android:backgroundTint="#3b5017"
+            android:backgroundTint="#c29624"
             android:layout_gravity="right"
             android:onClick="startYeast"/>
         <ImageButton
@@ -212,7 +212,7 @@
             android:scaleType="fitCenter"
             android:padding="0dp"
             style="@style/Base.TextAppearance.AppCompat.Button"
-            android:backgroundTint="#3b5017"
+            android:backgroundTint="#c29624"
             android:layout_gravity="right"
             android:onClick="startMisc"/>
 
@@ -239,19 +239,18 @@
 
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:id="@+id/headers"
-        android:background="@drawable/list_header_background"
-        android:layout_below="@+id/add_items">
+        android:background="#7e2d16"
+        android:layout_below="@+id/add_items"
+        android:paddingLeft="5dp">
 
         <TextView
             android:id="@+id/FirstHeaderText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/dark_grey"
+            android:textColor="#ffffff"
             android:text="@string/Amount"
             android:layout_weight="1"
             android:paddingLeft="3dp"
@@ -264,7 +263,7 @@
             android:id="@+id/SecondHeaderText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/dark_grey"
+            android:textColor="#ffffff"
             android:text="@string/Name"
             android:layout_weight="2"
             android:paddingLeft="3dp"
@@ -277,7 +276,7 @@
             android:id="@+id/ThirdHeaderText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/dark_grey"
+            android:textColor="#ffffff"
             android:text="@string/Type"
             android:layout_weight="1"
             android:paddingLeft="3dp"
@@ -290,7 +289,7 @@
             android:id="@+id/FourthHeaderText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/dark_grey"
+            android:textColor="#ffffff"
             android:text="@string/Time"
             android:layout_weight="1"
             android:paddingLeft="3dp"
@@ -304,7 +303,7 @@
             android:id="@+id/FifthHeaderText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/dark_grey"
+            android:textColor="#ffffff"
             android:text="@string/Bitter"
             android:layout_weight="1">
         </TextView>
