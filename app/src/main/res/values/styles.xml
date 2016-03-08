@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="CustomDialogueStyle">
+        <item name="android:capitalize">characters</item>
+        <item name="android:background">#571f0f</item>
+        <item name="android:textSize">7pt</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+
 </resources>

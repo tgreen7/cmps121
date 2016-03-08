@@ -1,11 +1,22 @@
 package com.example.cs121.final_project;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import static com.example.cs121.final_project.Constant.FIRST_COLUMN;
 import static com.example.cs121.final_project.Constant.SECOND_COLUMN;
@@ -25,6 +36,22 @@ public class PickHopActivity extends AppCompatActivity {
         populateList();
         SelectHopAdapter adapter = new SelectHopAdapter(this, list);
         lview.setAdapter(adapter);
+
+        lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Map<String, Object> map = (Map<String, Object>) parent.getItemAtPosition(position);
+                String name = (String) map.get("First");
+                String alpha = (String) map.get("Second");
+                String type = (String) map.get("Third");
+                System.out.println("name: " + name + "  alpha: " + alpha + " type: " + type);
+
+                PickHopDialog cdd = new PickHopDialog(PickHopActivity.this, name, alpha, type);
+                cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                cdd.show();
+            }
+        });
+
     }
 
     private void populateList() {
@@ -33,19 +60,19 @@ public class PickHopActivity extends AppCompatActivity {
 
         HashMap temp = new HashMap();
         temp.put(FIRST_COLUMN, "3 pkfwaojfeoiawfg");
-        temp.put(SECOND_COLUMN, "B");
+        temp.put(SECOND_COLUMN, "3");
         temp.put(THIRD_COLUMN, "Rsawfojaw. 200");
         list.add(temp);
 
         HashMap temp1 = new HashMap();
         temp1.put(FIRST_COLUMN,"4 wafawefoz");
-        temp1.put(SECOND_COLUMN, "By");
+        temp1.put(SECOND_COLUMN, "2.0");
         temp1.put(THIRD_COLUMN, "Rs. 40fwafeawf0");
         list.add(temp1);
 
         HashMap temp2 = new HashMap();
         temp2.put(FIRST_COLUMN,"awjfioajwfe");
-        temp2.put(SECOND_COLUMN, "By");
+        temp2.put(SECOND_COLUMN, "4.5");
         temp2.put(THIRD_COLUMN, "Rwffwf600");
         list.add(temp2);
 

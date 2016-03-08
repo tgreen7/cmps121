@@ -49,7 +49,6 @@ public class SelectHopAdapter extends BaseAdapter {
         TextView txtFirst;
         TextView txtSecond;
         TextView txtThird;
-        TextView txtFourth;
     }
 
     @Override
@@ -81,5 +80,7 @@ public class SelectHopAdapter extends BaseAdapter {
 
         return convertView;
     }
+
+
 
 }

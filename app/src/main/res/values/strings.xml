@@ -23,6 +23,11 @@
         <item>Extract</item>
     </string-array>
 
+    <string-array name="weight_type_array">
+        <item>Oz</item>
+        <item>g</item>
+    </string-array>
+
     <string-array name="beer_styles_array">
         <item> Altbier </item>
         <item> Amber ale </item>
