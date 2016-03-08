@@ -31,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:text="@string/lab"
+            android:text="@string/company"
             android:layout_weight="1.5"
             android:paddingLeft="3dp"
             android:paddingStart="3dp"
@@ -44,19 +44,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:text="@string/id"
-            android:layout_weight="1"
-            android:paddingLeft="3dp"
-            android:paddingStart="3dp"
-            android:paddingRight="3dp"
-            android:paddingEnd="3dp">
-        </TextView>
-
-        <TextView
-            android:id="@+id/FourthHeaderText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="#FFFFFF"
             android:text="@string/Type"
             android:layout_weight="1"
             android:paddingLeft="3dp"
@@ -66,7 +53,7 @@
         </TextView>
 
         <TextView
-            android:id="@+id/FifthHeaderText"
+            android:id="@+id/FourthHeaderText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
