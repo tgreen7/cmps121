@@ -19,6 +19,10 @@
         <activity android:name=".Tab2Activity" />
         <activity android:name=".Tab3Activity" />
         <activity android:name=".Tab4Activity" />
+        <activity android:name=".PickGrainActivity" />
+        <activity android:name=".PickHopActivity" />
+        <activity android:name=".PickYeastActivity" />
+        <activity android:name=".PickMiscActivity"></activity>
     </application>
 
 </manifest>

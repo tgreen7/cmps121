@@ -5,7 +5,15 @@
     <string name="Type"><b>Type</b></string>
     <string name="Time"><b>Time</b></string>
     <string name="Bitter"><b>%/IBU</b></string>
-    <string name="ingredients">Ingredients</string>
+    <string name="ingredients"><b>Ingredients</b></string>
+    <string name="holder">holder</string>
+    <string name="Alpha"><b>Alpha</b></string>
+    <string name="use"><b>Use</b></string>
+    <string name="id"><b>ID</b></string>
+    <string name="lab"><b>Lab</b></string>
+    <string name="form"><b>Form</b></string>
+    <string name="potential"><b>Potential</b></string>
+    <string name="color"><b>Color</b></string>
 
     <string-array name="beer_types_array">
         <item>All Grain</item>
