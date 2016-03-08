@@ -15,6 +15,9 @@
     <string name="color"><b>Color</b></string>
     <string name="AddItems">Add Items \n
     to Recipe</string>
+    <string name="name">Name</string>
+    <string name="Style">Style</string>
+    <string name="efficiency">Efficiency</string>
 
     <string-array name="beer_types_array">
         <item>All Grain</item>

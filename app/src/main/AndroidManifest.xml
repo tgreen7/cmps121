@@ -8,7 +8,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,10 +20,14 @@
         <activity android:name=".Tab2Activity" />
         <activity android:name=".Tab3Activity" />
         <activity android:name=".Tab4Activity" />
-        <activity android:name=".PickGrainActivity" />
-        <activity android:name=".PickHopActivity" />
-        <activity android:name=".PickYeastActivity" />
-        <activity android:name=".PickMiscActivity"></activity>
+        <activity android:name=".PickGrainActivity"
+            android:theme="@style/PickTheme"/>
+        <activity android:name=".PickHopActivity"
+            android:theme="@style/PickTheme"/>
+        <activity android:name=".PickYeastActivity"
+            android:theme="@style/PickTheme"/>
+        <activity android:name=".PickMiscActivity"
+            android:theme="@style/PickTheme"></activity>
     </application>
 
 </manifest>
