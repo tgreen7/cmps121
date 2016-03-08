@@ -1,10 +1,13 @@
 package com.example.cs121.final_project;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -71,6 +74,26 @@ public class Tab1Activity extends Activity
         efficiency.setText("70");
         boil_time.setText("60");
         batch_size.setText("5.00");
+
+
+
+    }
+
+    public void startGrain(View view) {
+        Intent intent = new Intent(this, PickGrainActivity.class);
+        startActivity(intent);
+    }
+    public void startYeast(View view) {
+        Intent intent = new Intent(this, PickYeastActivity.class);
+        startActivity(intent);
+    }
+    public void startHop(View view) {
+        Intent intent = new Intent(this, PickHopActivity.class);
+        startActivity(intent);
+    }
+    public void startMisc(View view) {
+        Intent intent = new Intent(this, PickMiscActivity.class);
+        startActivity(intent);
     }
 
     private void populateList() {

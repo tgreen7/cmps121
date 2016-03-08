@@ -155,13 +155,14 @@
         <ImageButton
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:id="@+id/wheatButton"
+            android:id="@+id/grainButton"
             android:src="@drawable/wheat"
             android:scaleType="fitCenter"
             android:padding="0dp"
             style="@style/Base.TextAppearance.AppCompat.Button"
             android:backgroundTint="#3b5017"
-            android:layout_gravity="left" />
+            android:layout_gravity="left"
+            android:onClick="startGrain"/>
         <ImageButton
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -170,7 +171,8 @@
             android:scaleType="fitCenter"
             android:padding="0dp"
             style="@style/Base.TextAppearance.AppCompat.Button"
-            android:backgroundTint="#3b5017" />
+            android:backgroundTint="#3b5017"
+            android:onClick="startHop"/>
 
         <TextView
             android:layout_width="130dp"
@@ -200,7 +202,8 @@
             android:padding="0dp"
             style="@style/Base.TextAppearance.AppCompat.Button"
             android:backgroundTint="#3b5017"
-            android:layout_gravity="right" />
+            android:layout_gravity="right"
+            android:onClick="startYeast"/>
         <ImageButton
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -210,7 +213,8 @@
             android:padding="0dp"
             style="@style/Base.TextAppearance.AppCompat.Button"
             android:backgroundTint="#3b5017"
-            android:layout_gravity="right" />
+            android:layout_gravity="right"
+            android:onClick="startMisc"/>
 
     </LinearLayout>
     <TextView
