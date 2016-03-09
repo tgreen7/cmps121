@@ -1,10 +1,13 @@
 package com.example.cs121.final_project;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -25,6 +28,7 @@ public class PickGrainActivity extends AppCompatActivity {
     private ArrayList<HashMap> list;
     DataBaseHelper myDbHelper;
     String[] GrainType = {"", "Grain", "Dry Extract", "Liquid Extract", "Adjunct", "Sugar"};
+    Item theitem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +59,7 @@ public class PickGrainActivity extends AppCompatActivity {
                 String name = (String) map.get("First");
                 String type = (String) map.get("Second");
                 String color = map.get("Third").toString();
+                color = color.replace("L", "");
                 String potential = map.get("Fourth").toString();
 
                 PickGrainDialog cdd = new PickGrainDialog(PickGrainActivity.this, name, type, color, potential);
@@ -62,6 +67,15 @@ public class PickGrainActivity extends AppCompatActivity {
                 cdd.show();
             }
         });
+    }
+
+    public void setItem(Item hop) {
+        theitem = hop;
+        Log.i("onReturnValue", "HERERERE " + " back from Dialog!");
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("Item", theitem);
+        setResult(Activity.RESULT_OK, resultIntent);
+        finish();
     }
 
     private void populateList() {

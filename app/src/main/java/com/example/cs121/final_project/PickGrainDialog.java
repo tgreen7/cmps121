@@ -32,7 +32,7 @@ public class PickGrainDialog extends Dialog implements
     public Spinner use, time_type;
 
     public String name_text, type_text, color_text, potential_text;
-    public EditText name, alpha, type, boilTime, weight, time, color, potential;
+    public EditText name, alpha, type, boilTime, weight_oz, weight_lb, time, color, potential;
 
     public PickGrainDialog(Activity a, String name, String type, String color, String potential) {
         super(a);
@@ -55,10 +55,11 @@ public class PickGrainDialog extends Dialog implements
         cancel = (Button) findViewById(R.id.cancel);
 
         name = (EditText) findViewById(R.id.nameText);
-        alpha = (EditText) findViewById(R.id.alphaText);
+        time = (EditText) findViewById(R.id.time_box);
         type = (EditText) findViewById(R.id.typeText);
         boilTime = (EditText) findViewById(R.id.boil);
-        weight = (EditText) findViewById(R.id.weight);
+        weight_lb = (EditText) findViewById(R.id.weight_lb);
+        weight_oz = (EditText) findViewById(R.id.weight_oz);
         color = (EditText) findViewById(R.id.colorText);
         potential = (EditText) findViewById(R.id.potentialText);
 
@@ -89,17 +90,19 @@ public class PickGrainDialog extends Dialog implements
 
 
     public void sendItem() {
-//        Item (String ing_type, String name,  String type, Float color,
-//                Float potential, Float alpha, String lab,
-//                String form, String use, Boolean wort, Boolean dry,
-//                String time, Float weight){
-//        PickHopActivity.make_item("hop", name.getText().toString(), type.getText().toString(), null,
-//                null, null, alpha.getText().toString(), null, null, wort.isChecked(), dry.isChecked(),
-//                boilTime.getText().toString(), Float.parseFloat(weight.getText().toString()));
-////        System.out.println(boilTime.getText().toString());
-//
-//        MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
-//        activity.onReturnValue("done");
+        Spinner usespin = (Spinner) findViewById(R.id.use);
+        Spinner timespin = (Spinner) findViewById(R.id.time_type);
+        int timeparse = Integer.parseInt(time.getText().toString());
+        Float weightlbparse = Float.parseFloat(weight_lb.getText().toString()) * 16;
+        Float weightoz = Float.parseFloat(weight_lb.getText().toString());
+        if (timespin.getSelectedItem().toString().equals("Days")) timeparse *= 1440;
+        Item grain = new Item(1, timeparse, name.getText().toString(),
+                type.getText().toString(), null, null, usespin.getSelectedItem().toString(),
+                Float.parseFloat(color.getText().toString()),
+                Float.parseFloat(potential.getText().toString()),
+                (weightlbparse+weightoz), null, null);
+        MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
+        activity.setItem(grain);
     }
 
     @Override
@@ -120,6 +123,6 @@ public class PickGrainDialog extends Dialog implements
     }
 
     public interface MyDialogFragmentListener {
-        void onReturnValue(String foo);
+        void setItem(Item bar);
     }
 }

@@ -95,15 +95,15 @@ public class Tab1Activity extends Activity
 
     public void startGrain(View view) {
         Intent intent = new Intent(this, PickGrainActivity.class);
-        startActivity(intent);
-    }
-    public void startYeast(View view) {
-        Intent intent = new Intent(this, PickYeastActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
     public void startHop(View view) {
         Intent intent = new Intent(this, PickHopActivity.class);
         startActivityForResult(intent, 2);
+    }
+    public void startYeast(View view) {
+        Intent intent = new Intent(this, PickYeastActivity.class);
+        startActivity(intent);
     }
     public void startMisc(View view) {
         Intent intent = new Intent(this, PickMiscActivity.class);
@@ -119,6 +119,20 @@ public class Tab1Activity extends Activity
 //                InputMethodManager.HIDE_NOT_ALWAYS);
 
         switch(requestCode) {
+            case (1) : {
+                if (resultCode == Activity.RESULT_OK) {
+                    Item newItem = (Item) data.getSerializableExtra("Item");
+                    HashMap newRow = new HashMap();
+                    String[] dataEntry = parseGrain(newItem.weight, newItem.time);
+                    newRow.put(FIRST_COLUMN, dataEntry[0]);
+                    newRow.put(SECOND_COLUMN, newItem.name);
+                    newRow.put(THIRD_COLUMN, newItem.type);
+                    newRow.put(FOURTH_COLUMN, dataEntry[1]);
+                    newRow.put(FIFTH_COLUMN, "n/a");
+                    aList.add(newItem);
+                    list.add(newRow);
+                }
+            }
             case (2) : {
                 if (resultCode == Activity.RESULT_OK) {
                     Item newItem = (Item) data.getSerializableExtra("Item");
@@ -133,6 +147,7 @@ public class Tab1Activity extends Activity
                     list.add(newRow);
                 }
                 break;
+
             }
         }
 
@@ -151,11 +166,30 @@ public class Tab1Activity extends Activity
         }
     }
 
+    public String[] parseGrain(Float weight, int time){
+        String[] result = new String[2];
+        int lb = 0;
+        Float oz = 0f;
+        while (weight >= 16){
+            lb += 1;
+            weight -= 16;
+        }
+        if (lb == 0) result[0] = String.format("%.2f oz", oz);
+        else if (weight == 0) result[0] = lb + " lb";
+        else result[0] = lb + " lb " + String.format("%.1f oz", oz);
+
+        if (time >= 1440) {
+            int days = time/1440;
+            result[1] = days + " days";
+        } else result[1] = time + " min";
+        return result;
+    }
+
     public String[] parseHop(Float weight, int time){
         String[] result = new String[2];
         if (weight >= 28.3495f){
             Float oz = weight / 28.3495f;
-            result[0] = String.format("%.2f Oz", oz);
+            result[0] = String.format("%.2f oz", oz);
         }else result[0] = weight + " g";
 
         if (time >= 1440) {

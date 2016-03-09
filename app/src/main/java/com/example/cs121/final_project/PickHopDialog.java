@@ -121,7 +121,6 @@ public class PickHopDialog extends Dialog implements
                 weightparse, wort.isChecked(), dry.isChecked());
         MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
         activity.setItem(hop);
-        activity.onReturnValue("done");
     }
 
 
@@ -152,7 +151,6 @@ public class PickHopDialog extends Dialog implements
     }
 
     public interface MyDialogFragmentListener {
-        void onReturnValue(String foo);
         void setItem(Item bar);
     }
 }
