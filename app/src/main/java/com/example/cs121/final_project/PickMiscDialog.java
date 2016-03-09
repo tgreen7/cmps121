@@ -57,9 +57,10 @@ public class PickMiscDialog extends Dialog implements
         alpha = (EditText) findViewById(R.id.alphaText);
         type = (EditText) findViewById(R.id.typeText);
         boilTime = (EditText) findViewById(R.id.boil);
-        weight = (EditText) findViewById(R.id.weight);
+        weight = (EditText) findViewById(R.id.amountText);
         color = (EditText) findViewById(R.id.colorText);
         potential = (EditText) findViewById(R.id.potentialText);
+        time = (EditText) findViewById(R.id.timeBox);
 
         name.setText(name_text);
         type.setText(type_text);
@@ -93,17 +94,14 @@ public class PickMiscDialog extends Dialog implements
 
 
     public void sendItem() {
-//        Item (String ing_type, String name,  String type, Float color,
-//                Float potential, Float alpha, String lab,
-//                String form, String use, Boolean wort, Boolean dry,
-//                String time, Float weight){
-//        PickHopActivity.make_item("hop", name.getText().toString(), type.getText().toString(), null,
-//                null, null, alpha.getText().toString(), null, null, wort.isChecked(), dry.isChecked(),
-//                boilTime.getText().toString(), Float.parseFloat(weight.getText().toString()));
-////        System.out.println(boilTime.getText().toString());
-//
-//        MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
-//        activity.onReturnValue("done");
+        int timeparse = Integer.parseInt(time.getText().toString());
+        if (time_type.getSelectedItem().toString().equals("Days")) timeparse *= 1440;
+        Item grain = new Item(4, timeparse, name.getText().toString(),
+                type.getText().toString(), use_type.getSelectedItem().toString(),
+                amount_type.getSelectedItem().toString(), null, null, null,
+                Float.parseFloat(weight.getText().toString()), null, null);
+        MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
+        activity.setItem(grain);
     }
 
     @Override
@@ -124,6 +122,6 @@ public class PickMiscDialog extends Dialog implements
     }
 
     public interface MyDialogFragmentListener {
-        void onReturnValue(String foo);
+        void setItem(Item bar);
     }
 }

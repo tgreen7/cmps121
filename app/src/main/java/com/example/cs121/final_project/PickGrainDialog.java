@@ -94,7 +94,7 @@ public class PickGrainDialog extends Dialog implements
         Spinner timespin = (Spinner) findViewById(R.id.time_type);
         int timeparse = Integer.parseInt(time.getText().toString());
         Float weightlbparse = Float.parseFloat(weight_lb.getText().toString()) * 16;
-        Float weightoz = Float.parseFloat(weight_lb.getText().toString());
+        Float weightoz = Float.parseFloat(weight_oz.getText().toString());
         if (timespin.getSelectedItem().toString().equals("Days")) timeparse *= 1440;
         Item grain = new Item(1, timeparse, name.getText().toString(),
                 type.getText().toString(), null, null, usespin.getSelectedItem().toString(),

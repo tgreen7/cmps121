@@ -91,6 +91,13 @@ public class PickYeastDialog extends Dialog implements
 //
 //        MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
 //        activity.onReturnValue("done");
+        Spinner spinner = (Spinner) findViewById(R.id.amountType);
+        Item yeast = new Item(3, null, name.getText().toString(),
+                type.getText().toString(), company.getText().toString(), form.getText().toString(),
+                spinner.getSelectedItem().toString(), null, null,
+                Float.parseFloat(amount.getText().toString()), null, null);
+        MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
+        activity.setItem(yeast);
     }
 
     @Override
@@ -111,6 +118,6 @@ public class PickYeastDialog extends Dialog implements
     }
 
     public interface MyDialogFragmentListener {
-        void onReturnValue(String foo);
+        void setItem(Item foo);
     }
 }

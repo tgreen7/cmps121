@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
             android:backgroundTint="@color/gold"
-            android:id="@+id/time" />
+            android:id="@+id/timeBox" />
 
         <Spinner
             android:layout_width="wrap_content"

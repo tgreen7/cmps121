@@ -23,7 +23,7 @@ import static com.example.cs121.final_project.Constant.FOURTH_COLUMN;
 import static com.example.cs121.final_project.Constant.SECOND_COLUMN;
 import static com.example.cs121.final_project.Constant.THIRD_COLUMN;
 
-public class PickGrainActivity extends AppCompatActivity {
+public class PickGrainActivity extends AppCompatActivity implements PickGrainDialog.MyDialogFragmentListener {
 
     private ArrayList<HashMap> list;
     DataBaseHelper myDbHelper;

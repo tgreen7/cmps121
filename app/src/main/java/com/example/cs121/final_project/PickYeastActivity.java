@@ -1,10 +1,13 @@
 package com.example.cs121.final_project;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -20,7 +23,7 @@ import static com.example.cs121.final_project.Constant.FOURTH_COLUMN;
 import static com.example.cs121.final_project.Constant.SECOND_COLUMN;
 import static com.example.cs121.final_project.Constant.THIRD_COLUMN;
 
-public class PickYeastActivity extends AppCompatActivity {
+public class PickYeastActivity extends AppCompatActivity implements PickYeastDialog.MyDialogFragmentListener {
 
     private ArrayList<HashMap> list;
     String[] YeastType = {"", "Ale", "Lager", "Wine", "Champagne"};
@@ -63,6 +66,14 @@ public class PickYeastActivity extends AppCompatActivity {
                 cdd.show();
             }
         });
+    }
+    public void setItem(Item hop) {
+        Item theitem = hop;
+        Log.i("onReturnValue", "HERERERE " + " back from Dialog!");
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("Item", theitem);
+        setResult(Activity.RESULT_OK, resultIntent);
+        finish();
     }
 
     private void populateList() {

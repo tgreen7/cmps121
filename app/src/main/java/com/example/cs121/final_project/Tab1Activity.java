@@ -97,11 +97,11 @@ public class Tab1Activity extends Activity
     }
     public void startYeast(View view) {
         Intent intent = new Intent(this, PickYeastActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 3);
     }
     public void startMisc(View view) {
         Intent intent = new Intent(this, PickMiscActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 4);
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -125,6 +125,7 @@ public class Tab1Activity extends Activity
                     aList.add(newItem);
                     list.add(newRow);
                 }
+                break;
             }
             case (2) : {
                 if (resultCode == Activity.RESULT_OK) {
@@ -140,7 +141,37 @@ public class Tab1Activity extends Activity
                     list.add(newRow);
                 }
                 break;
-
+            }
+            case (3) : {
+                if (resultCode == Activity.RESULT_OK) {
+                    Item newItem = (Item) data.getSerializableExtra("Item");
+                    HashMap newRow = new HashMap();
+                    newRow.put(FIRST_COLUMN, newItem.weight + " " + newItem.str3);
+                    newRow.put(SECOND_COLUMN, newItem.name);
+                    newRow.put(THIRD_COLUMN, newItem.type);
+                    newRow.put(FOURTH_COLUMN, "-");
+                    newRow.put(FIFTH_COLUMN, "n/a");
+                    aList.add(newItem);
+                    list.add(newRow);
+                }
+                break;
+            }
+            case (4) : {
+                if (resultCode == Activity.RESULT_OK) {
+                    Item newItem = (Item) data.getSerializableExtra("Item");
+                    HashMap newRow = new HashMap();
+                    newRow.put(FIRST_COLUMN, newItem.weight + " " + newItem.str2);
+                    newRow.put(SECOND_COLUMN, newItem.name);
+                    newRow.put(THIRD_COLUMN, newItem.type);
+                    if (newItem.time >= 1440) {
+                        int days = newItem.time/1440;
+                        newRow.put(FOURTH_COLUMN, days + " days");
+                    } else newRow.put(FOURTH_COLUMN, newItem.time + " min");
+                    newRow.put(FIFTH_COLUMN, "n/a");
+                    aList.add(newItem);
+                    list.add(newRow);
+                }
+                break;
             }
         }
     }
@@ -148,14 +179,13 @@ public class Tab1Activity extends Activity
     public String[] parseGrain(Float weight, int time){
         String[] result = new String[2];
         int lb = 0;
-        Float oz = 0f;
         while (weight >= 16){
             lb += 1;
             weight -= 16;
         }
-        if (lb == 0) result[0] = String.format("%.2f oz", oz);
+        if (lb == 0) result[0] = String.format("%.2f oz", weight);
         else if (weight == 0) result[0] = lb + " lb";
-        else result[0] = lb + " lb " + String.format("%.1f oz", oz);
+        else result[0] = lb + " lb " + String.format("%.1f oz", weight);
 
         if (time >= 1440) {
             int days = time/1440;
