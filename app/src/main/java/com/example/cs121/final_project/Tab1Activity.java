@@ -41,6 +41,7 @@ public class Tab1Activity extends Activity
     private ArrayList<Item> aList;
 
     private EditText name;
+    private ListViewAdapter adapter;
 
     public static Activity main_activity;
     static Item my_item;
@@ -56,7 +57,7 @@ public class Tab1Activity extends Activity
         list = new ArrayList<HashMap>();
         aList = new ArrayList<Item>();
         populateList();
-        ListViewAdapter adapter = new ListViewAdapter(this, list);
+        adapter = new ListViewAdapter(this, list);
         lview.setAdapter(adapter);
 
 
@@ -151,19 +152,8 @@ public class Tab1Activity extends Activity
             }
         }
 
-        findViewById(R.id.tab1).requestFocus();
+        adapter.notifyDataSetChanged();
 
-        hideKeyboard();
-    }
-
-    public void hideKeyboard() {
-        // Check if no view has focus:
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-            System.out.println("fuck");
-        }
     }
 
     public String[] parseGrain(Float weight, int time){
@@ -207,12 +197,6 @@ public class Tab1Activity extends Activity
 
         System.out.println(my_item.ing_type);
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        hideKeyboard();
     }
 
     private void populateList() {
