@@ -1,43 +1,29 @@
 package com.example.cs121.final_project;
 
+import java.io.Serializable;
+
 /**
  * Created by Taoh on 3/7/2016.
  */
-public class Item {
-    String ing_type;
-    String name;
-    String type;
-    Float color;
-    Float potential;
-    Float alpha;
-    String lab;
-    String form;
-    String use;
-    Boolean wort;
-    Boolean dry;
-    String time;
-    Float weight;
-
-
-
-    Item (String ing_type, String name,  String type, Float color,
-          Float potential, Float alpha, String lab,
-          String form, String use, Boolean wort, Boolean dry,
-          String time, Float weight){
+public class Item implements Serializable{
+    Integer ing_type, time;
+    String name, type, str1, str2, use;
+    Float flt1, flt2, weight;
+    Boolean wort, dry;
+    Item (Integer ing_type, Integer time, String name, String type, String str1, String str2,
+          String use, Float flt1, Float flt2, Float weight, Boolean wort, Boolean dry){
 
         this.ing_type   = ing_type;
+        this.time       = time;
         this.name       = name;
         this.type       = type;
-        this.color      = color;
-        this.potential  = potential;
-        this.alpha      = alpha;
-        this.lab        = lab;
-        this.form       = form;
+        this.str1       = str1;
+        this.str2       = str2;
         this.use        = use;
+        this.flt1       = flt1;
+        this.flt2       = flt2;
+        this.weight     = weight;
         this.wort       = wort;
         this.dry        = dry;
-        this.time       = time;
-        this.weight     = weight;
-
     }
 }

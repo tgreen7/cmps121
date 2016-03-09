@@ -1,5 +1,6 @@
 package com.example.cs121.final_project;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -37,6 +39,7 @@ public class PickHopActivity extends AppCompatActivity implements PickHopDialog.
     String[] HopType = {"", "Bittering", "Aroma", "Flavor", "Bittering/Aroma", "Aroma/Flavor", "Bittering/Flavor", "Bittering/Aroma/Flavor"};
 
     private static Item my_item;
+    Item theitem;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,20 +86,25 @@ public class PickHopActivity extends AppCompatActivity implements PickHopDialog.
     public void onReturnValue(String s) {
         Log.i("onReturnValue", "Got value " + s + " back from Dialog!");
     }
-    
-    public static void make_item (String ing_type, String name,  String type, Float color,
-                      Float potential, Float alpha, String lab,
-                      String form, String use, Boolean wort, Boolean dry,
-                      String time, Float weight){
-
-        my_item = new Item(ing_type, name, type,  color,
-         potential,  alpha, lab,
-        form, use,  wort,  dry,
-        time,  weight);
-
-        System.out.println(my_item.ing_type);
-        
+    public void setItem(Item hop) {
+        theitem = hop;
+        Log.i("onReturnValue", "HERERERE " + " back from Dialog!");
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("Item", theitem);
+        setResult(Activity.RESULT_OK, resultIntent);
+        finish();
     }
+    
+//    public static void make_item (Integer ing_type, Integer time, String name, String type,
+//                                  String str1, String str2, String use, Float flt1, Float flt2,
+//                                  Float weight, Boolean wort, Boolean dry){
+//
+//        my_item = new Item(ing_type, time, name, type, str1, str2, use, flt1, flt2, weight, wort, dry);
+//
+//        System.out.println(my_item.ing_type);
+//
+//
+//    }
 
     private void populateList() {
 

@@ -1,10 +1,12 @@
 package com.example.cs121.final_project;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,6 +40,7 @@ public class Tab1Activity extends Activity
     private ArrayList<Item> aList;
 
     public static Activity main_activity;
+    static Item my_item;
 
     public void onCreate(Bundle savedInstanceState)
     {
@@ -47,7 +50,8 @@ public class Tab1Activity extends Activity
         main_activity = this;
 
         ListView lview = (ListView) findViewById(R.id.listView);
-
+        list = new ArrayList<HashMap>();
+        aList = new ArrayList<Item>();
         populateList();
         ListViewAdapter adapter = new ListViewAdapter(this, list);
         lview.setAdapter(adapter);
@@ -81,8 +85,6 @@ public class Tab1Activity extends Activity
         boil_time.setText("60");
         batch_size.setText("5.00");
 
-
-
     }
 
     public void startGrain(View view) {
@@ -95,11 +97,61 @@ public class Tab1Activity extends Activity
     }
     public void startHop(View view) {
         Intent intent = new Intent(this, PickHopActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 2);
     }
     public void startMisc(View view) {
         Intent intent = new Intent(this, PickMiscActivity.class);
         startActivity(intent);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
+        switch(requestCode) {
+            case (2) : {
+                if (resultCode == Activity.RESULT_OK) {
+                    Item newItem = (Item) data.getSerializableExtra("Item");
+                    HashMap newRow = new HashMap();
+                    String[] dataEntry = parseHop(newItem.weight, newItem.time);
+                    newRow.put(FIRST_COLUMN, dataEntry[0]);
+                    newRow.put(SECOND_COLUMN, newItem.name);
+                    newRow.put(THIRD_COLUMN, newItem.type);
+                    newRow.put(FOURTH_COLUMN, dataEntry[1]);
+                    newRow.put(FIFTH_COLUMN, "n/a");
+                    aList.add(newItem);
+                    list.add(newRow);
+                }
+                break;
+            }
+        }
+    }
+
+    public String[] parseHop(Float weight, int time){
+        String[] result = new String[2];
+        if (weight >= 28.3495f){
+            Float oz = weight / 28.3495f;
+            result[0] = String.format("%.2f Oz", oz);
+        }else result[0] = weight + " g";
+
+        if (time >= 1440) {
+            int days = time/1440;
+            result[1] = days + " days";
+        } else result[1] = time + " min";
+        return result;
+    }
+
+    public static void make_item (Integer ing_type, Integer time, String name, String type,
+                                  String str1, String str2, String use, Float flt1, Float flt2,
+                                  Float weight, Boolean wort, Boolean dry){
+
+        my_item = new Item(ing_type, time, name, type, str1, str2, use, flt1, flt2, weight, wort, dry);
+
+        System.out.println(my_item.ing_type);
+
     }
 
     private void populateList() {

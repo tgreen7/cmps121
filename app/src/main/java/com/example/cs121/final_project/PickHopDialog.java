@@ -2,11 +2,13 @@ package com.example.cs121.final_project;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -14,10 +16,13 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+
+
 import com.example.cs121.final_project.Tab1Activity;
 import com.example.cs121.final_project.PickHopActivity;
 
 import org.w3c.dom.Text;
+
 
 /**
  * Created by Taoh on 3/7/2016.
@@ -66,13 +71,11 @@ public class PickHopDialog extends Dialog implements
         alpha.setText(alpha_text);
         type.setText(type_text);
 
-
         add.setOnClickListener(this);
         cancel.setOnClickListener(this);
 
         dry.setOnClickListener(this);
         wort.setOnClickListener(this);
-
 
         Spinner spinner = (Spinner) findViewById(R.id.weight_type);
 // Create an ArrayAdapter using the string array and a default spinner layout
@@ -82,7 +85,6 @@ public class PickHopDialog extends Dialog implements
         spin_adapter.setDropDownViewResource(R.layout.my_spinner_style);
 // Apply the adapter to the spinner
         spinner.setAdapter(spin_adapter);
-
 
 
     }
@@ -104,16 +106,17 @@ public class PickHopDialog extends Dialog implements
     }
 
     public void sendItem() {
-//        Item (String ing_type, String name,  String type, Float color,
-//                Float potential, Float alpha, String lab,
-//                String form, String use, Boolean wort, Boolean dry,
-//                String time, Float weight){
-        PickHopActivity.make_item("hop", name.getText().toString(), type.getText().toString(), null,
-                null, null, alpha.getText().toString(), null, null, wort.isChecked(), dry.isChecked(),
-                boilTime.getText().toString(), Float.parseFloat(weight.getText().toString()));
-//        System.out.println(boilTime.getText().toString());
-
+        Spinner spinner = (Spinner) findViewById(R.id.weight_type);
+        int timeparse = Integer.parseInt(boilTime.getText().toString());
+        Float weightparse = Float.parseFloat(weight.getText().toString());
+        if (dry.isChecked()) timeparse *= 1440;
+        if (spinner.getSelectedItem().toString().equals("Oz")) weightparse *= 28.3495f;
+        Item hop = new Item(2, timeparse, name.getText().toString(),
+                type.getText().toString(), null, null, null,
+                Float.parseFloat(alpha.getText().toString()), null,
+                weightparse, wort.isChecked(), dry.isChecked());
         MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
+        activity.setItem(hop);
         activity.onReturnValue("done");
     }
 
@@ -140,9 +143,11 @@ public class PickHopDialog extends Dialog implements
             default:
                 break;
         }
+
     }
 
     public interface MyDialogFragmentListener {
         void onReturnValue(String foo);
+        void setItem(Item bar);
     }
 }
