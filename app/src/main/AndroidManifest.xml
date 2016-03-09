@@ -22,13 +22,17 @@
         <activity android:name=".Tab3Activity" />
         <activity android:name=".Tab4Activity" />
         <activity android:name=".PickGrainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/PickTheme"/>
         <activity android:name=".PickHopActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/PickTheme"/>
         <activity android:name=".PickYeastActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/PickTheme"/>
         <activity android:name=".PickMiscActivity"
-            android:theme="@style/PickTheme"></activity>
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/PickTheme" />
     </application>
 
 </manifest>

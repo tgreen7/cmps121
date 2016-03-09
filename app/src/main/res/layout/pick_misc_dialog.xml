@@ -11,8 +11,9 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal">
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -21,28 +22,13 @@
             android:id="@+id/name" />
 
         <EditText
-            android:layout_width="120dp"
+            android:layout_width="fill_parent"
+            android:layout_marginStart="7dp"
             android:layout_height="wrap_content"
-            android:inputType="text"
             android:textColor="@color/bright_white"
+            android:inputType="text"
             android:backgroundTint="@color/gold"
             android:id="@+id/nameText" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/Alpha"
-            android:id="@+id/alpha" />
-
-        <EditText
-            android:layout_width="50dp"
-            android:inputType="number"
-            android:layout_height="wrap_content"
-            android:textColor="@color/bright_white"
-            android:backgroundTint="@color/gold"
-            android:id="@+id/alphaText" />
 
     </LinearLayout>
 
@@ -50,18 +36,19 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal">
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/Type"
             android:id="@+id/type" />
+
         <EditText
-            android:layout_width="100dp"
+            android:layout_width="fill_parent"
+            android:layout_marginStart="7dp"
             android:inputType="text"
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
@@ -74,78 +61,76 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:gravity="center_horizontal">
+        android:paddingStart="15dp">
 
-        <CheckBox
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="First Wort Hop"
-            android:buttonTint="@color/gold"
-            android:id="@+id/wort"
-            android:textColor="@color/bright_white"
-            android:layout_gravity="center_horizontal" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/use" />
 
-        <CheckBox
+        <Spinner
+            android:paddingStart="7dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dry Hop"
-            android:buttonTint="@color/gold"
+            android:backgroundTint="@color/gold"
+            android:id="@+id/use_type" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/Time" />
+
+        <EditText
+            android:layout_width="35dp"
+            android:inputType="numberDecimal"
+            android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
-            android:id="@+id/dryHop"
-            android:layout_gravity="center_horizontal" />
+            android:backgroundTint="@color/gold"
+            android:id="@+id/time" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:backgroundTint="@color/gold"
+            android:id="@+id/time_type" />
 
 
     </LinearLayout>
+
+
 
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal">
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@id/boil_time"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Boil Time" />
-        <EditText
-            android:layout_width="30dp"
-            android:inputType="number"
-            android:layout_height="wrap_content"
-            android:textColor="@color/bright_white"
-            android:backgroundTint="@color/gold"
-            android:id="@+id/boil" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/time"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="min" />
+            android:text="@string/Amount" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Weight"/>
         <EditText
-            android:layout_width="30dp"
+            android:layout_width="45dp"
             android:inputType="numberDecimal"
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
             android:backgroundTint="@color/gold"
-            android:id="@+id/weight" />
+            android:id="@+id/amountText" />
 
         <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:backgroundTint="@color/gold"
-            android:id="@+id/weight_type" />
+            android:id="@+id/amount_type" />
+
 
     </LinearLayout>
 
@@ -185,7 +170,5 @@
             android:background="@drawable/buttonshape"/>
 
     </LinearLayout>
-
-
 
 </LinearLayout>

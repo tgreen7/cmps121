@@ -30,6 +30,35 @@
         <item>g</item>
     </string-array>
 
+    <string-array name="use_array">
+        <item>Mash</item>
+        <item>Boil</item>
+        <item>Primary</item>
+        <item>Secondary</item>
+    </string-array>
+
+    <string-array name="amount_type_array">
+        <item>Pkg</item>
+        <item>Oz Slurry</item>
+        <item>mL Slurry</item>
+    </string-array>
+
+    <string-array name="time_type_array">
+        <item>Min</item>
+        <item>Days</item>
+    </string-array>
+
+    <string-array name="all_amount_types">
+        <item>oz</item>
+        <item>g</item>
+        <item>lb</item>
+        <item>tsp</item>
+        <item>tbsp</item>
+        <item>each</item>
+    </string-array>
+
+
+
     <string-array name="beer_styles_array">
         <item> Altbier </item>
         <item> Amber ale </item>

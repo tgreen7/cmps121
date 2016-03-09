@@ -1,14 +1,19 @@
 package com.example.cs121.final_project;
 
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import static com.example.cs121.final_project.Constant.FIRST_COLUMN;
 import static com.example.cs121.final_project.Constant.FOURTH_COLUMN;
@@ -42,6 +47,21 @@ public class PickGrainActivity extends AppCompatActivity {
         populateList();
         SelectGrainAdapter adapter = new SelectGrainAdapter(this, list);
         lview.setAdapter(adapter);
+
+        lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Map<String, Object> map = (Map<String, Object>) parent.getItemAtPosition(position);
+                String name = (String) map.get("First");
+                String type = (String) map.get("Second");
+                String color = map.get("Third").toString();
+                String potential = map.get("Fourth").toString();
+
+                PickGrainDialog cdd = new PickGrainDialog(PickGrainActivity.this, name, type, color, potential);
+                cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                cdd.show();
+            }
+        });
     }
 
     private void populateList() {
