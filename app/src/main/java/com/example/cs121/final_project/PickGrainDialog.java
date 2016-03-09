@@ -55,7 +55,7 @@ public class PickGrainDialog extends Dialog implements
         cancel = (Button) findViewById(R.id.cancel);
 
         name = (EditText) findViewById(R.id.nameText);
-        alpha = (EditText) findViewById(R.id.alphaText);
+        time = (EditText) findViewById(R.id.time_box);
         type = (EditText) findViewById(R.id.typeText);
         boilTime = (EditText) findViewById(R.id.boil);
         weight_lb = (EditText) findViewById(R.id.weight_lb);
@@ -90,20 +90,9 @@ public class PickGrainDialog extends Dialog implements
 
 
     public void sendItem() {
-//        Item (String ing_type, String name,  String type, Float color,
-//                Float potential, Float alpha, String lab,
-//                String form, String use, Boolean wort, Boolean dry,
-//                String time, Float weight){
-//        PickHopActivity.make_item("hop", name.getText().toString(), type.getText().toString(), null,
-//                null, null, alpha.getText().toString(), null, null, wort.isChecked(), dry.isChecked(),
-//                boilTime.getText().toString(), Float.parseFloat(weight.getText().toString()));
-////        System.out.println(boilTime.getText().toString());
-//
-//        MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
-//        activity.onReturnValue("done");
         Spinner usespin = (Spinner) findViewById(R.id.use);
         Spinner timespin = (Spinner) findViewById(R.id.time_type);
-        int timeparse = Integer.parseInt(boilTime.getText().toString());
+        int timeparse = Integer.parseInt(time.getText().toString());
         Float weightlbparse = Float.parseFloat(weight_lb.getText().toString()) * 16;
         Float weightoz = Float.parseFloat(weight_lb.getText().toString());
         if (timespin.getSelectedItem().toString().equals("Days")) timeparse *= 1440;
@@ -114,7 +103,6 @@ public class PickGrainDialog extends Dialog implements
                 (weightlbparse+weightoz), null, null);
         MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
         activity.setItem(grain);
-        activity.onReturnValue("done");
     }
 
     @Override
@@ -135,6 +123,6 @@ public class PickGrainDialog extends Dialog implements
     }
 
     public interface MyDialogFragmentListener {
-        void onReturnValue(String foo);
+        void setItem(Item bar);
     }
 }

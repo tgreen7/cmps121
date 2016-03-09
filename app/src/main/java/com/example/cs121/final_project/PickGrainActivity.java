@@ -68,7 +68,7 @@ public class PickGrainActivity extends AppCompatActivity {
             }
         });
     }
-    
+
     public void setItem(Item hop) {
         theitem = hop;
         Log.i("onReturnValue", "HERERERE " + " back from Dialog!");

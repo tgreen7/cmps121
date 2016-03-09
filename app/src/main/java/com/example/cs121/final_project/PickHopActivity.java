@@ -82,10 +82,6 @@ public class PickHopActivity extends AppCompatActivity implements PickHopDialog.
 
     }
 
-    @Override
-    public void onReturnValue(String s) {
-        Log.i("onReturnValue", "Got value " + s + " back from Dialog!");
-    }
     public void setItem(Item hop) {
         theitem = hop;
         Log.i("onReturnValue", "HERERERE " + " back from Dialog!");
