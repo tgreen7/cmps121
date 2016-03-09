@@ -2,6 +2,7 @@ package com.example.cs121.final_project;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -154,6 +155,23 @@ public class Tab1Activity extends Activity
 
         adapter.notifyDataSetChanged();
 
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                hideKeyboard();
+            }
+        }, 50);
+
+    }
+
+    private void hideKeyboard() {
+        // Check if no view has focus:
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
     public String[] parseGrain(Float weight, int time){

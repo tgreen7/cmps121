@@ -91,23 +91,7 @@ public class PickHopActivity extends AppCompatActivity implements PickHopDialog.
         resultIntent.putExtra("Item", theitem);
         setResult(Activity.RESULT_OK, resultIntent);
 
-
-        // Check if no view has focus:
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-            System.out.println("fuck");
-        }
-
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                // Actions to do after 10 seconds
-                finish();
-            }
-        }, 1);
+        finish();
 
     }
 
