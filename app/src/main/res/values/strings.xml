@@ -7,6 +7,8 @@
     <string name="Bitter"><b>%/IBU</b></string>
     <string name="ingredients">Ingredients</string>
     <string name="holder">holder</string>
+    <string name="boil_time"> <b>Boil Time</b></string>
+    <string name="batch"> <b>Batch</b></string>
     <string name="Alpha"><b>Alpha</b></string>
     <string name="use"><b>Use</b></string>
     <string name="company"><b>Company</b></string>
@@ -16,8 +18,8 @@
     <string name="AddItems">Add Items \n
     to Recipe</string>
     <string name="name">Name</string>
-    <string name="Style">Style</string>
-    <string name="efficiency">Efficiency</string>
+    <string name="Style"><b>Style</b></string>
+    <string name="efficiency"><b>Efficiency</b></string>
 
     <string-array name="beer_types_array">
         <item>All Grain</item>

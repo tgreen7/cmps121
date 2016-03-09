@@ -2,10 +2,12 @@ package com.example.cs121.final_project;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -30,14 +32,14 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
 
-/**
- *
- * @author Paresh N. Mayani
- */
+
 public class Tab1Activity extends Activity
 {
     private ArrayList<HashMap> list;
     private ArrayList<Item> aList;
+
+    private EditText name;
+    private ListViewAdapter adapter;
 
     public static Activity main_activity;
     static Item my_item;
@@ -53,7 +55,7 @@ public class Tab1Activity extends Activity
         list = new ArrayList<HashMap>();
         aList = new ArrayList<Item>();
         populateList();
-        ListViewAdapter adapter = new ListViewAdapter(this, list);
+        adapter = new ListViewAdapter(this, list);
         lview.setAdapter(adapter);
 
 
@@ -81,9 +83,12 @@ public class Tab1Activity extends Activity
         EditText boil_time =(EditText) findViewById(R.id.boil_time);
         EditText batch_size =(EditText) findViewById(R.id.batch);
 
+        name = (EditText) findViewById(R.id.recipeName);
+
         efficiency.setText("70");
         boil_time.setText("60");
         batch_size.setText("5.00");
+
 
     }
 
@@ -106,11 +111,12 @@ public class Tab1Activity extends Activity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        InputMethodManager inputManager = (InputMethodManager)
-                getSystemService(Context.INPUT_METHOD_SERVICE);
+//        InputMethodManager inputManager = (InputMethodManager)
+//                getSystemService(Context.INPUT_METHOD_SERVICE);
+//
+//        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+//                InputMethodManager.HIDE_NOT_ALWAYS);
 
-        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-                InputMethodManager.HIDE_NOT_ALWAYS);
         switch(requestCode) {
             case (1) : {
                 if (resultCode == Activity.RESULT_OK) {
@@ -173,6 +179,26 @@ public class Tab1Activity extends Activity
                 }
                 break;
             }
+        }
+
+        adapter.notifyDataSetChanged();
+
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                hideKeyboard();
+            }
+        }, 50);
+
+    }
+
+    private void hideKeyboard() {
+        // Check if no view has focus:
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 

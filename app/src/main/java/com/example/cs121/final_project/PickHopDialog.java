@@ -123,6 +123,7 @@ public class PickHopDialog extends Dialog implements
         activity.setItem(hop);
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
