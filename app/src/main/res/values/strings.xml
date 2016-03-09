@@ -30,6 +30,18 @@
         <item>g</item>
     </string-array>
 
+    <string-array name="use_array">
+        <item>Mash</item>
+        <item>Boil</item>
+        <item>Primary</item>
+        <item>Secondary</item>
+    </string-array>
+
+    <string-array name="time_type_array">
+        <item>Min</item>
+        <item>Days</item>
+    </string-array>
+
     <string-array name="beer_styles_array">
         <item> Altbier </item>
         <item> Amber ale </item>
