@@ -32,10 +32,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
 
-/**
- *
- * @author Paresh N. Mayani
- */
+
 public class Tab1Activity extends Activity
 {
     private ArrayList<HashMap> list;
