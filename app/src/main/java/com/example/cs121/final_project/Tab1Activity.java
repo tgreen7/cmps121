@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -38,6 +39,8 @@ public class Tab1Activity extends Activity
 {
     private ArrayList<HashMap> list;
     private ArrayList<Item> aList;
+
+    private EditText name;
 
     public static Activity main_activity;
     static Item my_item;
@@ -81,9 +84,12 @@ public class Tab1Activity extends Activity
         EditText boil_time =(EditText) findViewById(R.id.boil_time);
         EditText batch_size =(EditText) findViewById(R.id.batch);
 
+        name = (EditText) findViewById(R.id.recipeName);
+
         efficiency.setText("70");
         boil_time.setText("60");
         batch_size.setText("5.00");
+
 
     }
 
@@ -106,11 +112,12 @@ public class Tab1Activity extends Activity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        InputMethodManager inputManager = (InputMethodManager)
-                getSystemService(Context.INPUT_METHOD_SERVICE);
+//        InputMethodManager inputManager = (InputMethodManager)
+//                getSystemService(Context.INPUT_METHOD_SERVICE);
+//
+//        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+//                InputMethodManager.HIDE_NOT_ALWAYS);
 
-        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-                InputMethodManager.HIDE_NOT_ALWAYS);
         switch(requestCode) {
             case (2) : {
                 if (resultCode == Activity.RESULT_OK) {
@@ -127,6 +134,20 @@ public class Tab1Activity extends Activity
                 }
                 break;
             }
+        }
+
+        findViewById(R.id.tab1).requestFocus();
+
+        hideKeyboard();
+    }
+
+    public void hideKeyboard() {
+        // Check if no view has focus:
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            System.out.println("fuck");
         }
     }
 
@@ -152,6 +173,12 @@ public class Tab1Activity extends Activity
 
         System.out.println(my_item.ing_type);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideKeyboard();
     }
 
     private void populateList() {

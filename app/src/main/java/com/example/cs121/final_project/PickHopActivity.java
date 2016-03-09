@@ -88,13 +88,14 @@ public class PickHopActivity extends AppCompatActivity implements PickHopDialog.
     }
     public void setItem(Item hop) {
         theitem = hop;
+
         Log.i("onReturnValue", "HERERERE " + " back from Dialog!");
         Intent resultIntent = new Intent();
         resultIntent.putExtra("Item", theitem);
         setResult(Activity.RESULT_OK, resultIntent);
         finish();
     }
-    
+
 //    public static void make_item (Integer ing_type, Integer time, String name, String type,
 //                                  String str1, String str2, String use, Float flt1, Float flt2,
 //                                  Float weight, Boolean wort, Boolean dry){

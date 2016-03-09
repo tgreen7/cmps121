@@ -124,6 +124,7 @@ public class PickHopDialog extends Dialog implements
         activity.onReturnValue("done");
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

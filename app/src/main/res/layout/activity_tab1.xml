@@ -3,6 +3,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:id="@+id/tab1"
     android:layout_gravity="center_horizontal"
     >
 
@@ -21,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/name"/>
+            android:text="@string/Name"/>
         <EditText
             android:id="@+id/recipeName"
             android:inputType="text"
@@ -125,7 +128,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Boil Time"/>
+            android:text="@string/boil_time"/>
         <EditText
             android:id="@+id/boil_time"
             android:inputType="numberDecimal"
@@ -151,7 +154,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Batch"/>
+            android:text="@string/batch"/>
         <EditText
             android:id="@+id/batch"
             android:inputType="numberDecimal"
@@ -343,6 +346,7 @@
         android:divider="@null"
         android:layout_below="@+id/headers"
         android:dividerHeight="0dp"/>
+
 
 </RelativeLayout>
 
