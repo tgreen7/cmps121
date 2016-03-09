@@ -77,7 +77,7 @@ public class PickHopDialog extends Dialog implements
         Spinner spinner = (Spinner) findViewById(R.id.weight_type);
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> spin_adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.weight_type_array, android.R.layout.simple_spinner_item);
+                R.array.weight_type_array, R.layout.my_spinner_text);
 // Specify the layout to use when the list of choices appears
         spin_adapter.setDropDownViewResource(R.layout.my_spinner_style);
 // Apply the adapter to the spinner
@@ -92,6 +92,10 @@ public class PickHopDialog extends Dialog implements
             time.setText("days");
             boil.setText("");
             wort.setChecked(false);
+        }
+        else {
+            time.setText("min");
+            boil.setText("Boil Time");
         }
     }
 
