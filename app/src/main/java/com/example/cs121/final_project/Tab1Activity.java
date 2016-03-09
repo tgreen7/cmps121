@@ -89,15 +89,15 @@ public class Tab1Activity extends Activity
 
     public void startGrain(View view) {
         Intent intent = new Intent(this, PickGrainActivity.class);
-        startActivity(intent);
-    }
-    public void startYeast(View view) {
-        Intent intent = new Intent(this, PickYeastActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 2);
     }
     public void startHop(View view) {
         Intent intent = new Intent(this, PickHopActivity.class);
         startActivityForResult(intent, 2);
+    }
+    public void startYeast(View view) {
+        Intent intent = new Intent(this, PickYeastActivity.class);
+        startActivity(intent);
     }
     public void startMisc(View view) {
         Intent intent = new Intent(this, PickMiscActivity.class);
@@ -112,6 +112,20 @@ public class Tab1Activity extends Activity
         inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                 InputMethodManager.HIDE_NOT_ALWAYS);
         switch(requestCode) {
+            case (1) : {
+                if (resultCode == Activity.RESULT_OK) {
+                    Item newItem = (Item) data.getSerializableExtra("Item");
+                    HashMap newRow = new HashMap();
+                    String[] dataEntry = parseHop(newItem.weight, newItem.time);
+                    newRow.put(FIRST_COLUMN, dataEntry[0]);
+                    newRow.put(SECOND_COLUMN, newItem.name);
+                    newRow.put(THIRD_COLUMN, newItem.type);
+                    newRow.put(FOURTH_COLUMN, dataEntry[1]);
+                    newRow.put(FIFTH_COLUMN, "n/a");
+                    aList.add(newItem);
+                    list.add(newRow);
+                }
+            }
             case (2) : {
                 if (resultCode == Activity.RESULT_OK) {
                     Item newItem = (Item) data.getSerializableExtra("Item");
