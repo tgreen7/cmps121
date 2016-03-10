@@ -9,9 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.cs121.final_project.Item;
 import com.example.cs121.final_project.R;
+import com.example.cs121.final_project.Tab1Activity;
+
 /**
  * Created by Halsifer on 3/9/16.
  */
@@ -38,6 +41,7 @@ public class EditGrainDialog extends Dialog implements android.view.View.OnClick
         this.org_potential = item.flt2;
         this.org_weight = item.weight;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +49,7 @@ public class EditGrainDialog extends Dialog implements android.view.View.OnClick
         setContentView(R.layout.pick_grain_dialog);
 
         add = (Button) findViewById(R.id.addItem);
+        add.setText(R.string.edit);
         cancel = (Button) findViewById(R.id.cancel);
 
         name = (EditText) findViewById(R.id.nameText);
@@ -100,11 +105,75 @@ public class EditGrainDialog extends Dialog implements android.view.View.OnClick
             i++;
         }
     }
+
+    public boolean checkEmpty() {
+        if(name.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter a name.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(type.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter a type.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(color.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter a color.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(potential.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter a potential.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(time.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter a time.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(weight_lb.getText().toString().trim().length() == 0
+                || weight_oz.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter a weight.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
+    }
+
+    public void sendItem() {
+        if(checkEmpty()) {
+            return;
+        }
+
+        if (weight_lb.getText().toString().trim().length() == 0) {
+            weight_lb.setText("0");
+        }
+        if (weight_oz.getText().toString().trim().length() == 0) {
+            weight_oz.setText("0");
+        }
+
+        int timeparse = Integer.parseInt(time.getText().toString());
+        Float weightlbparse = Float.parseFloat(weight_lb.getText().toString()) * 16;
+        Float weightoz = Float.parseFloat(weight_oz.getText().toString());
+        if (time_type.getSelectedItem().toString().equals("Days")) timeparse *= 1440;
+        Item grain = new Item(1, timeparse, name.getText().toString(),
+                type.getText().toString(), null, null, use.getSelectedItem().toString(),
+                Float.parseFloat(color.getText().toString()),
+                Float.parseFloat(potential.getText().toString()),
+                (weightlbparse+weightoz), null, null);
+
+        MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
+        activity.putGrain(grain, true);
+
+        dismiss();
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.addItem:
-                dismiss();
+                sendItem();
                 break;
 
             case R.id.cancel:
@@ -114,5 +183,10 @@ public class EditGrainDialog extends Dialog implements android.view.View.OnClick
             default:
                 break;
         }
+    }
+
+    public interface MyDialogFragmentListener {
+//        void editGrain(Item bar);
+        void putGrain(Item bar, boolean t);
     }
 }
