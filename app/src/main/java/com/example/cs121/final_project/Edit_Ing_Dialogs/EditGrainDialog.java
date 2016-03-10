@@ -70,7 +70,7 @@ public class EditGrainDialog extends Dialog implements android.view.View.OnClick
             org_weight -= 16;
         }
         weight_lb.setText(org_lb.toString());
-        weight_oz.setText(org_weight.toString());
+        weight_oz.setText(String.format("%.1f", org_weight));
 
         add.setOnClickListener(this);
         cancel.setOnClickListener(this);
@@ -89,13 +89,17 @@ public class EditGrainDialog extends Dialog implements android.view.View.OnClick
         time_type.setAdapter(spin_adapter);
 
         if (org_time >= 1440) {
-            int days = org_time / 1440;
-            time.setText(days);
+            Integer days = org_time / 1440;
+            time.setText(days.toString());
             time_type.setSelection(1);
         } else time.setText(org_time.toString());
         int i = 0;
-        use.setSelection(i);
-        while(use_text != use.getSelectedItem().toString()) use.setSelection((i+1));
+        use.setSelection(0);
+        name.setText(use.getSelectedItem().toString());
+        while(!(use_text.equals(use.getSelectedItem().toString()))) {
+            use.setSelection((i+1));
+            i++;
+        }
     }
     @Override
     public void onClick(View v) {
