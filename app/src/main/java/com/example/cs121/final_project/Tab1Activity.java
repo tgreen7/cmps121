@@ -28,9 +28,11 @@ import android.app.Activity;
 import android.widget.ListView;
 
 import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickGrainActivity;
+import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickGrainDialog;
 import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickHopActivity;
 import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickMiscActivity;
 import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickYeastActivity;
+import com.example.cs121.final_project.Edit_Ing_Dialogs.EditGrainDialog;
 
 
 public class Tab1Activity extends Activity
@@ -98,8 +100,12 @@ public class Tab1Activity extends Activity
                 System.out.println(myItem.ing_type);
 
                 switch (myItem.ing_type){
-                    case 1:
+                    case 1: {
+                        EditGrainDialog cdd = new EditGrainDialog(Tab1Activity.this, myItem);
+                        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        cdd.show();
                         break;
+                    }
                     case 2:
                         break;
                     case 3:
@@ -145,12 +151,6 @@ public class Tab1Activity extends Activity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        InputMethodManager inputManager = (InputMethodManager)
-//                getSystemService(Context.INPUT_METHOD_SERVICE);
-//
-//        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
-//                InputMethodManager.HIDE_NOT_ALWAYS);
-
         switch(requestCode) {
             case (1) : {
                 if (resultCode == Activity.RESULT_OK) {

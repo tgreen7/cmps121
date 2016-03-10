@@ -6,10 +6,14 @@ import java.io.Serializable;
  * Created by Taoh on 3/7/2016.
  */
 public class Item implements Serializable{
-    Integer ing_type, time;
-    String name, type, str1, str2, str3;
-    Float flt1, flt2, weight;
-    Boolean wort, dry;
+    public Integer ing_type, time;
+    public String name;
+    public String type;
+    public String str1;
+    public String str2;
+    public String str3;
+    public Float flt1, flt2, weight;
+    public Boolean wort, dry;
     public Item(Integer ing_type, Integer time, String name, String type, String str1, String str2,
                 String str3, Float flt1, Float flt2, Float weight, Boolean wort, Boolean dry){
 

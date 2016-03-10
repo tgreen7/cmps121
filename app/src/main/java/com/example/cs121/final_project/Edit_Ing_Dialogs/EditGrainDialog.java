@@ -27,17 +27,16 @@ public class EditGrainDialog extends Dialog implements android.view.View.OnClick
     public Integer org_time;
     public EditText name, type, weight_oz, weight_lb, time, color, potential;
 
-    public EditGrainDialog(Activity a, String name, String type, Float color, Float potential,
-                           String use, Integer time, Float weight) {
+    public EditGrainDialog(Activity a, Item item) {
         super(a);
         this.c = a;
-        this.name_text = name;
-        this.type_text = type;
-        this.use_text  = use;
-        this.org_time = time;
-        this.org_color = color;
-        this.org_potential = potential;
-        this.org_weight = weight;
+        this.name_text = item.name;
+        this.type_text = item.type;
+        this.use_text  = item.str3;
+        this.org_time = item.time;
+        this.org_color = item.flt1;
+        this.org_potential = item.flt2;
+        this.org_weight = item.weight;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +64,12 @@ public class EditGrainDialog extends Dialog implements android.view.View.OnClick
         potential.setText(org_potential.toString());
 
 
-        int org_lb = 0;
+        Integer org_lb = 0;
         while (org_weight >= 16){
             org_lb += 1;
             org_weight -= 16;
         }
-        weight_lb.setText(org_lb);
+        weight_lb.setText(org_lb.toString());
         weight_oz.setText(org_weight.toString());
 
         add.setOnClickListener(this);
@@ -93,7 +92,7 @@ public class EditGrainDialog extends Dialog implements android.view.View.OnClick
             int days = org_time / 1440;
             time.setText(days);
             time_type.setSelection(1);
-        } else time.setText(org_time);
+        } else time.setText(org_time.toString());
         int i = 0;
         use.setSelection(i);
         while(use_text != use.getSelectedItem().toString()) use.setSelection((i+1));
