@@ -65,6 +65,7 @@ public class EditYeastDialog extends Dialog implements
 
 
         add.setOnClickListener(this);
+        add.setText(R.string.edit);
         cancel.setOnClickListener(this);
 
         amount_type = (Spinner) findViewById(R.id.amountType);
@@ -118,7 +119,7 @@ public class EditYeastDialog extends Dialog implements
                 spinner.getSelectedItem().toString(), null, null,
                 Float.parseFloat(amount.getText().toString()), null, null);
         MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
-        activity.setItem(yeast);
+        activity.putYeast(yeast, true);
 
         dismiss();
     }
@@ -140,6 +141,6 @@ public class EditYeastDialog extends Dialog implements
     }
 
     public interface MyDialogFragmentListener {
-        void setItem(Item foo);
+        void putYeast(Item foo, boolean t);
     }
 }

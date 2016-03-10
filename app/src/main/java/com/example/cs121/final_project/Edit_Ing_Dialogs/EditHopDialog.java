@@ -75,6 +75,7 @@ public class EditHopDialog extends Dialog implements android.view.View.OnClickLi
         wortClick();
 
         add.setOnClickListener(this);
+        add.setText(R.string.edit);
         cancel.setOnClickListener(this);
 
         dry.setOnClickListener(this);
@@ -164,7 +165,7 @@ public class EditHopDialog extends Dialog implements android.view.View.OnClickLi
                 Float.parseFloat(alpha.getText().toString()), null,
                 weightparse, wort.isChecked(), dry.isChecked());
         MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
-        activity.setItem(hop);
+        activity.putHop(hop, true);
 
         dismiss();
     }
@@ -193,7 +194,7 @@ public class EditHopDialog extends Dialog implements android.view.View.OnClickLi
         }
     }
     public interface MyDialogFragmentListener {
-        void setItem(Item bar);
+        void putHop(Item bar, boolean t);
     }
 }
 

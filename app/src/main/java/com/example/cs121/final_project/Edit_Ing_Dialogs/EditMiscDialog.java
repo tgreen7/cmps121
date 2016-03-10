@@ -61,6 +61,7 @@ public class EditMiscDialog extends Dialog implements
         weight.setText(org_weight.toString());
 
         add.setOnClickListener(this);
+        add.setText(R.string.edit);
         cancel.setOnClickListener(this);
 
         use_type = (Spinner) findViewById(R.id.use_type);
@@ -133,12 +134,12 @@ public class EditMiscDialog extends Dialog implements
 
         int timeparse = Integer.parseInt(time.getText().toString());
         if (time_type.getSelectedItem().toString().equals("Days")) timeparse *= 1440;
-        Item grain = new Item(4, timeparse, name.getText().toString(),
+        Item misc = new Item(4, timeparse, name.getText().toString(),
                 type.getText().toString(), use_type.getSelectedItem().toString(),
                 amount_type.getSelectedItem().toString(), null, null, null,
                 Float.parseFloat(weight.getText().toString()), null, null);
         MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
-        activity.setItem(grain);
+        activity.putMisc(misc, true);
 
         dismiss();
     }
@@ -161,6 +162,6 @@ public class EditMiscDialog extends Dialog implements
     }
 
     public interface MyDialogFragmentListener {
-        void setItem(Item bar);
+        void putMisc(Item bar, boolean t);
     }
 }

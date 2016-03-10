@@ -49,7 +49,6 @@ public class EditGrainDialog extends Dialog implements android.view.View.OnClick
         setContentView(R.layout.pick_grain_dialog);
 
         add = (Button) findViewById(R.id.addItem);
-        add.setText(R.string.edit);
         cancel = (Button) findViewById(R.id.cancel);
 
         name = (EditText) findViewById(R.id.nameText);
@@ -78,6 +77,7 @@ public class EditGrainDialog extends Dialog implements android.view.View.OnClick
         weight_oz.setText(String.format("%.1f", org_weight));
 
         add.setOnClickListener(this);
+        add.setText(R.string.edit);
         cancel.setOnClickListener(this);
 
 

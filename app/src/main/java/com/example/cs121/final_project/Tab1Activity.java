@@ -38,7 +38,9 @@ import com.example.cs121.final_project.Edit_Ing_Dialogs.EditMiscDialog;
 import com.example.cs121.final_project.Edit_Ing_Dialogs.EditYeastDialog;
 
 
-public class Tab1Activity extends Activity implements EditGrainDialog.MyDialogFragmentListener
+public class Tab1Activity extends Activity
+        implements EditGrainDialog.MyDialogFragmentListener, EditHopDialog.MyDialogFragmentListener,
+        EditYeastDialog.MyDialogFragmentListener, EditMiscDialog.MyDialogFragmentListener
 {
     private ArrayList<HashMap> list;
     private ArrayList<Item> itemList;
@@ -47,8 +49,6 @@ public class Tab1Activity extends Activity implements EditGrainDialog.MyDialogFr
     private ListViewAdapter adapter;
 
     public static Activity main_activity;
-    static Item my_item;
-
     private int index;
 
     public void onCreate(Bundle savedInstanceState)
@@ -102,8 +102,6 @@ public class Tab1Activity extends Activity implements EditGrainDialog.MyDialogFr
 
 
                 Item myItem = itemList.get(position);
-                System.out.println(myItem.ing_type);
-
                 index = position;
 
                 switch (myItem.ing_type){
@@ -134,18 +132,30 @@ public class Tab1Activity extends Activity implements EditGrainDialog.MyDialogFr
                     default:
                         break;
                 }
-
-
-//                PickHopDialog cdd = new PickHopDialog(PickHopActivity.this, name, alpha, type);
-//                cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                cdd.show();
             }
         });
     }
 
-//    public void editGrain (Item item) {
-//        putGrain(item, true);
-//    }
+
+    public void updateList() {
+        adapter.notifyDataSetChanged();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                hideKeyboard();
+            }
+        }, 50);
+    }
+
+
+    private void hideKeyboard() {
+        // Check if no view has focus:
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
 
     public void putGrain(Item newItem, boolean edit) {
         HashMap newRow = new HashMap();
@@ -159,19 +169,84 @@ public class Tab1Activity extends Activity implements EditGrainDialog.MyDialogFr
         if(edit) {
             itemList.set(index, newItem);
             list.set(index, newRow);
-            adapter.notifyDataSetChanged();
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                public void run() {
-                    hideKeyboard();
-                }
-            }, 50);
         }
 
         else {
             itemList.add(newItem);
             list.add(newRow);
         }
+
+        updateList();
+    }
+
+    public void putHop(Item newItem, boolean edit) {
+        HashMap newRow = new HashMap();
+
+        String[] dataEntry = parseHop(newItem.weight, newItem.time);
+        newRow.put(FIRST_COLUMN, dataEntry[0]);
+        newRow.put(SECOND_COLUMN, newItem.name);
+        newRow.put(THIRD_COLUMN, newItem.type);
+        newRow.put(FOURTH_COLUMN, dataEntry[1]);
+        newRow.put(FIFTH_COLUMN, "n/a");
+
+        if(edit) {
+            itemList.set(index, newItem);
+            list.set(index, newRow);
+        }
+
+        else {
+            itemList.add(newItem);
+            list.add(newRow);
+        }
+
+        updateList();
+        hideKeyboard();
+    }
+
+    public void putYeast(Item newItem, boolean edit) {
+        HashMap newRow = new HashMap();
+        newRow.put(FIRST_COLUMN, newItem.weight + " " + newItem.str3);
+        newRow.put(SECOND_COLUMN, newItem.name);
+        newRow.put(THIRD_COLUMN, newItem.type);
+        newRow.put(FOURTH_COLUMN, "-");
+        newRow.put(FIFTH_COLUMN, "n/a");
+
+        if(edit) {
+            itemList.set(index, newItem);
+            list.set(index, newRow);
+        }
+
+        else {
+            itemList.add(newItem);
+            list.add(newRow);
+        }
+
+        updateList();
+    }
+
+    public void putMisc (Item newItem, boolean edit) {
+        HashMap newRow = new HashMap();
+
+        newRow.put(FIRST_COLUMN, newItem.weight + " " + newItem.str2);
+        newRow.put(SECOND_COLUMN, newItem.name);
+        newRow.put(THIRD_COLUMN, newItem.type);
+        if (newItem.time >= 1440) {
+            int days = newItem.time/1440;
+            newRow.put(FOURTH_COLUMN, days + " days");
+        } else newRow.put(FOURTH_COLUMN, newItem.time + " min");
+        newRow.put(FIFTH_COLUMN, "n/a");
+
+        if(edit) {
+            itemList.set(index, newItem);
+            list.set(index, newRow);
+        }
+
+        else {
+            itemList.add(newItem);
+            list.add(newRow);
+        }
+
+        updateList();
     }
 
 
@@ -206,69 +281,27 @@ public class Tab1Activity extends Activity implements EditGrainDialog.MyDialogFr
             case (2) : {
                 if (resultCode == Activity.RESULT_OK) {
                     Item newItem = (Item) data.getSerializableExtra("Item");
-                    HashMap newRow = new HashMap();
-                    String[] dataEntry = parseHop(newItem.weight, newItem.time);
-                    newRow.put(FIRST_COLUMN, dataEntry[0]);
-                    newRow.put(SECOND_COLUMN, newItem.name);
-                    newRow.put(THIRD_COLUMN, newItem.type);
-                    newRow.put(FOURTH_COLUMN, dataEntry[1]);
-                    newRow.put(FIFTH_COLUMN, "n/a");
-                    itemList.add(newItem);
-                    list.add(newRow);
+                    putHop(newItem, false);
                 }
                 break;
             }
             case (3) : {
                 if (resultCode == Activity.RESULT_OK) {
                     Item newItem = (Item) data.getSerializableExtra("Item");
-                    HashMap newRow = new HashMap();
-                    newRow.put(FIRST_COLUMN, newItem.weight + " " + newItem.str3);
-                    newRow.put(SECOND_COLUMN, newItem.name);
-                    newRow.put(THIRD_COLUMN, newItem.type);
-                    newRow.put(FOURTH_COLUMN, "-");
-                    newRow.put(FIFTH_COLUMN, "n/a");
-                    itemList.add(newItem);
-                    list.add(newRow);
+                    putYeast(newItem, false);
                 }
                 break;
             }
             case (4) : {
                 if (resultCode == Activity.RESULT_OK) {
                     Item newItem = (Item) data.getSerializableExtra("Item");
-                    HashMap newRow = new HashMap();
-                    newRow.put(FIRST_COLUMN, newItem.weight + " " + newItem.str2);
-                    newRow.put(SECOND_COLUMN, newItem.name);
-                    newRow.put(THIRD_COLUMN, newItem.type);
-                    if (newItem.time >= 1440) {
-                        int days = newItem.time/1440;
-                        newRow.put(FOURTH_COLUMN, days + " days");
-                    } else newRow.put(FOURTH_COLUMN, newItem.time + " min");
-                    newRow.put(FIFTH_COLUMN, "n/a");
-                    itemList.add(newItem);
-                    list.add(newRow);
+                    putMisc(newItem, false);
                 }
                 break;
             }
         }
-
-        adapter.notifyDataSetChanged();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                hideKeyboard();
-            }
-        }, 50);
-
     }
 
-    private void hideKeyboard() {
-        // Check if no view has focus:
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
 
     public String[] parseGrain(Float weight, int time){
         String[] result = new String[2];
