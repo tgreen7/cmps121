@@ -33,6 +33,7 @@ import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickHopActivit
 import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickMiscActivity;
 import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickYeastActivity;
 import com.example.cs121.final_project.Edit_Ing_Dialogs.EditGrainDialog;
+import com.example.cs121.final_project.Edit_Ing_Dialogs.EditHopDialog;
 
 
 public class Tab1Activity extends Activity implements EditGrainDialog.MyDialogFragmentListener
@@ -110,8 +111,12 @@ public class Tab1Activity extends Activity implements EditGrainDialog.MyDialogFr
                         cdd.show();
                         break;
                     }
-                    case 2:
+                    case 2:{
+                        EditHopDialog cdd = new EditHopDialog(Tab1Activity.this, myItem);
+                        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        cdd.show();
                         break;
+                    }
                     case 3:
                         break;
                     case 4:
