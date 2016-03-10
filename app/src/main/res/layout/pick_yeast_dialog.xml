@@ -145,27 +145,24 @@
         android:gravity="center_horizontal">
 
         <Button
-            style="@android:style/ButtonBar"
             android:id="@+id/cancel"
             android:layout_width="100dp"
             android:layout_height="30dp"
             android:layout_marginTop="20dp"
 
             android:clickable="true"
-            android:text="Cancel"
-            android:textStyle="bold"
+            android:text="@string/cancel"
 
             android:background="@drawable/buttonshape"/>
 
         <Button
-            style="@android:style/ButtonBar"
             android:id="@+id/addItem"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="40dp"
             android:layout_marginStart="40dp"
             android:layout_marginBottom="10dp"
             android:clickable="true"
-            android:text="Add"
+            android:text="@string/add"
 
 
             android:layout_width="100dp"
