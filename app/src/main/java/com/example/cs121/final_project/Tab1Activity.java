@@ -21,6 +21,7 @@ import static com.example.cs121.final_project.Constant.FOURTH_COLUMN;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -60,9 +61,43 @@ public class Tab1Activity extends Activity
 
         ListView lview = (ListView) findViewById(R.id.listView);
         list = new ArrayList<HashMap>();
-        itemList = new ArrayList<Item>();
         adapter = new ListViewAdapter(this, list);
         lview.setAdapter(adapter);
+
+        if (savedInstanceState != null) {
+            ArrayList<Item> values = (ArrayList<Item>)  savedInstanceState.getSerializable("myItems");
+            if (values != null) {
+                itemList = values;
+                Iterator<Item> iter = itemList.iterator();
+//                System.out.println(iter.next().name);
+                while(iter.hasNext()) {
+                    Item t = iter.next();
+                    switch (t.ing_type){
+                        case 1: putGrain(t, false);
+                                break;
+
+                        case 2: putHop(t, false);
+                                break;
+
+                        case 3: putYeast(t, false);
+                                break;
+
+                        case 4: putMisc(t, false);
+                                break;
+
+                        default: break;
+
+                    }
+                }
+            }
+        }
+        else {
+            itemList = new ArrayList<Item>();
+
+        }
+
+
+
 
 
 
@@ -136,6 +171,15 @@ public class Tab1Activity extends Activity
         });
     }
 
+    public void onSaveInstanceState(Bundle savedState) {
+
+        super.onSaveInstanceState(savedState);
+
+        // Note: getValues() is a method in your ArrayAdapter subclass
+
+        savedState.putSerializable("myItems", itemList);
+
+    }
 
     public void updateList() {
         adapter.notifyDataSetChanged();
@@ -144,7 +188,7 @@ public class Tab1Activity extends Activity
             public void run() {
                 hideKeyboard();
             }
-        }, 50);
+        }, 80);
     }
 
 

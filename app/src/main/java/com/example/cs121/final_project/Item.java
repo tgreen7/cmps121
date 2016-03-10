@@ -1,11 +1,13 @@
 package com.example.cs121.final_project;
 
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 /**
  * Created by Taoh on 3/7/2016.
  */
-public class Item implements Serializable{
+public class Item implements Serializable {
     public Integer ing_type, time;
     public String name;
     public String type;

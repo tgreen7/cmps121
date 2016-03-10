@@ -8,9 +8,12 @@ import android.graphics.drawable.ColorDrawable;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.cs121.final_project.DataBaseHelper;
@@ -24,6 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.example.cs121.final_project.Constant.FIRST_COLUMN;
+import static com.example.cs121.final_project.Constant.FOURTH_COLUMN;
 import static com.example.cs121.final_project.Constant.SECOND_COLUMN;
 import static com.example.cs121.final_project.Constant.THIRD_COLUMN;
 
@@ -34,6 +38,8 @@ public class PickHopActivity extends AppCompatActivity implements PickHopDialog.
     DataBaseHelper myDbHelper;
     String[] HopType = {"", "Bittering", "Aroma", "Flavor", "Bittering/Aroma", "Aroma/Flavor", "Bittering/Flavor", "Bittering/Aroma/Flavor"};
 
+    EditText searchQuery;
+
     private static Item my_item;
     Item theitem;
     
@@ -43,6 +49,8 @@ public class PickHopActivity extends AppCompatActivity implements PickHopDialog.
         setContentView(R.layout.activity_pick_hop);
 
         aList = new ArrayList<Item>();
+        list = new ArrayList<HashMap>();
+        searchQuery = (EditText) findViewById(R.id.searchText);
 
         ListView lview = (ListView) findViewById(R.id.hop_list);
         myDbHelper = new DataBaseHelper(this);
@@ -57,9 +65,38 @@ public class PickHopActivity extends AppCompatActivity implements PickHopDialog.
             sqle.printStackTrace();
         }
 
-        populateList();
-        SelectHopAdapter adapter = new SelectHopAdapter(this, list);
+        populateList("");
+        final SelectHopAdapter adapter = new SelectHopAdapter(this, list);
         lview.setAdapter(adapter);
+
+        searchQuery.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                // TODO Auto-generated method stub
+                String query = searchQuery.getText().toString();
+                if (!query.equals("")) {
+                    System.out.println(query);
+                    populateList(query);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    populateList("");
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                // TODO Auto-generated method stub
+            }
+        });
 
         lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -88,10 +125,20 @@ public class PickHopActivity extends AppCompatActivity implements PickHopDialog.
     }
 
 
-    private void populateList() {
+    private void populateList(String arg) {
+        list.clear();
 
-        list = new ArrayList<HashMap>();
-        Cursor cursor = myDbHelper.getReadableDatabase().query("Hops", null, null, null, null, null, null);
+        Cursor cursor;
+
+        if (arg.equals("")) {
+            cursor = myDbHelper.getReadableDatabase().query("Hops", null, null, null, null, null, null);
+        }
+        else {
+            String query = "SELECT * FROM Hops WHERE Name LIKE '%" + arg + "%'" ;
+            cursor = myDbHelper.getReadableDatabase().rawQuery(query, null);
+        }
+
+
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
@@ -102,7 +149,11 @@ public class PickHopActivity extends AppCompatActivity implements PickHopDialog.
             list.add(temp);
             cursor.moveToNext();
         }
+
+        cursor.close();
+
         myDbHelper.close();
+
     }
 
 

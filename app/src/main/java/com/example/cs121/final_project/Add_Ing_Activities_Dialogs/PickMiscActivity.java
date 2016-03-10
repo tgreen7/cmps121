@@ -7,9 +7,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.cs121.final_project.DataBaseHelper;
@@ -30,6 +33,7 @@ public class PickMiscActivity extends AppCompatActivity implements PickMiscDialo
 
     private ArrayList<HashMap> list;
     DataBaseHelper myDbHelper;
+    EditText searchQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +51,43 @@ public class PickMiscActivity extends AppCompatActivity implements PickMiscDialo
             sqle.printStackTrace();
         }
         ListView lview = (ListView) findViewById(R.id.misc_list);
+        searchQuery = (EditText) findViewById(R.id.searchText);
+        list = new ArrayList<HashMap>();
 
-        populateList();
-        SelectMiscAdapter adapter = new SelectMiscAdapter(this, list);
+        populateList("");
+        final SelectMiscAdapter adapter = new SelectMiscAdapter(this, list);
         lview.setAdapter(adapter);
+
+
+        searchQuery.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+                // TODO Auto-generated method stub
+                String query = searchQuery.getText().toString();
+                if (!query.equals("")) {
+                    System.out.println(query);
+                    populateList(query);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    populateList("");
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                // TODO Auto-generated method stub
+            }
+        });
 
         lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -76,20 +113,34 @@ public class PickMiscActivity extends AppCompatActivity implements PickMiscDialo
         finish();
     }
 
-    private void populateList() {
+    private void populateList(String arg) {
+        list.clear();
 
-        list = new ArrayList<HashMap>();
-        Cursor cursor = myDbHelper.getReadableDatabase().query("Misc", null, null, null, null, null, null);
+        Cursor cursor;
+
+        if (arg.equals("")) {
+            cursor = myDbHelper.getReadableDatabase().query("Misc", null, null, null, null, null, null);
+        }
+        else {
+            String query = "SELECT * FROM Misc WHERE Name LIKE '%" + arg + "%'" ;
+            cursor = myDbHelper.getReadableDatabase().rawQuery(query, null);
+        }
+
+
         cursor.moveToFirst();
 
         while(!cursor.isAfterLast()){
-            HashMap temp = new HashMap();
-            temp.put(FIRST_COLUMN, cursor.getString(1));
-            temp.put(SECOND_COLUMN, cursor.getString(2));
-            temp.put(THIRD_COLUMN, cursor.getString(3));
-            list.add(temp);
-            cursor.moveToNext();
+            while(!cursor.isAfterLast()){
+                HashMap temp = new HashMap();
+                temp.put(FIRST_COLUMN, cursor.getString(1));
+                temp.put(SECOND_COLUMN, cursor.getString(2));
+                temp.put(THIRD_COLUMN, cursor.getString(3));
+                list.add(temp);
+                cursor.moveToNext();
+            }
         }
+
+        cursor.close();
 
         myDbHelper.close();
 

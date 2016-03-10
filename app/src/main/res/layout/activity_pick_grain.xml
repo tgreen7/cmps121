@@ -9,6 +9,7 @@
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/top_row"
+        android:theme="@style/Search"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:background="#7e2d16">
@@ -23,12 +24,43 @@
             android:paddingLeft="3dp"
             android:paddingStart="3dp"
             android:paddingRight="3dp"
-            android:paddingEnd="3dp">
+            android:paddingEnd="3dp"
+            android:autoText="true">
         </TextView>
+
+
+
     </LinearLayout>
 
     <LinearLayout android:layout_width="match_parent"
         android:layout_below="@+id/top_row"
+        android:layout_height="wrap_content"
+        android:id="@+id/second_row"
+        android:theme="@style/Search"
+        android:background="#7e2d16">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="Search:"
+            android:id="@+id/textView" />
+
+        <EditText
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:backgroundTint="@color/gold"
+            android:id="@+id/searchText" />
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_below="@+id/second_row"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"

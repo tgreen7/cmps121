@@ -177,6 +177,7 @@ public class EditGrainDialog extends Dialog implements android.view.View.OnClick
                 break;
 
             case R.id.cancel:
+                MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
                 dismiss();
                 break;
 
