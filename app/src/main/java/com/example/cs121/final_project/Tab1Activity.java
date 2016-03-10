@@ -34,6 +34,8 @@ import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickMiscActivi
 import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickYeastActivity;
 import com.example.cs121.final_project.Edit_Ing_Dialogs.EditGrainDialog;
 import com.example.cs121.final_project.Edit_Ing_Dialogs.EditHopDialog;
+import com.example.cs121.final_project.Edit_Ing_Dialogs.EditMiscDialog;
+import com.example.cs121.final_project.Edit_Ing_Dialogs.EditYeastDialog;
 
 
 public class Tab1Activity extends Activity
@@ -113,10 +115,18 @@ public class Tab1Activity extends Activity
                         cdd.show();
                         break;
                     }
-                    case 3:
+                    case 3:{
+                        EditYeastDialog cdd = new EditYeastDialog(Tab1Activity.this, myItem);
+                        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        cdd.show();
                         break;
-                    case 4:
+                    }
+                    case 4:{
+                        EditMiscDialog cdd = new EditMiscDialog(Tab1Activity.this, myItem);
+                        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        cdd.show();
                         break;
+                    }
                     default:
                         break;
                 }

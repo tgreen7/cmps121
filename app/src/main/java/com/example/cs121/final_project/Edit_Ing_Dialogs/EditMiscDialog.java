@@ -1,4 +1,4 @@
-package com.example.cs121.final_project.Add_Ing_Activities_Dialogs;
+package com.example.cs121.final_project.Edit_Ing_Dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -9,16 +9,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cs121.final_project.Item;
 import com.example.cs121.final_project.R;
 
 /**
- * Created by Taoh on 3/7/2016.
+ * Created by Halsifer on 3/9/16.
  */
-public class PickMiscDialog extends Dialog implements
+public class EditMiscDialog extends Dialog implements
         android.view.View.OnClickListener {
 
     public Activity c;
@@ -27,16 +26,20 @@ public class PickMiscDialog extends Dialog implements
 
     public Spinner use_type, time_type, amount_type;
 
-    public String name_text, type_text, use_text;
-    public EditText name, alpha, type, boilTime, weight, time, color, potential;
+    public String name_text, type_text, use_text, org_amount_type;
+    public Integer org_time;
+    public Float org_weight;
+    public EditText name, type, weight, time;
 
-    public PickMiscDialog(Activity a, String name, String type, String use) {
+    public EditMiscDialog(Activity a, Item item) {
         super(a);
-        // TODO Auto-generated constructor stub
         this.c = a;
-        this.name_text = name;
-        this.type_text = type;
-        this.use_text = use;
+        this.name_text = item.name;
+        this.type_text = item.type;
+        this.org_weight  = item.weight;
+        this.org_time = item.time;
+        this.use_text = item.str1;
+        this.org_amount_type = item.str1;
     }
 
     @Override
@@ -45,22 +48,17 @@ public class PickMiscDialog extends Dialog implements
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.pick_misc_dialog);
 
-
         add = (Button) findViewById(R.id.addItem);
         cancel = (Button) findViewById(R.id.cancel);
 
         name = (EditText) findViewById(R.id.nameText);
-        alpha = (EditText) findViewById(R.id.alphaText);
         type = (EditText) findViewById(R.id.typeText);
-        boilTime = (EditText) findViewById(R.id.boil);
         weight = (EditText) findViewById(R.id.amountText);
-        color = (EditText) findViewById(R.id.colorText);
-        potential = (EditText) findViewById(R.id.potentialText);
         time = (EditText) findViewById(R.id.timeBox);
 
         name.setText(name_text);
         type.setText(type_text);
-
+        weight.setText(org_weight.toString());
 
         add.setOnClickListener(this);
         cancel.setOnClickListener(this);
@@ -85,6 +83,18 @@ public class PickMiscDialog extends Dialog implements
         spin_adapter.setDropDownViewResource(R.layout.my_spinner_style);
 
         amount_type.setAdapter(spin_adapter);
+
+        if (org_time >= 1440) {
+            Integer days = org_time / 1440;
+            time.setText(days.toString());
+            time_type.setSelection(1);
+        } else time.setText(org_time.toString());
+
+        int i = 0;
+        while(!(use_text.equals(use_type.getSelectedItem().toString()))) {
+            use_type.setSelection((i+1));
+            i++;
+        }
 
     }
 
@@ -138,6 +148,7 @@ public class PickMiscDialog extends Dialog implements
         switch (v.getId()) {
             case R.id.addItem:
                 sendItem();
+
                 break;
 
             case R.id.cancel:
