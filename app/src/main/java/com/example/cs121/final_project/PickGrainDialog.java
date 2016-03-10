@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cs121.final_project.Tab1Activity;
 import com.example.cs121.final_project.PickHopActivity;
@@ -85,11 +86,56 @@ public class PickGrainDialog extends Dialog implements
         spin_adapter.setDropDownViewResource(R.layout.my_spinner_style);
 
         time_type.setAdapter(spin_adapter);
-
     }
 
+    public boolean checkEmpty() {
+        if(name.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter a name.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(type.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter a type.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(color.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter a color.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(potential.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter a potential.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(time.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter a time.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(weight_lb.getText().toString().trim().length() == 0
+                || weight_lb.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter a weight.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
+    }
 
     public void sendItem() {
+        if(checkEmpty()) {
+            return;
+        }
+
+        if (weight_lb.getText().toString().trim().length() == 0) {
+            weight_lb.setText("0");
+        }
+        if (weight_oz.getText().toString().trim().length() == 0) {
+            weight_oz.setText("0");
+        }
+
+
         Spinner usespin = (Spinner) findViewById(R.id.use);
         Spinner timespin = (Spinner) findViewById(R.id.time_type);
         int timeparse = Integer.parseInt(time.getText().toString());
@@ -103,6 +149,9 @@ public class PickGrainDialog extends Dialog implements
                 (weightlbparse+weightoz), null, null);
         MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
         activity.setItem(grain);
+
+
+        dismiss();
     }
 
     @Override
@@ -110,7 +159,6 @@ public class PickGrainDialog extends Dialog implements
         switch (v.getId()) {
             case R.id.addItem:
                 sendItem();
-                dismiss();
                 break;
 
             case R.id.cancel:

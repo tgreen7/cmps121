@@ -13,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cs121.final_project.Tab1Activity;
 import com.example.cs121.final_project.PickHopActivity;
@@ -78,19 +79,41 @@ public class PickYeastDialog extends Dialog implements
 
     }
 
+    public boolean checkEmpty() {
+        if(name.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter a name.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(company.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter an company.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(type.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter a type.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(form.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter a form.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(amount.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter an amount.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
+    }
+
 
     public void sendItem() {
-//        Item (String ing_type, String name,  String type, Float color,
-//                Float potential, Float alpha, String lab,
-//                String form, String use, Boolean wort, Boolean dry,
-//                String time, Float weight){
-//        PickHopActivity.make_item("hop", name.getText().toString(), type.getText().toString(), null,
-//                null, null, alpha.getText().toString(), null, null, wort.isChecked(), dry.isChecked(),
-//                boilTime.getText().toString(), Float.parseFloat(weight.getText().toString()));
-////        System.out.println(boilTime.getText().toString());
-//
-//        MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
-//        activity.onReturnValue("done");
+        if(checkEmpty()) {
+            return;
+        }
+
         Spinner spinner = (Spinner) findViewById(R.id.amountType);
         Item yeast = new Item(3, null, name.getText().toString(),
                 type.getText().toString(), company.getText().toString(), form.getText().toString(),
@@ -98,6 +121,8 @@ public class PickYeastDialog extends Dialog implements
                 Float.parseFloat(amount.getText().toString()), null, null);
         MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
         activity.setItem(yeast);
+
+        dismiss();
     }
 
     @Override
@@ -105,7 +130,6 @@ public class PickYeastDialog extends Dialog implements
         switch (v.getId()) {
             case R.id.addItem:
                 sendItem();
-                dismiss();
                 break;
 
             case R.id.cancel:
