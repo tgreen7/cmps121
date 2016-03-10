@@ -95,7 +95,6 @@ public class EditGrainDialog extends Dialog implements android.view.View.OnClick
         } else time.setText(org_time.toString());
         int i = 0;
         use.setSelection(0);
-        name.setText(use.getSelectedItem().toString());
         while(!(use_text.equals(use.getSelectedItem().toString()))) {
             use.setSelection((i+1));
             i++;
