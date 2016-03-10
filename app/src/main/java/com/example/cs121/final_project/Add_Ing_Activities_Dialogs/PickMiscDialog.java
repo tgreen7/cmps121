@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cs121.final_project.Item;
 import com.example.cs121.final_project.R;
@@ -86,8 +88,39 @@ public class PickMiscDialog extends Dialog implements
 
     }
 
+    public boolean checkEmpty() {
+        if(name.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter a name.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(type.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter a type.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(time.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter a time.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(weight.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter an amount.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
+    }
+
+
 
     public void sendItem() {
+
+        if(checkEmpty()) {
+            return;
+        }
+
+
         int timeparse = Integer.parseInt(time.getText().toString());
         if (time_type.getSelectedItem().toString().equals("Days")) timeparse *= 1440;
         Item grain = new Item(4, timeparse, name.getText().toString(),
@@ -96,6 +129,8 @@ public class PickMiscDialog extends Dialog implements
                 Float.parseFloat(weight.getText().toString()), null, null);
         MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
         activity.setItem(grain);
+
+        dismiss();
     }
 
     @Override
@@ -103,7 +138,7 @@ public class PickMiscDialog extends Dialog implements
         switch (v.getId()) {
             case R.id.addItem:
                 sendItem();
-                dismiss();
+
                 break;
 
             case R.id.cancel:

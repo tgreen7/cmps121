@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cs121.final_project.Item;
 import com.example.cs121.final_project.R;
@@ -72,8 +74,41 @@ public class PickYeastDialog extends Dialog implements
 
     }
 
+    public boolean checkEmpty() {
+        if(name.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter a name.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(company.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter an company.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(type.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter a type.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(form.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter a form.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        else if(amount.getText().toString().trim().length() == 0) {
+            Toast.makeText(c, "Please enter an amount.",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
+    }
+
 
     public void sendItem() {
+        if(checkEmpty()) {
+            return;
+        }
+
         Spinner spinner = (Spinner) findViewById(R.id.amountType);
         Item yeast = new Item(3, null, name.getText().toString(),
                 type.getText().toString(), company.getText().toString(), form.getText().toString(),
@@ -81,6 +116,8 @@ public class PickYeastDialog extends Dialog implements
                 Float.parseFloat(amount.getText().toString()), null, null);
         MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
         activity.setItem(yeast);
+
+        dismiss();
     }
 
     @Override
@@ -88,7 +125,6 @@ public class PickYeastDialog extends Dialog implements
         switch (v.getId()) {
             case R.id.addItem:
                 sendItem();
-                dismiss();
                 break;
 
             case R.id.cancel:

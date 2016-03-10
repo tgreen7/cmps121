@@ -21,6 +21,10 @@
     <string name="Style"><b>Style</b></string>
     <string name="efficiency"><b>Efficiency</b></string>
 
+    <!--buttons-->
+    <string name="add"><b>ADD</b></string>
+    <string name="cancel"><b>CANCEL</b></string>
+
     <string-array name="beer_types_array">
         <item>All Grain</item>
         <item>BIAB</item>

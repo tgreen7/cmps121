@@ -19,7 +19,6 @@
         </activity>
         <activity android:name=".Tab1Activity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="stateAlwaysHidden"
             />
         <activity android:name=".Tab2Activity" />
         <activity android:name=".Tab3Activity" />

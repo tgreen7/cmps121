@@ -2,6 +2,8 @@ package com.example.cs121.final_project;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +21,8 @@ import static com.example.cs121.final_project.Constant.FOURTH_COLUMN;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.widget.ListView;
@@ -32,7 +36,7 @@ import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickYeastActiv
 public class Tab1Activity extends Activity
 {
     private ArrayList<HashMap> list;
-    private ArrayList<Item> aList;
+    private ArrayList<Item> itemList;
 
     private EditText name;
     private ListViewAdapter adapter;
@@ -49,8 +53,7 @@ public class Tab1Activity extends Activity
 
         ListView lview = (ListView) findViewById(R.id.listView);
         list = new ArrayList<HashMap>();
-        aList = new ArrayList<Item>();
-        populateList();
+        itemList = new ArrayList<Item>();
         adapter = new ListViewAdapter(this, list);
         lview.setAdapter(adapter);
 
@@ -87,14 +90,40 @@ public class Tab1Activity extends Activity
         batch_size.setText("5.00");
 
         lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+
+                Item myItem = itemList.get(position);
+                System.out.println(myItem.ing_type);
+
+                switch (myItem.ing_type){
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    default:
+                        break;
+                }
+
+
+//                PickHopDialog cdd = new PickHopDialog(PickHopActivity.this, name, alpha, type);
+//                cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//                cdd.show();
             }
         });
+    }
 
+    public void setItem(Item item, int position) {
+        Item newitem = item;
+        itemList.set(position, item);
 
     }
+
 
 
     public void startGrain(View view) {
@@ -133,7 +162,7 @@ public class Tab1Activity extends Activity
                     newRow.put(THIRD_COLUMN, newItem.type);
                     newRow.put(FOURTH_COLUMN, dataEntry[1]);
                     newRow.put(FIFTH_COLUMN, "n/a");
-                    aList.add(newItem);
+                    itemList.add(newItem);
                     list.add(newRow);
                 }
                 break;
@@ -148,7 +177,7 @@ public class Tab1Activity extends Activity
                     newRow.put(THIRD_COLUMN, newItem.type);
                     newRow.put(FOURTH_COLUMN, dataEntry[1]);
                     newRow.put(FIFTH_COLUMN, "n/a");
-                    aList.add(newItem);
+                    itemList.add(newItem);
                     list.add(newRow);
                 }
                 break;
@@ -162,7 +191,7 @@ public class Tab1Activity extends Activity
                     newRow.put(THIRD_COLUMN, newItem.type);
                     newRow.put(FOURTH_COLUMN, "-");
                     newRow.put(FIFTH_COLUMN, "n/a");
-                    aList.add(newItem);
+                    itemList.add(newItem);
                     list.add(newRow);
                 }
                 break;
@@ -179,7 +208,7 @@ public class Tab1Activity extends Activity
                         newRow.put(FOURTH_COLUMN, days + " days");
                     } else newRow.put(FOURTH_COLUMN, newItem.time + " min");
                     newRow.put(FIFTH_COLUMN, "n/a");
-                    aList.add(newItem);
+                    itemList.add(newItem);
                     list.add(newRow);
                 }
                 break;
@@ -236,61 +265,5 @@ public class Tab1Activity extends Activity
         } else result[1] = time + " min";
         return result;
     }
-
-    public static void make_item (Integer ing_type, Integer time, String name, String type,
-                                  String str1, String str2, String use, Float flt1, Float flt2,
-                                  Float weight, Boolean wort, Boolean dry){
-
-        my_item = new Item(ing_type, time, name, type, str1, str2, use, flt1, flt2, weight, wort, dry);
-
-        System.out.println(my_item.ing_type);
-
-    }
-
-    private void populateList() {
-
-        list = new ArrayList<HashMap>();
-
-//        HashMap temp = new HashMap();
-//        temp.put(FIRST_COLUMN,"3 pkg");
-//        temp.put(SECOND_COLUMN, "By NavNeet");
-//        temp.put(THIRD_COLUMN, "Rs. 200");
-//        temp.put(FOURTH_COLUMN, "Per Unit");
-//        temp.put(FIFTH_COLUMN, "75.6");
-//        list.add(temp);
-//
-//        HashMap temp1 = new HashMap();
-//        temp1.put(FIRST_COLUMN,"4 oz");
-//        temp1.put(SECOND_COLUMN, "By Amee Products");
-//        temp1.put(THIRD_COLUMN, "Rs. 400");
-//        temp1.put(FOURTH_COLUMN, "Per Unit");
-//        temp1.put(FIFTH_COLUMN, "75.6");
-//        list.add(temp1);
-//
-//        HashMap temp2 = new HashMap();
-//        temp2.put(FIRST_COLUMN,"10 grams");
-//        temp2.put(SECOND_COLUMN, "By National Products");
-//        temp2.put(THIRD_COLUMN, "Rs. 600");
-//        temp2.put(FOURTH_COLUMN, "Per Unit");
-//        temp2.put(FIFTH_COLUMN, "75.6");
-//        list.add(temp2);
-//
-//        HashMap temp3 = new HashMap();
-//        temp3.put(FIRST_COLUMN,"6.73 oz");
-//        temp3.put(SECOND_COLUMN, "By Devarsh Prakashan");
-//        temp3.put(THIRD_COLUMN, "Rs. 800");
-//        temp3.put(FOURTH_COLUMN, "Per Unit");
-//        temp3.put(FIFTH_COLUMN, "75.6");
-//        list.add(temp3);
-//
-//        HashMap temp4 = new HashMap();
-//        temp4.put(FIRST_COLUMN,"7 oz");
-//        temp4.put(SECOND_COLUMN, "By TechnoTalaktive Pvt. Ltd.");
-//        temp4.put(THIRD_COLUMN, "Rs. 100");
-//        temp4.put(FOURTH_COLUMN, "Per Unit");
-//        temp4.put(FIFTH_COLUMN, "75.6");
-//        list.add(temp4);
-    }
-
 
 }
