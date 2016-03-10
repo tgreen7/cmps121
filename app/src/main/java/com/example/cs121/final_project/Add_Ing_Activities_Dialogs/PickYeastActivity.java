@@ -1,4 +1,4 @@
-package com.example.cs121.final_project;
+package com.example.cs121.final_project.Add_Ing_Activities_Dialogs;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,6 +12,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.cs121.final_project.DataBaseHelper;
+import com.example.cs121.final_project.Item;
+import com.example.cs121.final_project.R;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,17 +27,17 @@ import static com.example.cs121.final_project.Constant.FOURTH_COLUMN;
 import static com.example.cs121.final_project.Constant.SECOND_COLUMN;
 import static com.example.cs121.final_project.Constant.THIRD_COLUMN;
 
-public class PickGrainActivity extends AppCompatActivity implements PickGrainDialog.MyDialogFragmentListener {
+public class PickYeastActivity extends AppCompatActivity implements PickYeastDialog.MyDialogFragmentListener {
 
     private ArrayList<HashMap> list;
+    String[] YeastType = {"", "Ale", "Lager", "Wine", "Champagne"};
+    String[] YeastForm = {"", "Liquid", "Dry"};
     DataBaseHelper myDbHelper;
-    String[] GrainType = {"", "Grain", "Dry Extract", "Liquid Extract", "Adjunct", "Sugar"};
-    Item theitem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pick_grain);
+        setContentView(R.layout.activity_pick_yeast);
         myDbHelper = new DataBaseHelper(this);
         try {
             myDbHelper.createDataBase();
@@ -46,10 +50,10 @@ public class PickGrainActivity extends AppCompatActivity implements PickGrainDia
             sqle.printStackTrace();
         }
 
-        ListView lview = (ListView) findViewById(R.id.grain_list);
+        ListView lview = (ListView) findViewById(R.id.yeast_list);
 
         populateList();
-        SelectGrainAdapter adapter = new SelectGrainAdapter(this, list);
+        SelectYeastAdapter adapter = new SelectYeastAdapter(this, list);
         lview.setAdapter(adapter);
 
         lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -57,20 +61,18 @@ public class PickGrainActivity extends AppCompatActivity implements PickGrainDia
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Map<String, Object> map = (Map<String, Object>) parent.getItemAtPosition(position);
                 String name = (String) map.get("First");
-                String type = (String) map.get("Second");
-                String color = map.get("Third").toString();
-                color = color.replace("L", "");
-                String potential = map.get("Fourth").toString();
+                String company = (String) map.get("Second");
+                String type = (String) map.get("Third");
+                String form = (String) map.get("Fourth");
 
-                PickGrainDialog cdd = new PickGrainDialog(PickGrainActivity.this, name, type, color, potential);
+                PickYeastDialog cdd = new PickYeastDialog(PickYeastActivity.this, name, company, type, form);
                 cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 cdd.show();
             }
         });
     }
-
     public void setItem(Item hop) {
-        theitem = hop;
+        Item theitem = hop;
         Log.i("onReturnValue", "HERERERE " + " back from Dialog!");
         Intent resultIntent = new Intent();
         resultIntent.putExtra("Item", theitem);
@@ -79,17 +81,16 @@ public class PickGrainActivity extends AppCompatActivity implements PickGrainDia
     }
 
     private void populateList() {
-
         list = new ArrayList<HashMap>();
-        Cursor cursor = myDbHelper.getReadableDatabase().query("Grains", null, null, null, null, null, null);
+        Cursor cursor = myDbHelper.getReadableDatabase().query("Yeast", null, null, null, null, null, null);
         cursor.moveToFirst();
 
         while(!cursor.isAfterLast()){
             HashMap temp = new HashMap();
             temp.put(FIRST_COLUMN, cursor.getString(1));
-            temp.put(SECOND_COLUMN, GrainType[cursor.getInt(2)]);
-            temp.put(THIRD_COLUMN, cursor.getString(3) + "L");
-            temp.put(FOURTH_COLUMN, cursor.getFloat(4));
+            temp.put(SECOND_COLUMN, cursor.getString(2));
+            temp.put(THIRD_COLUMN, YeastType[cursor.getInt(3)]);
+            temp.put(FOURTH_COLUMN, YeastForm[cursor.getInt(4)]);
             list.add(temp);
             cursor.moveToNext();
         }

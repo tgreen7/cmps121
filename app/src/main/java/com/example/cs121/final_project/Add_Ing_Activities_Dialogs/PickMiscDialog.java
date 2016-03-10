@@ -1,23 +1,17 @@
-package com.example.cs121.final_project;
+package com.example.cs121.final_project.Add_Ing_Activities_Dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import com.example.cs121.final_project.Tab1Activity;
-import com.example.cs121.final_project.PickHopActivity;
-
-import org.w3c.dom.Text;
+import com.example.cs121.final_project.Item;
+import com.example.cs121.final_project.R;
 
 /**
  * Created by Taoh on 3/7/2016.

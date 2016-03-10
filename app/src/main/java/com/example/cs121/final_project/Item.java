@@ -10,8 +10,8 @@ public class Item implements Serializable{
     String name, type, str1, str2, str3;
     Float flt1, flt2, weight;
     Boolean wort, dry;
-    Item (Integer ing_type, Integer time, String name, String type, String str1, String str2,
-          String str3, Float flt1, Float flt2, Float weight, Boolean wort, Boolean dry){
+    public Item(Integer ing_type, Integer time, String name, String type, String str1, String str2,
+                String str3, Float flt1, Float flt2, Float weight, Boolean wort, Boolean dry){
 
         this.ing_type   = ing_type;
         this.time       = time;

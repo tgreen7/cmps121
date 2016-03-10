@@ -1,23 +1,17 @@
-package com.example.cs121.final_project;
+package com.example.cs121.final_project.Add_Ing_Activities_Dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import com.example.cs121.final_project.Tab1Activity;
-import com.example.cs121.final_project.PickHopActivity;
-
-import org.w3c.dom.Text;
+import com.example.cs121.final_project.Item;
+import com.example.cs121.final_project.R;
 
 /**
  * Created by Taoh on 3/7/2016.
@@ -80,17 +74,6 @@ public class PickYeastDialog extends Dialog implements
 
 
     public void sendItem() {
-//        Item (String ing_type, String name,  String type, Float color,
-//                Float potential, Float alpha, String lab,
-//                String form, String use, Boolean wort, Boolean dry,
-//                String time, Float weight){
-//        PickHopActivity.make_item("hop", name.getText().toString(), type.getText().toString(), null,
-//                null, null, alpha.getText().toString(), null, null, wort.isChecked(), dry.isChecked(),
-//                boilTime.getText().toString(), Float.parseFloat(weight.getText().toString()));
-////        System.out.println(boilTime.getText().toString());
-//
-//        MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
-//        activity.onReturnValue("done");
         Spinner spinner = (Spinner) findViewById(R.id.amountType);
         Item yeast = new Item(3, null, name.getText().toString(),
                 type.getText().toString(), company.getText().toString(), form.getText().toString(),

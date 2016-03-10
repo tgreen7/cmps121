@@ -3,20 +3,13 @@ package com.example.cs121.final_project;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
 import static com.example.cs121.final_project.Constant.FIFTH_COLUMN;
 import static com.example.cs121.final_project.Constant.FIRST_COLUMN;
@@ -26,11 +19,14 @@ import static com.example.cs121.final_project.Constant.FOURTH_COLUMN;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.widget.ListView;
+
+import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickGrainActivity;
+import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickHopActivity;
+import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickMiscActivity;
+import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickYeastActivity;
 
 
 public class Tab1Activity extends Activity
@@ -57,6 +53,7 @@ public class Tab1Activity extends Activity
         populateList();
         adapter = new ListViewAdapter(this, list);
         lview.setAdapter(adapter);
+
 
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner_types);
@@ -89,8 +86,16 @@ public class Tab1Activity extends Activity
         boil_time.setText("60");
         batch_size.setText("5.00");
 
+        lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+            }
+        });
+
 
     }
+
 
     public void startGrain(View view) {
         Intent intent = new Intent(this, PickGrainActivity.class);
@@ -182,8 +187,6 @@ public class Tab1Activity extends Activity
         }
 
         adapter.notifyDataSetChanged();
-
-
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {

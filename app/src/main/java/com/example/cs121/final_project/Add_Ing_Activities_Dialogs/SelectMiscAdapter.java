@@ -1,11 +1,10 @@
-package com.example.cs121.final_project;
+package com.example.cs121.final_project.Add_Ing_Activities_Dialogs;
 
 
 /**
  * Created by Taoh on 3/4/2016.
  */
 import static com.example.cs121.final_project.Constant.FIRST_COLUMN;
-import static com.example.cs121.final_project.Constant.FOURTH_COLUMN;
 import static com.example.cs121.final_project.Constant.SECOND_COLUMN;
 import static com.example.cs121.final_project.Constant.THIRD_COLUMN;
 
@@ -18,11 +17,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class SelectYeastAdapter extends BaseAdapter {
+import com.example.cs121.final_project.R;
+
+public class SelectMiscAdapter extends BaseAdapter {
     public ArrayList<HashMap> list;
     Activity activity;
 
-    public SelectYeastAdapter(Activity activity, ArrayList<HashMap> list) {
+    public SelectMiscAdapter(Activity activity, ArrayList<HashMap> list) {
         super();
         this.activity = activity;
         this.list = list;
@@ -50,7 +51,6 @@ public class SelectYeastAdapter extends BaseAdapter {
         TextView txtFirst;
         TextView txtSecond;
         TextView txtThird;
-        TextView txtFourth;
     }
 
     @Override
@@ -63,12 +63,11 @@ public class SelectYeastAdapter extends BaseAdapter {
 
         if (convertView == null)
         {
-            convertView = inflater.inflate(R.layout.pick_yeast_row, null);
+            convertView = inflater.inflate(R.layout.pick_misc_row, null);
             holder = new ViewHolder();
             holder.txtFirst = (TextView) convertView.findViewById(R.id.FirstText);
             holder.txtSecond = (TextView) convertView.findViewById(R.id.SecondText);
             holder.txtThird = (TextView) convertView.findViewById(R.id.ThirdText);
-            holder.txtFourth = (TextView) convertView.findViewById(R.id.FourthText);
             convertView.setTag(holder);
         }
         else
@@ -80,7 +79,6 @@ public class SelectYeastAdapter extends BaseAdapter {
         holder.txtFirst.setText(map.get(FIRST_COLUMN).toString());
         holder.txtSecond.setText(map.get(SECOND_COLUMN).toString());
         holder.txtThird.setText(map.get(THIRD_COLUMN).toString());
-        holder.txtFourth.setText(map.get(FOURTH_COLUMN).toString());
 
         return convertView;
     }

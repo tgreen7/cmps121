@@ -1,4 +1,4 @@
-package com.example.cs121.final_project;
+package com.example.cs121.final_project.Add_Ing_Activities_Dialogs;
 
 
 /**
@@ -17,11 +17,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class SelectMiscAdapter extends BaseAdapter {
+import com.example.cs121.final_project.R;
+
+public class SelectHopAdapter extends BaseAdapter {
     public ArrayList<HashMap> list;
     Activity activity;
 
-    public SelectMiscAdapter(Activity activity, ArrayList<HashMap> list) {
+    public SelectHopAdapter(Activity activity, ArrayList<HashMap> list) {
         super();
         this.activity = activity;
         this.list = list;
@@ -61,7 +63,7 @@ public class SelectMiscAdapter extends BaseAdapter {
 
         if (convertView == null)
         {
-            convertView = inflater.inflate(R.layout.pick_misc_row, null);
+            convertView = inflater.inflate(R.layout.pick_hop_row, null);
             holder = new ViewHolder();
             holder.txtFirst = (TextView) convertView.findViewById(R.id.FirstText);
             holder.txtSecond = (TextView) convertView.findViewById(R.id.SecondText);
@@ -80,5 +82,7 @@ public class SelectMiscAdapter extends BaseAdapter {
 
         return convertView;
     }
+
+
 
 }

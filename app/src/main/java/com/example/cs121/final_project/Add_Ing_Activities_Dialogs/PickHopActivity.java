@@ -1,26 +1,21 @@
-package com.example.cs121.final_project;
+package com.example.cs121.final_project.Add_Ing_Activities_Dialogs;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 
-import android.database.Cursor;
-
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.example.cs121.final_project.DataBaseHelper;
+import com.example.cs121.final_project.Item;
+import com.example.cs121.final_project.R;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -85,26 +80,13 @@ public class PickHopActivity extends AppCompatActivity implements PickHopDialog.
 
     public void setItem(Item hop) {
         theitem = hop;
-
         Log.i("onReturnValue", "HERERERE " + " back from Dialog!");
         Intent resultIntent = new Intent();
         resultIntent.putExtra("Item", theitem);
         setResult(Activity.RESULT_OK, resultIntent);
-
         finish();
-
     }
 
-//    public static void make_item (Integer ing_type, Integer time, String name, String type,
-//                                  String str1, String str2, String use, Float flt1, Float flt2,
-//                                  Float weight, Boolean wort, Boolean dry){
-//
-//        my_item = new Item(ing_type, time, name, type, str1, str2, use, flt1, flt2, weight, wort, dry);
-//
-//        System.out.println(my_item.ing_type);
-//
-//
-//    }
 
     private void populateList() {
 

@@ -1,23 +1,17 @@
-package com.example.cs121.final_project;
+package com.example.cs121.final_project.Add_Ing_Activities_Dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import com.example.cs121.final_project.Tab1Activity;
-import com.example.cs121.final_project.PickHopActivity;
-
-import org.w3c.dom.Text;
+import com.example.cs121.final_project.Item;
+import com.example.cs121.final_project.R;
 
 /**
  * Created by Taoh on 3/7/2016.
@@ -90,14 +84,12 @@ public class PickGrainDialog extends Dialog implements
 
 
     public void sendItem() {
-        Spinner usespin = (Spinner) findViewById(R.id.use);
-        Spinner timespin = (Spinner) findViewById(R.id.time_type);
         int timeparse = Integer.parseInt(time.getText().toString());
         Float weightlbparse = Float.parseFloat(weight_lb.getText().toString()) * 16;
         Float weightoz = Float.parseFloat(weight_oz.getText().toString());
-        if (timespin.getSelectedItem().toString().equals("Days")) timeparse *= 1440;
+        if (time_type.getSelectedItem().toString().equals("Days")) timeparse *= 1440;
         Item grain = new Item(1, timeparse, name.getText().toString(),
-                type.getText().toString(), null, null, usespin.getSelectedItem().toString(),
+                type.getText().toString(), null, null, use.getSelectedItem().toString(),
                 Float.parseFloat(color.getText().toString()),
                 Float.parseFloat(potential.getText().toString()),
                 (weightlbparse+weightoz), null, null);

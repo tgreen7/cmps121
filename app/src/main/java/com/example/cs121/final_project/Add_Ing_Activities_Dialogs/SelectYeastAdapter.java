@@ -1,13 +1,13 @@
-package com.example.cs121.final_project;
+package com.example.cs121.final_project.Add_Ing_Activities_Dialogs;
 
 
 /**
  * Created by Taoh on 3/4/2016.
  */
 import static com.example.cs121.final_project.Constant.FIRST_COLUMN;
+import static com.example.cs121.final_project.Constant.FOURTH_COLUMN;
 import static com.example.cs121.final_project.Constant.SECOND_COLUMN;
 import static com.example.cs121.final_project.Constant.THIRD_COLUMN;
-import static com.example.cs121.final_project.Constant.FOURTH_COLUMN;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,11 +18,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class SelectGrainAdapter extends BaseAdapter {
+import com.example.cs121.final_project.R;
+
+public class SelectYeastAdapter extends BaseAdapter {
     public ArrayList<HashMap> list;
     Activity activity;
 
-    public SelectGrainAdapter(Activity activity, ArrayList<HashMap> list) {
+    public SelectYeastAdapter(Activity activity, ArrayList<HashMap> list) {
         super();
         this.activity = activity;
         this.list = list;
@@ -63,7 +65,7 @@ public class SelectGrainAdapter extends BaseAdapter {
 
         if (convertView == null)
         {
-            convertView = inflater.inflate(R.layout.pick_grain_row, null);
+            convertView = inflater.inflate(R.layout.pick_yeast_row, null);
             holder = new ViewHolder();
             holder.txtFirst = (TextView) convertView.findViewById(R.id.FirstText);
             holder.txtSecond = (TextView) convertView.findViewById(R.id.SecondText);
