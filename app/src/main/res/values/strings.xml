@@ -24,6 +24,7 @@
     <!--buttons-->
     <string name="add"><b>ADD</b></string>
     <string name="cancel"><b>CANCEL</b></string>
+    <string name="edit"><b>EDIT</b></string>
 
     <string-array name="beer_types_array">
         <item>All Grain</item>

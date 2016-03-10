@@ -35,7 +35,7 @@ import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickYeastActiv
 import com.example.cs121.final_project.Edit_Ing_Dialogs.EditGrainDialog;
 
 
-public class Tab1Activity extends Activity
+public class Tab1Activity extends Activity implements EditGrainDialog.MyDialogFragmentListener
 {
     private ArrayList<HashMap> list;
     private ArrayList<Item> itemList;
@@ -45,6 +45,8 @@ public class Tab1Activity extends Activity
 
     public static Activity main_activity;
     static Item my_item;
+
+    private int index;
 
     public void onCreate(Bundle savedInstanceState)
     {
@@ -99,6 +101,8 @@ public class Tab1Activity extends Activity
                 Item myItem = itemList.get(position);
                 System.out.println(myItem.ing_type);
 
+                index = position;
+
                 switch (myItem.ing_type){
                     case 1: {
                         EditGrainDialog cdd = new EditGrainDialog(Tab1Activity.this, myItem);
@@ -124,10 +128,35 @@ public class Tab1Activity extends Activity
         });
     }
 
-    public void setItem(Item item, int position) {
-        Item newitem = item;
-        itemList.set(position, item);
+//    public void editGrain (Item item) {
+//        putGrain(item, true);
+//    }
 
+    public void putGrain(Item newItem, boolean edit) {
+        HashMap newRow = new HashMap();
+        String[] dataEntry = parseGrain(newItem.weight, newItem.time);
+        newRow.put(FIRST_COLUMN, dataEntry[0]);
+        newRow.put(SECOND_COLUMN, newItem.name);
+        newRow.put(THIRD_COLUMN, newItem.type);
+        newRow.put(FOURTH_COLUMN, dataEntry[1]);
+        newRow.put(FIFTH_COLUMN, "n/a");
+
+        if(edit) {
+            itemList.set(index, newItem);
+            list.set(index, newRow);
+            adapter.notifyDataSetChanged();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    hideKeyboard();
+                }
+            }, 50);
+        }
+
+        else {
+            itemList.add(newItem);
+            list.add(newRow);
+        }
     }
 
 
@@ -155,15 +184,7 @@ public class Tab1Activity extends Activity
             case (1) : {
                 if (resultCode == Activity.RESULT_OK) {
                     Item newItem = (Item) data.getSerializableExtra("Item");
-                    HashMap newRow = new HashMap();
-                    String[] dataEntry = parseGrain(newItem.weight, newItem.time);
-                    newRow.put(FIRST_COLUMN, dataEntry[0]);
-                    newRow.put(SECOND_COLUMN, newItem.name);
-                    newRow.put(THIRD_COLUMN, newItem.type);
-                    newRow.put(FOURTH_COLUMN, dataEntry[1]);
-                    newRow.put(FIFTH_COLUMN, "n/a");
-                    itemList.add(newItem);
-                    list.add(newRow);
+                    putGrain(newItem, false);
                 }
                 break;
             }

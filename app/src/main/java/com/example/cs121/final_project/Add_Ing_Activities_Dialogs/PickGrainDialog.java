@@ -110,7 +110,7 @@ public class PickGrainDialog extends Dialog implements
             return true;
         }
         else if(weight_lb.getText().toString().trim().length() == 0
-                || weight_lb.getText().toString().trim().length() == 0) {
+                || weight_oz.getText().toString().trim().length() == 0) {
             Toast.makeText(c, "Please enter a weight.",
                     Toast.LENGTH_SHORT).show();
             return true;
