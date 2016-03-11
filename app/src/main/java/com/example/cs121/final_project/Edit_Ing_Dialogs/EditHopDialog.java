@@ -153,7 +153,7 @@ public class EditHopDialog extends Dialog implements android.view.View.OnClickLi
         return false;
     }
 
-    public void saveItem() {
+    public void editItem() {
         if(checkEmpty()) return;
         Spinner spinner = (Spinner) findViewById(R.id.weight_type);
         int timeparse = Integer.parseInt(boilTime.getText().toString());
@@ -182,7 +182,7 @@ public class EditHopDialog extends Dialog implements android.view.View.OnClickLi
                 break;
 
             case R.id.addItem:
-                dismiss();
+                editItem();
                 break;
 
             case R.id.cancel:
