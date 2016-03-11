@@ -77,7 +77,7 @@ public class EditGrainDialog extends Dialog implements android.view.View.OnClick
         weight_oz.setText(String.format("%.1f", org_weight));
 
         add.setOnClickListener(this);
-        add.setText(R.string.edit);
+        add.setText(R.string.save);
         cancel.setOnClickListener(this);
 
 
