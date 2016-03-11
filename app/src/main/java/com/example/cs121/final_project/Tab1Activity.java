@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Handler;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -23,14 +22,11 @@ import static com.example.cs121.final_project.Constant.FOURTH_COLUMN;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import android.app.Activity;
 import android.widget.ListView;
 
 import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickGrainActivity;
-import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickGrainDialog;
 import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickHopActivity;
 import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickMiscActivity;
 import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickYeastActivity;
@@ -53,6 +49,7 @@ public class Tab1Activity extends Activity
 
     public static Activity main_activity;
     private int index;
+    ListView lview;
 
     public void onCreate(Bundle savedInstanceState)
     {
@@ -61,7 +58,7 @@ public class Tab1Activity extends Activity
 
         main_activity = this;
 
-        ListView lview = (ListView) findViewById(R.id.listView);
+        lview = (ListView) findViewById(R.id.listView);
         list = new ArrayList<HashMap>();
         adapter = new ListViewAdapter(this, list);
         lview.setAdapter(adapter);
@@ -76,16 +73,16 @@ public class Tab1Activity extends Activity
                     Item t = iter.next();
                     switch (t.ing_type){
                         case 1: putGrain(t, false);
-                                break;
+                            break;
 
                         case 2: putHop(t, false);
-                                break;
+                            break;
 
                         case 3: putYeast(t, false);
-                                break;
+                            break;
 
                         case 4: putMisc(t, false);
-                                break;
+                            break;
 
                         default: break;
 
@@ -131,45 +128,65 @@ public class Tab1Activity extends Activity
         lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Item myItem = itemList.get(position);
+                    index = position;
 
-
-                Item myItem = itemList.get(position);
-                index = position;
-
-                switch (myItem.ing_type){
-                    case 1: {
-                        EditGrainDialog cdd = new EditGrainDialog(Tab1Activity.this, myItem);
-                        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        cdd.setOnDismissListener(Tab1Activity.this);
-                        cdd.show();
-                        break;
+                    switch (myItem.ing_type) {
+                        case 1: {
+                            EditGrainDialog cdd = new EditGrainDialog(Tab1Activity.this, myItem);
+                            cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            cdd.setOnDismissListener(Tab1Activity.this);
+                            cdd.show();
+                            break;
+                        }
+                        case 2: {
+                            EditHopDialog cdd = new EditHopDialog(Tab1Activity.this, myItem);
+                            cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            cdd.setOnDismissListener(Tab1Activity.this);
+                            cdd.show();
+                            break;
+                        }
+                        case 3: {
+                            EditYeastDialog cdd = new EditYeastDialog(Tab1Activity.this, myItem);
+                            cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            cdd.setOnDismissListener(Tab1Activity.this);
+                            cdd.show();
+                            break;
+                        }
+                        case 4: {
+                            EditMiscDialog cdd = new EditMiscDialog(Tab1Activity.this, myItem);
+                            cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                            cdd.setOnDismissListener(Tab1Activity.this);
+                            cdd.show();
+                            break;
+                        }
+                        default:
+                            break;
                     }
-                    case 2:{
-                        EditHopDialog cdd = new EditHopDialog(Tab1Activity.this, myItem);
-                        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        cdd.setOnDismissListener(Tab1Activity.this);
-                        cdd.show();
-                        break;
-                    }
-                    case 3:{
-                        EditYeastDialog cdd = new EditYeastDialog(Tab1Activity.this, myItem);
-                        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        cdd.setOnDismissListener(Tab1Activity.this);
-                        cdd.show();
-                        break;
-                    }
-                    case 4:{
-                        EditMiscDialog cdd = new EditMiscDialog(Tab1Activity.this, myItem);
-                        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        cdd.setOnDismissListener(Tab1Activity.this);
-                        cdd.show();
-                        break;
-                    }
-                    default:
-                        break;
-                }
             }
         });
+        SwipeDismissListViewTouchListener touchListener =
+                new SwipeDismissListViewTouchListener(
+                        lview,
+                        new SwipeDismissListViewTouchListener.DismissCallbacks() {
+                            @Override
+                            public boolean canDismiss(int position) {
+                                return true;
+                            }
+
+                            @Override
+                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                                for (int position : reverseSortedPositions) {
+                                    itemList.remove(position);
+                                    list.remove(position);
+                                }
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+        lview.setOnTouchListener(touchListener);
+        // Setting this scroll listener is required to ensure that during ListView scrolling,
+        // we don't look for swipes.
+        lview.setOnScrollListener(touchListener.makeScrollListener());
     }
 
     public void onSaveInstanceState(Bundle savedState) {
