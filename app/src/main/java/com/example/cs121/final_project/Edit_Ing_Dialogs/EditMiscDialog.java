@@ -61,7 +61,7 @@ public class EditMiscDialog extends Dialog implements
         weight.setText(org_weight.toString());
 
         add.setOnClickListener(this);
-        add.setText(R.string.edit);
+        add.setText(R.string.save);
         cancel.setOnClickListener(this);
 
         use_type = (Spinner) findViewById(R.id.use_type);

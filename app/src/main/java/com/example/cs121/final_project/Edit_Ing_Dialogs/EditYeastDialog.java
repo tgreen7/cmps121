@@ -65,7 +65,7 @@ public class EditYeastDialog extends Dialog implements
 
 
         add.setOnClickListener(this);
-        add.setText(R.string.edit);
+        add.setText(R.string.save);
         cancel.setOnClickListener(this);
 
         amount_type = (Spinner) findViewById(R.id.amountType);

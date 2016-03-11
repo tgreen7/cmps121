@@ -75,7 +75,7 @@ public class EditHopDialog extends Dialog implements android.view.View.OnClickLi
         wortClick();
 
         add.setOnClickListener(this);
-        add.setText(R.string.edit);
+        add.setText(R.string.save);
         cancel.setOnClickListener(this);
 
         dry.setOnClickListener(this);
