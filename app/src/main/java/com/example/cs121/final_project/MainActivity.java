@@ -19,7 +19,7 @@ public class MainActivity extends Activity
 {
     /** Called when the activity is first created. */
     /** Duration of wait **/
-    private final int SPLASH_DISPLAY_LENGTH = 5000;
+    private final int SPLASH_DISPLAY_LENGTH = 1000;
 
     /** Called when the activity is first created. */
     @Override
