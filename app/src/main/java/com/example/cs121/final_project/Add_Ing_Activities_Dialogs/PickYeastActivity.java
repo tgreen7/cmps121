@@ -1,6 +1,8 @@
 package com.example.cs121.final_project.Add_Ing_Activities_Dialogs;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -11,6 +13,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -30,7 +33,8 @@ import static com.example.cs121.final_project.Constant.FOURTH_COLUMN;
 import static com.example.cs121.final_project.Constant.SECOND_COLUMN;
 import static com.example.cs121.final_project.Constant.THIRD_COLUMN;
 
-public class PickYeastActivity extends AppCompatActivity implements PickYeastDialog.MyDialogFragmentListener {
+public class PickYeastActivity extends AppCompatActivity implements PickYeastDialog.MyDialogFragmentListener,
+        DialogInterface.OnDismissListener {
 
     private ArrayList<HashMap> list;
     String[] YeastType = {"", "Ale", "Lager", "Wine", "Champagne"};
@@ -102,6 +106,7 @@ public class PickYeastActivity extends AppCompatActivity implements PickYeastDia
 
                 PickYeastDialog cdd = new PickYeastDialog(PickYeastActivity.this, name, company, type, form);
                 cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                cdd.setOnDismissListener(PickYeastActivity.this);
                 cdd.show();
             }
         });
@@ -145,6 +150,22 @@ public class PickYeastActivity extends AppCompatActivity implements PickYeastDia
 
         myDbHelper.close();
 
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        // Do whatever
+        closeInput(getWindow().getDecorView());
+    }
+
+    public static void closeInput(final View caller) {
+        caller.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                InputMethodManager imm = (InputMethodManager) caller.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(caller.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }, 100);
     }
 
 }
