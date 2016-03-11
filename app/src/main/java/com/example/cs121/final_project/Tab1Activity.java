@@ -1,6 +1,7 @@
 package com.example.cs121.final_project;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -41,7 +42,8 @@ import com.example.cs121.final_project.Edit_Ing_Dialogs.EditYeastDialog;
 
 public class Tab1Activity extends Activity
         implements EditGrainDialog.MyDialogFragmentListener, EditHopDialog.MyDialogFragmentListener,
-        EditYeastDialog.MyDialogFragmentListener, EditMiscDialog.MyDialogFragmentListener
+        EditYeastDialog.MyDialogFragmentListener, EditMiscDialog.MyDialogFragmentListener,
+        DialogInterface.OnDismissListener
 {
     private ArrayList<HashMap> list;
     private ArrayList<Item> itemList;
@@ -96,11 +98,6 @@ public class Tab1Activity extends Activity
 
         }
 
-
-
-
-
-
         Spinner spinner = (Spinner) findViewById(R.id.spinner_types);
 // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> spin_adapter = ArrayAdapter.createFromResource(this,
@@ -143,24 +140,28 @@ public class Tab1Activity extends Activity
                     case 1: {
                         EditGrainDialog cdd = new EditGrainDialog(Tab1Activity.this, myItem);
                         cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        cdd.setOnDismissListener(Tab1Activity.this);
                         cdd.show();
                         break;
                     }
                     case 2:{
                         EditHopDialog cdd = new EditHopDialog(Tab1Activity.this, myItem);
                         cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        cdd.setOnDismissListener(Tab1Activity.this);
                         cdd.show();
                         break;
                     }
                     case 3:{
                         EditYeastDialog cdd = new EditYeastDialog(Tab1Activity.this, myItem);
                         cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        cdd.setOnDismissListener(Tab1Activity.this);
                         cdd.show();
                         break;
                     }
                     case 4:{
                         EditMiscDialog cdd = new EditMiscDialog(Tab1Activity.this, myItem);
                         cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        cdd.setOnDismissListener(Tab1Activity.this);
                         cdd.show();
                         break;
                     }
@@ -181,24 +182,40 @@ public class Tab1Activity extends Activity
 
     }
 
-    public void updateList() {
-        adapter.notifyDataSetChanged();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                hideKeyboard();
-            }
-        }, 80);
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        // Do whatever
+        closeInput(getWindow().getDecorView());
     }
 
+//    public void updateList() {
+//        adapter.notifyDataSetChanged();
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            public void run() {
+//                hideKeyboard();
+//            }
+//        }, 100);
+//    }
 
-    private void hideKeyboard() {
-        // Check if no view has focus:
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
+
+//    private void hideKeyboard() {
+//        // Check if no view has focus:
+//        View view = this.getCurrentFocus();
+//        if (view != null) {
+//            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+//            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+//        }
+//    }
+
+    public static void closeInput(final View caller) {
+        caller.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                InputMethodManager imm = (InputMethodManager) caller.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(caller.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }, 100);
     }
 
     public void putGrain(Item newItem, boolean edit) {
@@ -220,7 +237,7 @@ public class Tab1Activity extends Activity
             list.add(newRow);
         }
 
-        updateList();
+        adapter.notifyDataSetChanged();
     }
 
     public void putHop(Item newItem, boolean edit) {
@@ -243,8 +260,7 @@ public class Tab1Activity extends Activity
             list.add(newRow);
         }
 
-        updateList();
-        hideKeyboard();
+        adapter.notifyDataSetChanged();
     }
 
     public void putYeast(Item newItem, boolean edit) {
@@ -265,7 +281,7 @@ public class Tab1Activity extends Activity
             list.add(newRow);
         }
 
-        updateList();
+        adapter.notifyDataSetChanged();
     }
 
     public void putMisc (Item newItem, boolean edit) {
@@ -290,7 +306,7 @@ public class Tab1Activity extends Activity
             list.add(newRow);
         }
 
-        updateList();
+        adapter.notifyDataSetChanged();
     }
 
 
@@ -319,6 +335,7 @@ public class Tab1Activity extends Activity
                 if (resultCode == Activity.RESULT_OK) {
                     Item newItem = (Item) data.getSerializableExtra("Item");
                     putGrain(newItem, false);
+                    closeInput(getWindow().getDecorView());
                 }
                 break;
             }
@@ -326,6 +343,7 @@ public class Tab1Activity extends Activity
                 if (resultCode == Activity.RESULT_OK) {
                     Item newItem = (Item) data.getSerializableExtra("Item");
                     putHop(newItem, false);
+                    closeInput(getWindow().getDecorView());
                 }
                 break;
             }
@@ -333,6 +351,7 @@ public class Tab1Activity extends Activity
                 if (resultCode == Activity.RESULT_OK) {
                     Item newItem = (Item) data.getSerializableExtra("Item");
                     putYeast(newItem, false);
+                    closeInput(getWindow().getDecorView());
                 }
                 break;
             }
@@ -340,6 +359,7 @@ public class Tab1Activity extends Activity
                 if (resultCode == Activity.RESULT_OK) {
                     Item newItem = (Item) data.getSerializableExtra("Item");
                     putMisc(newItem, false);
+                    closeInput(getWindow().getDecorView());
                 }
                 break;
             }
