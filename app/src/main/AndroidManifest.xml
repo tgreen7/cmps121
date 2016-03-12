@@ -43,7 +43,8 @@
             android:name=".Add_Ing_Activities_Dialogs.PickMiscActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/PickTheme" />
-        <activity android:name=".BeerStatsActivity"></activity>
+        <activity android:name=".BeerStatsActivity" />
+        <activity android:name=".HelpActivity"></activity>
     </application>
 
 </manifest>

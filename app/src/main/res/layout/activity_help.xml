@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.cs121.final_project.HelpActivity"
+    android:background="@color/light_red">
+    
+    <!--menu bar-->
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/title"
+        android:background="#571f0f">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:padding="10dp"
+            android:textColor="@color/bright_white"
+            android:textSize="20sp"
+            android:text="@string/help"/>
+
+        <ImageButton
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentTop="true"
+            android:id="@+id/helpButton"
+            android:src="@drawable/close"
+            android:layout_alignParentEnd="true"
+            android:scaleType="fitCenter"
+            android:contentDescription="close"
+            android:padding="0dp"
+            android:layout_gravity="start"
+            android:onClick="closeActivity"/>
+
+    </RelativeLayout>
+
+
+    <!--main content-->
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_below="@+id/LinearLayout01"
+            android:background="@color/light_red"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/bright_white"
+                android:layout_marginBottom="20dp"
+                android:textSize="25sp"
+                android:text="Recipe Builder Section"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Click on one of the four add ingredients buttons to begin adding ingredients to your recipe:"
+                android:textColor="@color/bright_white"
+                android:textSize="18sp"
+                android:id="@+id/textView2"
+                android:layout_gravity="start" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/wheat"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="grain"
+                    android:padding="0dp"
+                    style="@style/Base.TextAppearance.AppCompat.Button"
+                    android:background="#c29624"
+                    android:layout_gravity="start" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/bright_white"
+                    android:paddingStart="20dp"
+                    android:textSize="15sp"
+                    android:text="Add a grain." />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/hop"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="hop"
+                    android:padding="0dp"
+                    style="@style/Base.TextAppearance.AppCompat.Button"
+                    android:background="#c29624"
+                    android:layout_gravity="start" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/bright_white"
+                    android:paddingStart="20dp"
+                    android:textSize="15sp"
+                    android:text="Add a hop."/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/yeast"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="yeast"
+                    android:padding="0dp"
+                    style="@style/Base.TextAppearance.AppCompat.Button"
+                    android:background="#c29624"
+                    android:layout_gravity="start" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/bright_white"
+                    android:paddingStart="20dp"
+                    android:textSize="15sp"
+                    android:text="Add a yeast."/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/misc"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="misc"
+                    android:padding="0dp"
+                    style="@style/Base.TextAppearance.AppCompat.Button"
+                    android:background="#c29624"
+                    android:layout_gravity="start" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/bright_white"
+                    android:paddingStart="20dp"
+                    android:textSize="15sp"
+                    android:text="Add a miscellaneous ingredient."/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="After adding an ingredient it will appear in the ingredients list section"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/bright_white"
+                android:textSize="18sp"
+                android:layout_gravity="start" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You can swipe an ingredient left or right to remove it."
+                android:textColor="@color/bright_white"
+                android:textSize="15sp"
+                android:layout_gravity="start" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="To edit one of your ingredients just tap on it and make your changes."
+                android:textColor="@color/bright_white"
+                android:textSize="15sp"
+                android:layout_gravity="start" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/bright_white"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="40dp"
+                android:textSize="25sp"
+                android:text="Beer Stats Section"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Here you will see different statistics about the beer you are creating."
+                android:textColor="@color/bright_white"
+                android:textSize="15sp"
+                android:layout_gravity="start" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

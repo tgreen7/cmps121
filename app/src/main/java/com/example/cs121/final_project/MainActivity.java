@@ -4,8 +4,11 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TabHost;
 import android.widget.TextView;
+
+import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickMiscActivity;
 
 
 public class MainActivity extends TabActivity
@@ -60,6 +63,11 @@ public class MainActivity extends TabActivity
                 tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab()).setBackgroundColor(getResources().getColor(R.color.gold));
             }
         });
+    }
+
+    public void helpScreen(View v) {
+        Intent intent = new Intent(this, HelpActivity.class);
+        startActivity(intent);
     }
 
 
