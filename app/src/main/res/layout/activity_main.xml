@@ -1,22 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_alignParentTop="true"
-    android:layout_centerHorizontal="true" >
+    android:id="@android:id/tabhost">
 
-    <ImageView
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:id="@+id/LinearLayout01"
+        android:orientation="vertical"
         android:layout_height="fill_parent"
-        android:background="@drawable/beer_crop"
-        android:scaleType="fitXY" />
+        android:layout_width="fill_parent">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/logo" />
+        <!--row 1-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:id="@+id/title"
+            android:background="#571f0f">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textColor="@color/bright_white"
+                android:textSize="20sp"
+                android:text="@string/recipe"/>
+        </LinearLayout>
 
+        <HorizontalScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:scrollbars="none" >
 
-</FrameLayout>
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+            </TabWidget>
+
+        </HorizontalScrollView>
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent">
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</TabHost>
