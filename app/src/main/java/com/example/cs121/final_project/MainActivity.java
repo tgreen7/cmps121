@@ -7,10 +7,6 @@ import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickGrainActivity;
-import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickHopActivity;
-import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickMiscActivity;
-import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickYeastActivity;
 
 public class MainActivity extends TabActivity
 {

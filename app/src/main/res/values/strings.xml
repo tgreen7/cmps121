@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Final_project</string>
+    <string name="app_name">Brew Calculator</string>
     <string name="recipe"><b>Recipe Builder</b></string>
     <string name="Amount"><b>Amount</b></string>
     <string name="Name"><b>Name</b></string>
