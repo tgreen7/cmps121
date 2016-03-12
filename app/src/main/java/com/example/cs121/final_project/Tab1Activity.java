@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -34,6 +35,9 @@ import com.example.cs121.final_project.Edit_Ing_Dialogs.EditGrainDialog;
 import com.example.cs121.final_project.Edit_Ing_Dialogs.EditHopDialog;
 import com.example.cs121.final_project.Edit_Ing_Dialogs.EditMiscDialog;
 import com.example.cs121.final_project.Edit_Ing_Dialogs.EditYeastDialog;
+import com.github.johnpersano.supertoasts.SuperActivityToast;
+import com.github.johnpersano.supertoasts.SuperToast;
+import com.github.johnpersano.supertoasts.util.OnClickWrapper;
 //Meep Meep
 
 public class Tab1Activity extends Activity
@@ -49,7 +53,12 @@ public class Tab1Activity extends Activity
 
     public static Activity main_activity;
     private int index;
+    SuperActivityToast superActivityToast;
+    OnClickWrapper onClickWrapper;
     ListView lview;
+    Item previtem;
+    Integer prevpos;
+    Boolean undo;
 
     public void onCreate(Bundle savedInstanceState)
     {
@@ -57,7 +66,7 @@ public class Tab1Activity extends Activity
         setContentView(R.layout.activity_tab1);
 
         main_activity = this;
-
+        undo = false;
         lview = (ListView) findViewById(R.id.listView);
         list = new ArrayList<HashMap>();
         adapter = new ListViewAdapter(this, list);
@@ -128,43 +137,66 @@ public class Tab1Activity extends Activity
         lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Item myItem = itemList.get(position);
-                    index = position;
+                Item myItem = itemList.get(position);
+                index = position;
 
-                    switch (myItem.ing_type) {
-                        case 1: {
-                            EditGrainDialog cdd = new EditGrainDialog(Tab1Activity.this, myItem);
-                            cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                            cdd.setOnDismissListener(Tab1Activity.this);
-                            cdd.show();
-                            break;
-                        }
-                        case 2: {
-                            EditHopDialog cdd = new EditHopDialog(Tab1Activity.this, myItem);
-                            cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                            cdd.setOnDismissListener(Tab1Activity.this);
-                            cdd.show();
-                            break;
-                        }
-                        case 3: {
-                            EditYeastDialog cdd = new EditYeastDialog(Tab1Activity.this, myItem);
-                            cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                            cdd.setOnDismissListener(Tab1Activity.this);
-                            cdd.show();
-                            break;
-                        }
-                        case 4: {
-                            EditMiscDialog cdd = new EditMiscDialog(Tab1Activity.this, myItem);
-                            cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                            cdd.setOnDismissListener(Tab1Activity.this);
-                            cdd.show();
-                            break;
-                        }
-                        default:
-                            break;
+                switch (myItem.ing_type) {
+                    case 1: {
+                        EditGrainDialog cdd = new EditGrainDialog(Tab1Activity.this, myItem);
+                        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        cdd.setOnDismissListener(Tab1Activity.this);
+                        cdd.show();
+                        break;
                     }
+                    case 2: {
+                        EditHopDialog cdd = new EditHopDialog(Tab1Activity.this, myItem);
+                        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        cdd.setOnDismissListener(Tab1Activity.this);
+                        cdd.show();
+                        break;
+                    }
+                    case 3: {
+                        EditYeastDialog cdd = new EditYeastDialog(Tab1Activity.this, myItem);
+                        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        cdd.setOnDismissListener(Tab1Activity.this);
+                        cdd.show();
+                        break;
+                    }
+                    case 4: {
+                        EditMiscDialog cdd = new EditMiscDialog(Tab1Activity.this, myItem);
+                        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        cdd.setOnDismissListener(Tab1Activity.this);
+                        cdd.show();
+                        break;
+                    }
+                    default:
+                        break;
+                }
             }
         });
+        onClickWrapper = new OnClickWrapper("superactivitytoast", new SuperToast.OnClickListener() {
+
+            @Override
+            public void onClick(View view, Parcelable token) {
+                undo = true;
+                switch (previtem.ing_type){
+                    case 1:
+                        putGrain(previtem, false);
+                        break;
+                    case 2:
+                        putHop(previtem, false);
+                        break;
+                    case 3:
+                        putYeast(previtem, false);
+                        break;
+                    case 4:
+                        putMisc(previtem, false);
+                        break;
+                }
+            }
+
+        });
+
         SwipeDismissListViewTouchListener touchListener =
                 new SwipeDismissListViewTouchListener(
                         lview,
@@ -176,9 +208,19 @@ public class Tab1Activity extends Activity
 
                             @Override
                             public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                                if (superActivityToast != null)
+                                    superActivityToast.dismiss();
                                 for (int position : reverseSortedPositions) {
+                                    previtem = itemList.get(position);
+                                    prevpos = position;
                                     itemList.remove(position);
                                     list.remove(position);
+                                    superActivityToast = new SuperActivityToast(Tab1Activity.this, SuperToast.Type.BUTTON);
+                                    superActivityToast.setDuration(SuperToast.Duration.EXTRA_LONG);
+                                    superActivityToast.setText("Ingredient Removed");
+                                    superActivityToast.setButtonIcon(SuperToast.Icon.Dark.UNDO, "UNDO");
+                                    superActivityToast.setOnClickWrapper(onClickWrapper);
+                                    superActivityToast.show();
                                 }
                                 adapter.notifyDataSetChanged();
                             }
@@ -187,6 +229,7 @@ public class Tab1Activity extends Activity
         // Setting this scroll listener is required to ensure that during ListView scrolling,
         // we don't look for swipes.
         lview.setOnScrollListener(touchListener.makeScrollListener());
+
     }
 
     public void onSaveInstanceState(Bundle savedState) {
@@ -205,25 +248,6 @@ public class Tab1Activity extends Activity
         closeInput(getWindow().getDecorView());
     }
 
-//    public void updateList() {
-//        adapter.notifyDataSetChanged();
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            public void run() {
-//                hideKeyboard();
-//            }
-//        }, 100);
-//    }
-
-
-//    private void hideKeyboard() {
-//        // Check if no view has focus:
-//        View view = this.getCurrentFocus();
-//        if (view != null) {
-//            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-//            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-//        }
-//    }
 
     public static void closeInput(final View caller) {
         caller.postDelayed(new Runnable() {
@@ -247,9 +271,11 @@ public class Tab1Activity extends Activity
         if(edit) {
             itemList.set(index, newItem);
             list.set(index, newRow);
-        }
-
-        else {
+        }else if(undo){
+            itemList.add(prevpos, newItem);
+            list.add(prevpos, newRow);
+            undo = false;
+        } else {
             itemList.add(newItem);
             list.add(newRow);
         }
@@ -270,9 +296,11 @@ public class Tab1Activity extends Activity
         if(edit) {
             itemList.set(index, newItem);
             list.set(index, newRow);
-        }
-
-        else {
+        }else if(undo){
+            itemList.add(prevpos, newItem);
+            list.add(prevpos, newRow);
+            undo = false;
+        } else {
             itemList.add(newItem);
             list.add(newRow);
         }
@@ -291,9 +319,11 @@ public class Tab1Activity extends Activity
         if(edit) {
             itemList.set(index, newItem);
             list.set(index, newRow);
-        }
-
-        else {
+        }else if(undo){
+            itemList.add(prevpos, newItem);
+            list.add(prevpos, newRow);
+            undo = false;
+        } else {
             itemList.add(newItem);
             list.add(newRow);
         }
@@ -316,9 +346,11 @@ public class Tab1Activity extends Activity
         if(edit) {
             itemList.set(index, newItem);
             list.set(index, newRow);
-        }
-
-        else {
+        }else if(undo){
+            itemList.add(prevpos, newItem);
+            list.add(prevpos, newRow);
+            undo = false;
+        } else {
             itemList.add(newItem);
             list.add(newRow);
         }
