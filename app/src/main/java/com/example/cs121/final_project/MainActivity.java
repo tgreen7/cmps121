@@ -33,8 +33,8 @@ public class MainActivity extends TabActivity
         tab1.setIndicator("Recipe");
         tab1.setContent(new Intent(this, Tab1Activity.class));
 
-        tab2.setIndicator("select grain");
-        tab2.setContent(new Intent(this, PickGrainActivity.class));
+        tab2.setIndicator("Beer Stats");
+        tab2.setContent(new Intent(this, BeerStatsActivity.class));
 
         /** Add the tabs  to the TabHost to display. */
         tabHost.addTab(tab1);

@@ -3,11 +3,11 @@ package com.example.cs121.final_project;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Tab2Activity extends AppCompatActivity {
+public class BeerStatsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab2);
+        setContentView(R.layout.activity_beer_stats);
     }
 }
