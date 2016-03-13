@@ -3,12 +3,14 @@ package com.example.cs121.final_project;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -32,6 +34,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -52,6 +55,8 @@ import com.example.cs121.final_project.Edit_Ing_Dialogs.EditYeastDialog;
 import com.github.johnpersano.supertoasts.SuperActivityToast;
 import com.github.johnpersano.supertoasts.SuperToast;
 import com.github.johnpersano.supertoasts.util.OnClickWrapper;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 //Meep Meep
 //Meep
 
@@ -63,7 +68,6 @@ public class Tab1Activity extends Activity
     private ArrayList<HashMap> list;
     private ArrayList<Item> itemList;
 
-    private EditText name;
     private ListViewAdapter adapter;
 
     public static Activity main_activity;
@@ -75,8 +79,8 @@ public class Tab1Activity extends Activity
     Integer prevpos;
     Double oGravity, fGravity;
     Boolean undo;
-    EditText batch_size, efficiency, boil_time;
-    Spinner spinner;
+    EditText name, batch_size, efficiency, boil_time;
+    Spinner type, style;
     public static Button sendButton;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -88,6 +92,8 @@ public class Tab1Activity extends Activity
         boil_time = (EditText) findViewById(R.id.boil_time);
         batch_size = (EditText) findViewById(R.id.batch);
         name = (EditText) findViewById(R.id.recipeName);
+        type = (Spinner) findViewById(R.id.spinner_types);
+        style = (Spinner) findViewById(R.id.spinner_styles);
 
         spinner = (Spinner) findViewById(R.id.spinner_types);
         ArrayAdapter<CharSequence> spin_adapter = ArrayAdapter.createFromResource(this,
@@ -111,38 +117,34 @@ public class Tab1Activity extends Activity
         if (savedInstanceState != null) {
             ArrayList<Item> values = (ArrayList<Item>) savedInstanceState.getSerializable("myItems");
             if (values != null) {
+                repopulateList(values);
                 itemList = values;
-                Iterator<Item> iter = itemList.iterator();
-//                System.out.println(iter.next().name);
-                while (iter.hasNext()) {
-                    Item t = iter.next();
-                    switch (t.ing_type) {
-                        case 1:
-                            putGrain(t, false);
-                            break;
-
-                        case 2:
-                            putHop(t, false);
-                            break;
-
-                        case 3:
-                            putYeast(t, false);
-                            break;
-
-                        case 4:
-                            putMisc(t, false);
-                            break;
-
-                        default:
-                            break;
-
-                    }
-                }
             }
-        } else {
-            itemList = new ArrayList<Item>();
-
         }
+        else {
+            itemList = new ArrayList<Item>();
+        }
+
+        sendButton = (Button) findViewById(R.id.sendButton);
+
+        Spinner spinner = (Spinner) findViewById(R.id.spinner_types);
+// Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> spin_adapter = ArrayAdapter.createFromResource(this,
+                R.array.beer_types_array, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+        spin_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+        spinner.setAdapter(spin_adapter);
+
+
+        spinner = (Spinner) findViewById(R.id.spinner_styles);
+// Create an ArrayAdapter using the string array and a default spinner layout
+        spin_adapter = ArrayAdapter.createFromResource(this,
+                R.array.beer_styles_array, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+        spin_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+        spinner.setAdapter(spin_adapter);
 
         efficiency.setText("70");
         boil_time.setText("60");
@@ -151,6 +153,30 @@ public class Tab1Activity extends Activity
         updateGravity();
 
         setListeners();
+    }
+
+    private void repopulateList(ArrayList<Item> values) {
+        itemList.clear();
+        list.clear();
+        for(int i = 0; i < values.size(); i++) {
+            Item t = values.get(i);
+            switch (t.ing_type){
+                case 1: putGrain(t, false);
+                    break;
+
+                case 2: putHop(t, false);
+                    break;
+
+                case 3: putYeast(t, false);
+                    break;
+
+                case 4: putMisc(t, false);
+                    break;
+
+                default: break;
+            }
+        }
+        adapter.notifyDataSetChanged();
     }
 
     public static void hideSendButton() {
@@ -350,6 +376,60 @@ public class Tab1Activity extends Activity
                 }
                 break;
             }
+            case(5) : {
+                if (resultCode == Activity.RESULT_OK) {
+                    String recipeName = data.getStringExtra("recipeName");
+                    System.out.println(recipeName);
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+                    Gson gson = new Gson();
+                    String json = prefs.getString("MyRecipeNames", null);
+                    if (json != null) {
+                        Type t = new TypeToken<ArrayList<MetaInfo>>() {}.getType();
+                        ArrayList<MetaInfo> values  = (ArrayList<MetaInfo>) gson.fromJson(json, t);
+                        if (values != null) {
+                            for (MetaInfo rec : values){
+                                if (recipeName.equals(rec.name)){
+                                    name.setText(rec.name);
+                                    efficiency.setText(rec.effic.toString());
+                                    boil_time.setText(rec.boilTime.toString());
+                                    batch_size.setText(rec.boilTime.toString());
+
+                                    type.setSelection(0);
+                                    int i = 0;
+                                    while(!(rec.type.equals(type.getSelectedItem().toString()))) {
+                                        type.setSelection((i+1));
+                                        i++;
+                                    }
+                                    style.setSelection(0);
+                                    i = 0;
+                                    while(!(rec.style.equals(style.getSelectedItem().toString()))) {
+                                        style.setSelection((i+1));
+                                        i++;
+                                    }
+                                }
+                            }
+                            System.out.println(values.get(0).name);
+                            EditText nameT = (EditText) findViewById(R.id.recipeName);
+                            nameT.setText(recipeName);
+                        }
+                    }
+
+                    gson = new Gson();
+                    json = prefs.getString(recipeName, null);
+                    if (json != null) {
+                        Type type = new TypeToken<ArrayList<Item>>() {}.getType();
+                        ArrayList<Item> values  = (ArrayList<Item>) gson.fromJson(json, type);
+                        if (values != null) {
+                            System.out.println(values.get(0).name);
+                            repopulateList(values);
+                            EditText nameT = (EditText) findViewById(R.id.recipeName);
+                            nameT.setText(recipeName);
+                        }
+                    }
+                }
+                break;
+            }
         }
     }
 
@@ -386,74 +466,70 @@ public class Tab1Activity extends Activity
         return result;
     }
 
-    public void sendEmail(View view) {
-        Log.i("Send email", "");
-
-        String[] TO = {"greenmachine777@gmail.com"};
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        emailIntent.setData(Uri.parse("mailto:"));
-        emailIntent.setType("text/plain");
-
-
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your Beer Recipe");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
-
-        try {
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            Log.i("Sent email", "");
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(Tab1Activity.this,
-                    "There is no email client installed.", Toast.LENGTH_SHORT).show();
-        }
+    public void launchRecipes(View view) {
+        Intent intent = new Intent(this, RecipeList.class);
+        startActivityForResult(intent, 5);
     }
 
     public void saveText (View view) {
-        try {
-            OutputStreamWriter out = new OutputStreamWriter(openFileOutput("TextFile", 0));
-            EditText name = (EditText) findViewById(R.id.recipeName);
-            String text = name.getText().toString();
-            out.write(text);
-            out.write('\n');
-            out.close();
-            Toast.makeText(this, "The contents are saved in the file.", Toast.LENGTH_LONG).show();
-        } catch (Throwable t) {
-
-            Toast.makeText(this, "Exception: " + t.toString(), Toast.LENGTH_LONG).show();
+        if(name.getText().toString().equals("")){
+            Toast.makeText(this, "Please enter a name for your recipe.", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(itemList.isEmpty()){
+            Toast.makeText(this, "Please add at least once ingredient to your recipe.", Toast.LENGTH_LONG).show();
+            return;
 
         }
-        //Toast.makeText(this, "Save not implemented yet.", Toast.LENGTH_SHORT).show();
-    }
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        SharedPreferences.Editor prefsEditor = prefs.edit();
 
-    public void readFileInEditor(View view)
-    {
-        try {
-            InputStream in = openFileInput("TextFile");
+        MetaInfo info = new MetaInfo(name.getText().toString(), Double.parseDouble(efficiency.getText().toString()),
+                type.getSelectedItem().toString(), style.getSelectedItem().toString(),
+                Double.parseDouble(boil_time.getText().toString()), Double.parseDouble(batch_size.getText().toString()));
 
-            if (in != null) {
+//        use.setSelection(0);
+//        while(!(use_text.equals(use.getSelectedItem().toString()))) {
+//            use.setSelection((i+1));
+//            i++;
+//        }
 
-                InputStreamReader tmp=new InputStreamReader(in);
-
-                BufferedReader reader=new BufferedReader(tmp);
-
-                String str;
-
-                StringBuilder buf=new StringBuilder();
-
-                while ((str = reader.readLine()) != null) {
-                    buf.append(str+"\n");
+        ArrayList<MetaInfo> recipeNames;
+        Gson gson = new Gson();
+        String json = prefs.getString("MyRecipeNames", null);
+        boolean in = false;
+        if (json != null) {
+            Type type = new TypeToken<ArrayList<MetaInfo>>() {}.getType();
+            recipeNames  = (ArrayList<MetaInfo>) gson.fromJson(json, type);
+            if (recipeNames != null) {
+                for(int i = 0; i < recipeNames.size(); i++) {
+                    if (recipeNames.get(i).name.equals(info.name)) {
+                        recipeNames.set(i, info);
+                        Toast.makeText(this, "Your recipe has been updated.", Toast.LENGTH_SHORT).show();
+                        in = true;
+                        break;
+                    }
                 }
-                in.close();
-//                TextView txtEditor = (TextView) findViewById(R.id.textView3);
-//                txtEditor.setText(buf.toString());
+                if(!in) {
+                    recipeNames.add(info);
+                }
             }
+        } else {
+            recipeNames = new ArrayList<MetaInfo>();
+            recipeNames.add(info);
         }
-        catch (java.io.FileNotFoundException e) {
-// that's OK, we probably haven't created it yet
+        if (!in) {
+            Toast.makeText(this, "Your recipe has been saved.", Toast.LENGTH_SHORT).show();
         }
-        catch (Throwable t) {
-            Toast.makeText(this, "Exception: " + t.toString(), Toast.LENGTH_LONG).show();
-        }
+
+        gson = new Gson();
+        json = gson.toJson(recipeNames);
+        prefsEditor.putString("MyRecipeNames", json);
+
+        gson = new Gson();
+        json = gson.toJson(itemList);
+        prefsEditor.putString(info.name, json);
+        prefsEditor.commit();
     }
 
     public Double parseIBU(Double weight, Integer time, Double dbl1) {

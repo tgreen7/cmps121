@@ -368,9 +368,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:text="Read Recipe"
-        android:onClick="readFileInEditor"/>
+        android:layout_alignParentStart="true" 
+        android:text="View Recipes"
+        android:onClick="launchRecipes"/>
 
 
 </RelativeLayout>
