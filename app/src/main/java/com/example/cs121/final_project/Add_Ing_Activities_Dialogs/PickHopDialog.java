@@ -143,12 +143,12 @@ public class PickHopDialog extends Dialog implements
 
         Spinner spinner = (Spinner) findViewById(R.id.weight_type);
         int timeparse = Integer.parseInt(boilTime.getText().toString());
-        Float weightparse = Float.parseFloat(weight.getText().toString());
+        Double weightparse = Double.parseDouble(weight.getText().toString());
         if (dry.isChecked()) timeparse *= 1440;
-        if (spinner.getSelectedItem().toString().equals("Oz")) weightparse *= 28.3495f;
+        if (spinner.getSelectedItem().toString().equals("Oz")) weightparse *= 28.3495;
         Item hop = new Item(2, timeparse, name.getText().toString(),
                 type.getText().toString(), null, null, null,
-                Float.parseFloat(alpha.getText().toString()), null,
+                Double.parseDouble(alpha.getText().toString()), null,
                 weightparse, wort.isChecked(), dry.isChecked());
         MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
         activity.setItem(hop);

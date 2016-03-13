@@ -80,7 +80,7 @@ public class PickHopActivity extends AppCompatActivity implements PickHopDialog.
                 // TODO Auto-generated method stub
                 String query = searchQuery.getText().toString();
                 if (!query.equals("")) {
-                    System.out.println(query);
+//                    System.out.println(query);
                     populateList(query);
                     adapter.notifyDataSetChanged();
                 } else {
@@ -109,7 +109,7 @@ public class PickHopActivity extends AppCompatActivity implements PickHopDialog.
                 String name = (String) map.get("First");
                 String alpha = map.get("Second").toString();
                 String type = (String) map.get("Third");
-                System.out.println("name: " + name + "  alpha: " + alpha + " type: " + type);
+//                System.out.println("name: " + name + "  alpha: " + alpha + " type: " + type);
 
                 PickHopDialog cdd = new PickHopDialog(PickHopActivity.this, name, alpha, type);
                 cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

@@ -26,7 +26,7 @@ public class EditGrainDialog extends Dialog implements android.view.View.OnClick
     public Spinner use, time_type;
 
     public String name_text, type_text, use_text;
-    public Float org_color, org_potential, org_weight;
+    public Double org_color, org_potential, org_weight;
     public Integer org_time;
     public EditText name, type, weight_oz, weight_lb, time, color, potential;
 
@@ -37,8 +37,8 @@ public class EditGrainDialog extends Dialog implements android.view.View.OnClick
         this.type_text = item.type;
         this.use_text  = item.str3;
         this.org_time = item.time;
-        this.org_color = item.flt1;
-        this.org_potential = item.flt2;
+        this.org_color = item.dbl1;
+        this.org_potential = item.dbl2;
         this.org_weight = item.weight;
     }
 
@@ -154,13 +154,13 @@ public class EditGrainDialog extends Dialog implements android.view.View.OnClick
         }
 
         int timeparse = Integer.parseInt(time.getText().toString());
-        Float weightlbparse = Float.parseFloat(weight_lb.getText().toString()) * 16;
-        Float weightoz = Float.parseFloat(weight_oz.getText().toString());
+        Double weightlbparse = Double.parseDouble(weight_lb.getText().toString()) * 16;
+        Double weightoz = Double.parseDouble(weight_oz.getText().toString());
         if (time_type.getSelectedItem().toString().equals("Days")) timeparse *= 1440;
         Item grain = new Item(1, timeparse, name.getText().toString(),
                 type.getText().toString(), null, null, use.getSelectedItem().toString(),
-                Float.parseFloat(color.getText().toString()),
-                Float.parseFloat(potential.getText().toString()),
+                Double.parseDouble(color.getText().toString()),
+                Double.parseDouble(potential.getText().toString()),
                 (weightlbparse+weightoz), null, null);
 
         MyDialogFragmentListener activity = (MyDialogFragmentListener) c;

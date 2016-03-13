@@ -14,10 +14,10 @@ public class Item implements Serializable {
     public String str1;
     public String str2;
     public String str3;
-    public Float flt1, flt2, weight;
+    public Double dbl1, dbl2, weight;
     public Boolean wort, dry;
     public Item(Integer ing_type, Integer time, String name, String type, String str1, String str2,
-                String str3, Float flt1, Float flt2, Float weight, Boolean wort, Boolean dry){
+                String str3, Double dbl1, Double dbl2, Double weight, Boolean wort, Boolean dry){
 
         this.ing_type   = ing_type;
         this.time       = time;
@@ -26,8 +26,8 @@ public class Item implements Serializable {
         this.str1       = str1;
         this.str2       = str2;
         this.str3       = str3;
-        this.flt1       = flt1;
-        this.flt2       = flt2;
+        this.dbl1       = dbl1;
+        this.dbl2       = dbl2;
         this.weight     = weight;
         this.wort       = wort;
         this.dry        = dry;

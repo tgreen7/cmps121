@@ -10,4 +10,11 @@ public class BeerStatsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beer_stats);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Double data = DataHolder.getInstance().getIBU();
+        System.out.println(data);
+    }
 }
