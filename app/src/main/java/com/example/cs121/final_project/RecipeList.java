@@ -27,16 +27,20 @@ public class RecipeList extends AppCompatActivity {
         final ListView recipeList = (ListView) findViewById(R.id.recipeList);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
-        ArrayList<String> recipeNames;
+        ArrayList<MetaInfo> recipes;
         Gson gson = new Gson();
         String json = prefs.getString("MyRecipeNames", null);
         if (json != null) {
-            Type type = new TypeToken<ArrayList<String>>() {}.getType();
-            recipeNames  = (ArrayList<String>) gson.fromJson(json, type);
+            Type type = new TypeToken<ArrayList<MetaInfo>>() {}.getType();
+            recipes  = (ArrayList<MetaInfo>) gson.fromJson(json, type);
         } else {
-            recipeNames = new ArrayList<String>();
+            recipes = new ArrayList<MetaInfo>();
         }
 
+        ArrayList<String> recipeNames = new ArrayList<>();
+        for(int i = 0; i < recipes.size(); i++) {
+            recipeNames.add(recipes.get(i).name);
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, recipeNames);
@@ -51,23 +55,12 @@ public class RecipeList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-
-                // ListView Clicked item index
-                int itemPosition = position;
-
                 // ListView Clicked item value
                 String itemValue = (String) recipeList.getItemAtPosition(position);
-
-                // Show Alert
-                Toast.makeText(getApplicationContext(),
-                        "Position :" + itemPosition + "  ListItem : " + itemValue, Toast.LENGTH_LONG)
-                        .show();
-
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("recipeName", itemValue);
                 setResult(Activity.RESULT_OK, resultIntent);
                 finish();
-
             }
 
         });

@@ -68,7 +68,6 @@ public class Tab1Activity extends Activity
     private ArrayList<HashMap> list;
     private ArrayList<Item> itemList;
 
-    private EditText name;
     private ListViewAdapter adapter;
 
     public static Activity main_activity;
@@ -79,7 +78,8 @@ public class Tab1Activity extends Activity
     Item previtem;
     Integer prevpos;
     Boolean undo;
-    EditText batch_size;
+    EditText name, batch_size, efficiency, boil_time;
+    Spinner type, style;
     public static Button sendButton;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -105,6 +105,7 @@ public class Tab1Activity extends Activity
 //        }
 
         if (savedInstanceState != null) {
+            ArrayList<Item> values = (ArrayList<Item>) savedInstanceState.getSerializable("myItems");
             if (values != null) {
                 repopulateList(values);
                 itemList = values;
@@ -136,11 +137,12 @@ public class Tab1Activity extends Activity
         spinner.setAdapter(spin_adapter);
 
 
-        EditText efficiency = (EditText) findViewById(R.id.efficiency);
-        EditText boil_time = (EditText) findViewById(R.id.boil_time);
+        efficiency = (EditText) findViewById(R.id.efficiency);
+        boil_time = (EditText) findViewById(R.id.boil_time);
         batch_size = (EditText) findViewById(R.id.batch);
-
         name = (EditText) findViewById(R.id.recipeName);
+        type = (Spinner) findViewById(R.id.spinner_types);
+        style = (Spinner) findViewById(R.id.spinner_styles);
 
         efficiency.setText("70");
         boil_time.setText("60");
@@ -264,8 +266,6 @@ public class Tab1Activity extends Activity
     private void repopulateList(ArrayList<Item> values) {
         itemList.clear();
         list.clear();
-        Iterator<Item> iter = values.iterator();
-//                System.out.println(iter.next().name);
         for(int i = 0; i < values.size(); i++) {
             Item t = values.get(i);
             switch (t.ing_type){
@@ -490,8 +490,42 @@ public class Tab1Activity extends Activity
                     String recipeName = data.getStringExtra("recipeName");
                     System.out.println(recipeName);
                     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
                     Gson gson = new Gson();
-                    String json = prefs.getString(recipeName, null);
+                    String json = prefs.getString("MyRecipeNames", null);
+                    if (json != null) {
+                        Type t = new TypeToken<ArrayList<MetaInfo>>() {}.getType();
+                        ArrayList<MetaInfo> values  = (ArrayList<MetaInfo>) gson.fromJson(json, t);
+                        if (values != null) {
+                            for (MetaInfo rec : values){
+                                if (recipeName.equals(rec.name)){
+                                    name.setText(rec.name);
+                                    efficiency.setText(rec.effic.toString());
+                                    boil_time.setText(rec.boilTime.toString());
+                                    batch_size.setText(rec.boilTime.toString());
+
+                                    type.setSelection(0);
+                                    int i = 0;
+                                    while(!(rec.type.equals(type.getSelectedItem().toString()))) {
+                                        type.setSelection((i+1));
+                                        i++;
+                                    }
+                                    style.setSelection(0);
+                                    i = 0;
+                                    while(!(rec.style.equals(style.getSelectedItem().toString()))) {
+                                        style.setSelection((i+1));
+                                        i++;
+                                    }
+                                }
+                            }
+                            System.out.println(values.get(0).name);
+                            EditText nameT = (EditText) findViewById(R.id.recipeName);
+                            nameT.setText(recipeName);
+                        }
+                    }
+
+                    gson = new Gson();
+                    json = prefs.getString(recipeName, null);
                     if (json != null) {
                         Type type = new TypeToken<ArrayList<Item>>() {}.getType();
                         ArrayList<Item> values  = (ArrayList<Item>) gson.fromJson(json, type);
@@ -547,9 +581,7 @@ public class Tab1Activity extends Activity
     }
 
     public void saveText (View view) {
-        EditText nameT = (EditText) findViewById(R.id.recipeName);
-        String name = nameT.getText().toString();
-        if(name.equals("")){
+        if(name.getText().toString().equals("")){
             Toast.makeText(this, "Please enter a name for your recipe.", Toast.LENGTH_LONG).show();
             return;
         }
@@ -561,21 +593,42 @@ public class Tab1Activity extends Activity
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         SharedPreferences.Editor prefsEditor = prefs.edit();
 
+        MetaInfo info = new MetaInfo(name.getText().toString(), Double.parseDouble(efficiency.getText().toString()),
+                type.getSelectedItem().toString(), style.getSelectedItem().toString(),
+                Double.parseDouble(boil_time.getText().toString()), Double.parseDouble(batch_size.getText().toString()));
 
-        ArrayList<String> recipeNames;
+//        use.setSelection(0);
+//        while(!(use_text.equals(use.getSelectedItem().toString()))) {
+//            use.setSelection((i+1));
+//            i++;
+//        }
+
+        ArrayList<MetaInfo> recipeNames;
         Gson gson = new Gson();
         String json = prefs.getString("MyRecipeNames", null);
+        boolean in = false;
         if (json != null) {
-            Type type = new TypeToken<ArrayList<String>>() {}.getType();
-            recipeNames  = (ArrayList<String>) gson.fromJson(json, type);
+            Type type = new TypeToken<ArrayList<MetaInfo>>() {}.getType();
+            recipeNames  = (ArrayList<MetaInfo>) gson.fromJson(json, type);
             if (recipeNames != null) {
-                if(!recipeNames.contains(name)) {
-                    recipeNames.add(name);
+                for(int i = 0; i < recipeNames.size(); i++) {
+                    if (recipeNames.get(i).name.equals(info.name)) {
+                        recipeNames.set(i, info);
+                        Toast.makeText(this, "Your recipe has been updated.", Toast.LENGTH_SHORT).show();
+                        in = true;
+                        break;
+                    }
+                }
+                if(!in) {
+                    recipeNames.add(info);
                 }
             }
         } else {
-            recipeNames = new ArrayList<String>();
-            recipeNames.add(name);
+            recipeNames = new ArrayList<MetaInfo>();
+            recipeNames.add(info);
+        }
+        if (!in) {
+            Toast.makeText(this, "Your recipe has been saved.", Toast.LENGTH_SHORT).show();
         }
 
         gson = new Gson();
@@ -584,9 +637,8 @@ public class Tab1Activity extends Activity
 
         gson = new Gson();
         json = gson.toJson(itemList);
-        prefsEditor.putString(name, json);
+        prefsEditor.putString(info.name, json);
         prefsEditor.commit();
-        Toast.makeText(this, "Your recipe has been saved.", Toast.LENGTH_LONG).show();
     }
 
     public Double parseIBU(Double weight, Integer time, Double dbl1) {
