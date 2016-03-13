@@ -661,7 +661,7 @@ public class Tab1Activity extends Activity
 
         });
 
-        SwipeDismissListViewTouchListener touchListener =
+        final SwipeDismissListViewTouchListener touchListener =
                 new SwipeDismissListViewTouchListener(
                         lview,
                         new SwipeDismissListViewTouchListener.DismissCallbacks() {
@@ -690,7 +690,37 @@ public class Tab1Activity extends Activity
                                 updateData();
                                 adapter.notifyDataSetChanged();
                             }
-                        });
+                        }){
+                    @Override
+                    public AbsListView.OnScrollListener makeScrollListener() {
+                        return new AbsListView.OnScrollListener() {
+                            boolean atTop = true;
+                            boolean hidden = false;
+                            @Override
+                            public void onScrollStateChanged(AbsListView absListView, int scrollState) {
+                                setEnabled(scrollState != AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL);
+                                if(absListView.getChildAt(0).getTop() == 0) {
+                                    if(!atTop) {
+                                        Tab1Activity.showSendButton();
+                                        atTop = true;
+                                        hidden = false;
+                                    }
+                                } else {
+                                    if(!hidden) {
+                                        Tab1Activity.hideSendButton();
+                                        atTop = false;
+                                        hidden= true;
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+                            }
+                        };
+                    }
+                };
+
         lview.setOnTouchListener(touchListener);
         // Setting this scroll listener is required to ensure that during ListView scrolling,
         // we don't look for swipes.

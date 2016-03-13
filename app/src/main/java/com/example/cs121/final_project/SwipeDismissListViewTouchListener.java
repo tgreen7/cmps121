@@ -153,24 +153,9 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
      */
     public AbsListView.OnScrollListener makeScrollListener() {
         return new AbsListView.OnScrollListener() {
-            boolean atTop = true;
-            boolean hidden = false;
             @Override
             public void onScrollStateChanged(AbsListView absListView, int scrollState) {
                 setEnabled(scrollState != AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL);
-                if(absListView.getChildAt(0).getTop() == 0) {
-                    if(!atTop) {
-                        Tab1Activity.showSendButton();
-                        atTop = true;
-                        hidden = false;
-                    }
-                } else {
-                    if(!hidden) {
-                        Tab1Activity.hideSendButton();
-                        atTop = false;
-                        hidden= true;
-                    }
-                }
             }
 
             @Override
