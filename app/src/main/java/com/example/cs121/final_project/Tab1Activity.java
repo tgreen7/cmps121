@@ -75,7 +75,7 @@ public class Tab1Activity extends Activity
     Boolean undo;
     EditText name, batch_size, efficiency, boil_time;
     Spinner type, style;
-    public static ImageButton sendButton;
+    public static ImageButton sendButton, recipesButton;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -87,6 +87,7 @@ public class Tab1Activity extends Activity
 //        prefs.edit().clear().apply();
 
         sendButton = (ImageButton) findViewById(R.id.sendButton);
+        recipesButton = (ImageButton) findViewById(R.id.showRecipesButton);
         efficiency = (EditText) findViewById(R.id.efficiency);
         boil_time = (EditText) findViewById(R.id.boil_time);
         batch_size = (EditText) findViewById(R.id.batch);
@@ -158,17 +159,21 @@ public class Tab1Activity extends Activity
         TranslateAnimation anim = new TranslateAnimation(0, 0, 0, 150); //first 0 is start point, 150 is end point horizontal
         anim.setDuration(250); // 1000 ms = 1second
         sendButton.startAnimation(anim);
+        recipesButton.startAnimation(anim);
         sendButton.setVisibility(View.GONE);
+        recipesButton.setVisibility(View.GONE);
     }
     public static void showSendButton() {
         TranslateAnimation anim = new TranslateAnimation(0, 0, 150, 0); //first 0 is start point, 150 is end point horizontal
         anim.setDuration(250); // 1000 ms = 1second
         sendButton.startAnimation(anim);
+        recipesButton.startAnimation(anim);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 sendButton.setVisibility(View.VISIBLE);
+                recipesButton.setVisibility(View.VISIBLE);
             }
         }, 250);
     }
