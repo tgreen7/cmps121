@@ -27,7 +27,7 @@ public class EditYeastDialog extends Dialog implements
     public Spinner amount_type;
 
     public String name_text, company_text, type_text, form_text, unit_text;
-    public Float org_amount;
+    public Double org_amount;
     public EditText name, company, type, amount, form;
 
     public EditYeastDialog(Activity a, Item item) {
@@ -117,7 +117,7 @@ public class EditYeastDialog extends Dialog implements
         Item yeast = new Item(3, null, name.getText().toString(),
                 type.getText().toString(), company.getText().toString(), form.getText().toString(),
                 spinner.getSelectedItem().toString(), null, null,
-                Float.parseFloat(amount.getText().toString()), null, null);
+                Double.parseDouble(amount.getText().toString()), null, null);
         MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
         activity.putYeast(yeast, true);
 

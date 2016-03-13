@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
@@ -77,10 +79,10 @@ public class Tab1Activity extends Activity
     Item previtem;
     Integer prevpos;
     Boolean undo;
+    EditText batch_size;
     public static Button sendButton;
 
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab1);
 
@@ -103,7 +105,6 @@ public class Tab1Activity extends Activity
 //        }
 
         if (savedInstanceState != null) {
-            ArrayList<Item> values = (ArrayList<Item>)  savedInstanceState.getSerializable("myItems");
             if (values != null) {
                 repopulateList(values);
                 itemList = values;
@@ -135,9 +136,9 @@ public class Tab1Activity extends Activity
         spinner.setAdapter(spin_adapter);
 
 
-        EditText efficiency =(EditText) findViewById(R.id.efficiency);
-        EditText boil_time =(EditText) findViewById(R.id.boil_time);
-        EditText batch_size =(EditText) findViewById(R.id.batch);
+        EditText efficiency = (EditText) findViewById(R.id.efficiency);
+        EditText boil_time = (EditText) findViewById(R.id.boil_time);
+        batch_size = (EditText) findViewById(R.id.batch);
 
         name = (EditText) findViewById(R.id.recipeName);
 
@@ -190,7 +191,7 @@ public class Tab1Activity extends Activity
             @Override
             public void onClick(View view, Parcelable token) {
                 undo = true;
-                switch (previtem.ing_type){
+                switch (previtem.ing_type) {
                     case 1:
                         putGrain(previtem, false);
                         break;
@@ -240,6 +241,24 @@ public class Tab1Activity extends Activity
         // Setting this scroll listener is required to ensure that during ListView scrolling,
         // we don't look for swipes.
         lview.setOnScrollListener(touchListener.makeScrollListener());
+
+        batch_size.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                updateIBUs();
+            }
+        });
     }
 
     private void repopulateList(ArrayList<Item> values) {
@@ -323,6 +342,7 @@ public class Tab1Activity extends Activity
         newRow.put(FOURTH_COLUMN, dataEntry[1]);
         newRow.put(FIFTH_COLUMN, "n/a");
 
+
         if(edit) {
             itemList.set(index, newItem);
             list.set(index, newRow);
@@ -342,11 +362,12 @@ public class Tab1Activity extends Activity
         HashMap newRow = new HashMap();
 
         String[] dataEntry = parseHop(newItem.weight, newItem.time);
+        Double IBU = parseIBU(newItem.weight, newItem.time, newItem.dbl1);
         newRow.put(FIRST_COLUMN, dataEntry[0]);
         newRow.put(SECOND_COLUMN, newItem.name);
         newRow.put(THIRD_COLUMN, newItem.type);
         newRow.put(FOURTH_COLUMN, dataEntry[1]);
-        newRow.put(FIFTH_COLUMN, "n/a");
+        newRow.put(FIFTH_COLUMN, String.format("%.1f", IBU));
 
         if(edit) {
             itemList.set(index, newItem);
@@ -359,8 +380,7 @@ public class Tab1Activity extends Activity
             itemList.add(newItem);
             list.add(newRow);
         }
-
-        adapter.notifyDataSetChanged();
+        updateIBUs();
     }
 
     public void putYeast(Item newItem, boolean edit) {
@@ -371,7 +391,7 @@ public class Tab1Activity extends Activity
         newRow.put(FOURTH_COLUMN, "-");
         newRow.put(FIFTH_COLUMN, "n/a");
 
-        if(edit) {
+        if (edit) {
             itemList.set(index, newItem);
             list.set(index, newRow);
         }else if(undo){
@@ -382,7 +402,6 @@ public class Tab1Activity extends Activity
             itemList.add(newItem);
             list.add(newRow);
         }
-
         adapter.notifyDataSetChanged();
     }
 
@@ -398,7 +417,7 @@ public class Tab1Activity extends Activity
         } else newRow.put(FOURTH_COLUMN, newItem.time + " min");
         newRow.put(FIFTH_COLUMN, "n/a");
 
-        if(edit) {
+        if (edit) {
             itemList.set(index, newItem);
             list.set(index, newRow);
         }else if(undo){
@@ -409,7 +428,6 @@ public class Tab1Activity extends Activity
             itemList.add(newItem);
             list.add(newRow);
         }
-
         adapter.notifyDataSetChanged();
     }
 
@@ -491,7 +509,7 @@ public class Tab1Activity extends Activity
     }
 
 
-    public String[] parseGrain(Float weight, int time){
+    public String[] parseGrain(Double weight, int time){
         String[] result = new String[2];
         int lb = 0;
         while (weight >= 16){
@@ -509,10 +527,10 @@ public class Tab1Activity extends Activity
         return result;
     }
 
-    public String[] parseHop(Float weight, int time){
+    public String[] parseHop(Double weight, int time){
         String[] result = new String[2];
-        if (weight >= 28.3495f){
-            Float oz = weight / 28.3495f;
+        if (weight >= 28.3495){
+            Double oz = weight / 28.3495;
             result[0] = String.format("%.1f oz", oz);
         }else result[0] = weight + " g";
 
@@ -569,6 +587,34 @@ public class Tab1Activity extends Activity
         prefsEditor.putString(name, json);
         prefsEditor.commit();
         Toast.makeText(this, "Your recipe has been saved.", Toast.LENGTH_LONG).show();
+    }
+
+    public Double parseIBU(Double weight, Integer time, Double dbl1) {
+        Double eq1 = Math.pow(0.000125, (1.00-1));
+        eq1 *= 1.65;
+        Double eq2 = 1 - (Math.pow(Math.E, (-0.04*time)));
+        eq2 /= 4.15;
+        Double eq3 = (dbl1 / 100) * (weight / 28.3495) * 7490;
+        if (batch_size.getText().toString().equals("")) eq3 = 0.0;
+        else eq3 /= Double.parseDouble(batch_size.getText().toString());
+        return (eq1 * eq2 * eq3);
+    }
+
+    public void updateIBUs(){
+        Double total = 0.0;
+        for(int i = itemList.size() - 1; i >= 0; i--){
+            Item item = itemList.get(i);
+            if(item.ing_type == 2){
+                Double IBU = parseIBU(item.weight, item.time, item.dbl1);
+                list.get(i).put(FIFTH_COLUMN, String.format("%.1f", IBU));
+                total += IBU;
+            }
+        }
+        adapter.notifyDataSetChanged();
+        DataHolder.getInstance().setIBU(total);
+    }
+    public void updateGravity(){
+
     }
 
 

@@ -111,7 +111,7 @@ public class PickYeastDialog extends Dialog implements
         Item yeast = new Item(3, null, name.getText().toString(),
                 type.getText().toString(), company.getText().toString(), form.getText().toString(),
                 spinner.getSelectedItem().toString(), null, null,
-                Float.parseFloat(amount.getText().toString()), null, null);
+                Double.parseDouble(amount.getText().toString()), null, null);
         MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
         activity.setItem(yeast);
 

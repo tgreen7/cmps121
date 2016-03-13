@@ -122,7 +122,7 @@ public class PickMiscDialog extends Dialog implements
         Item grain = new Item(4, timeparse, name.getText().toString(),
                 type.getText().toString(), use_type.getSelectedItem().toString(),
                 amount_type.getSelectedItem().toString(), null, null, null,
-                Float.parseFloat(weight.getText().toString()), null, null);
+                Double.parseDouble(weight.getText().toString()), null, null);
         MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
         activity.setItem(grain);
 

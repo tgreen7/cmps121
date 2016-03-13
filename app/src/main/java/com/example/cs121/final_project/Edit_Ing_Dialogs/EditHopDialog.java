@@ -27,7 +27,7 @@ public class EditHopDialog extends Dialog implements android.view.View.OnClickLi
     public Spinner spinner;
 
     public String name_text, type_text;
-    public Float org_alpha, org_weight;
+    public Double org_alpha, org_weight;
     public Integer org_time;
     public Boolean org_wort, org_dry;
     public EditText name, type, alpha, boilTime, weight;
@@ -41,7 +41,7 @@ public class EditHopDialog extends Dialog implements android.view.View.OnClickLi
         this.type_text = item.type;
         this.org_dry  = item.dry;
         this.org_time = item.time;
-        this.org_alpha = item.flt1;
+        this.org_alpha = item.dbl1;
         this.org_wort = item.wort;
         this.org_weight = item.weight;
     }
@@ -95,8 +95,8 @@ public class EditHopDialog extends Dialog implements android.view.View.OnClickLi
             boilTime.setText(days.toString());
         } else boilTime.setText(org_time.toString());
 
-        if (org_weight >= 28.3495f){
-            Float oz = org_weight / 28.3495f;
+        if (org_weight >= 28.3495){
+            Double oz = org_weight / 28.3495;
             weight.setText(String.format("%.1f", oz));
             spinner.setSelection(0);
         }else {
@@ -157,12 +157,12 @@ public class EditHopDialog extends Dialog implements android.view.View.OnClickLi
         if(checkEmpty()) return;
         Spinner spinner = (Spinner) findViewById(R.id.weight_type);
         int timeparse = Integer.parseInt(boilTime.getText().toString());
-        Float weightparse = Float.parseFloat(weight.getText().toString());
+        Double weightparse = Double.parseDouble(weight.getText().toString());
         if (dry.isChecked()) timeparse *= 1440;
-        if (spinner.getSelectedItem().toString().equals("Oz")) weightparse *= 28.3495f;
+        if (spinner.getSelectedItem().toString().equals("Oz")) weightparse *= 28.3495;
         Item hop = new Item(2, timeparse, name.getText().toString(),
                 type.getText().toString(), null, null, null,
-                Float.parseFloat(alpha.getText().toString()), null,
+                Double.parseDouble(alpha.getText().toString()), null,
                 weightparse, wort.isChecked(), dry.isChecked());
         MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
         activity.putHop(hop, true);

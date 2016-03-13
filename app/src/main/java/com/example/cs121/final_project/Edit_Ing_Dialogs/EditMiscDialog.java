@@ -28,7 +28,7 @@ public class EditMiscDialog extends Dialog implements
 
     public String name_text, type_text, use_text, org_amount_type;
     public Integer org_time;
-    public Float org_weight;
+    public Double org_weight;
     public EditText name, type, weight, time;
 
     public EditMiscDialog(Activity a, Item item) {
@@ -137,7 +137,7 @@ public class EditMiscDialog extends Dialog implements
         Item misc = new Item(4, timeparse, name.getText().toString(),
                 type.getText().toString(), use_type.getSelectedItem().toString(),
                 amount_type.getSelectedItem().toString(), null, null, null,
-                Float.parseFloat(weight.getText().toString()), null, null);
+                Double.parseDouble(weight.getText().toString()), null, null);
         MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
         activity.putMisc(misc, true);
 
