@@ -15,6 +15,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -175,6 +176,9 @@ public class Tab1Activity extends Activity
             }
         }, 250);
     }
+//    private void showSendButtonImm() {
+//        sendButton.setVisibility(View.VISIBLE);
+//    }
 
     public void onSaveInstanceState(Bundle savedState) {
 
@@ -191,6 +195,12 @@ public class Tab1Activity extends Activity
         // Do whatever
         closeInput(getWindow().getDecorView());
     }
+
+//    boolean willMyListScroll() {
+//        int pos = lview.getLastVisiblePosition();
+//        if(lview.getChildAt(pos) == null) return false;
+//        return((lview.getChildAt(pos).getBottom() > lview.getHeight()));
+//    }
 
 
     public static void closeInput(final View caller) {
