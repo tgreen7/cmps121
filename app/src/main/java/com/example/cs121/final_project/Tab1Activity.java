@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
@@ -81,31 +82,19 @@ public class Tab1Activity extends Activity
     Boolean undo;
     EditText name, batch_size, efficiency, boil_time;
     Spinner type, style;
-    public static Button sendButton;
+    public static ImageButton sendButton;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab1);
 
-        sendButton = (Button) findViewById(R.id.sendButton);
+        sendButton = (ImageButton) findViewById(R.id.sendButton);
         efficiency = (EditText) findViewById(R.id.efficiency);
         boil_time = (EditText) findViewById(R.id.boil_time);
         batch_size = (EditText) findViewById(R.id.batch);
         name = (EditText) findViewById(R.id.recipeName);
         type = (Spinner) findViewById(R.id.spinner_types);
         style = (Spinner) findViewById(R.id.spinner_styles);
-
-        spinner = (Spinner) findViewById(R.id.spinner_types);
-        ArrayAdapter<CharSequence> spin_adapter = ArrayAdapter.createFromResource(this,
-                R.array.beer_types_array, android.R.layout.simple_spinner_item);
-        spin_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(spin_adapter);
-
-        spinner = (Spinner) findViewById(R.id.spinner_styles);
-        spin_adapter = ArrayAdapter.createFromResource(this,
-                R.array.beer_styles_array, android.R.layout.simple_spinner_item);
-        spin_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(spin_adapter);
 
         main_activity = this;
         undo = false;
@@ -120,39 +109,28 @@ public class Tab1Activity extends Activity
                 repopulateList(values);
                 itemList = values;
             }
-        }
-        else {
+        } else {
             itemList = new ArrayList<Item>();
+
+            ArrayAdapter<CharSequence> spin_adapter = ArrayAdapter.createFromResource(this,
+                    R.array.beer_types_array, android.R.layout.simple_spinner_item);
+            spin_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            type.setAdapter(spin_adapter);
+
+
+            spin_adapter = ArrayAdapter.createFromResource(this,
+                    R.array.beer_styles_array, android.R.layout.simple_spinner_item);
+            spin_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            style.setAdapter(spin_adapter);
+
+            efficiency.setText("70");
+            boil_time.setText("60");
+            batch_size.setText("5.00");
+
+            updateGravity();
+
+            setListeners();
         }
-
-        sendButton = (Button) findViewById(R.id.sendButton);
-
-        Spinner spinner = (Spinner) findViewById(R.id.spinner_types);
-// Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> spin_adapter = ArrayAdapter.createFromResource(this,
-                R.array.beer_types_array, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
-        spin_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
-        spinner.setAdapter(spin_adapter);
-
-
-        spinner = (Spinner) findViewById(R.id.spinner_styles);
-// Create an ArrayAdapter using the string array and a default spinner layout
-        spin_adapter = ArrayAdapter.createFromResource(this,
-                R.array.beer_styles_array, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
-        spin_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
-        spinner.setAdapter(spin_adapter);
-
-        efficiency.setText("70");
-        boil_time.setText("60");
-        batch_size.setText("5.00");
-
-        updateGravity();
-
-        setListeners();
     }
 
     private void repopulateList(ArrayList<Item> values) {

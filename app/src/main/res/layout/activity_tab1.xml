@@ -353,24 +353,30 @@
         android:layout_below="@+id/headers"
         android:dividerHeight="0dp"/>
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:text="Save Recipe"
         android:id="@+id/sendButton"
-        android:onClick="saveText"/>
+        android:onClick="saveText"
+        android:src="@drawable/save"
+        android:background="@null"
+        android:scaleType="fitCenter" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" 
         android:text="View Recipes"
-        android:onClick="launchRecipes"/>
+        android:src="@drawable/open"
+        android:background="@null"
+        android:onClick="launchRecipes"
+        android:scaleType="fitCenter"/>
+
+
 
 
 </RelativeLayout>
