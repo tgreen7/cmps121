@@ -12,7 +12,9 @@ import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
@@ -20,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import static com.example.cs121.final_project.Constant.FIFTH_COLUMN;
@@ -75,7 +78,7 @@ public class Tab1Activity extends Activity
     Boolean undo;
     EditText name, batch_size, efficiency, boil_time;
     Spinner type, style;
-    public static ImageButton sendButton, recipesButton;
+    public static ImageButton saveButton, recipesButton;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -86,7 +89,7 @@ public class Tab1Activity extends Activity
 //        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
 //        prefs.edit().clear().apply();
 
-        sendButton = (ImageButton) findViewById(R.id.sendButton);
+        saveButton = (ImageButton) findViewById(R.id.saveButton);
         recipesButton = (ImageButton) findViewById(R.id.showRecipesButton);
         efficiency = (EditText) findViewById(R.id.efficiency);
         boil_time = (EditText) findViewById(R.id.boil_time);
@@ -156,23 +159,23 @@ public class Tab1Activity extends Activity
     }
 
     public static void hideSendButton() {
-        TranslateAnimation anim = new TranslateAnimation(0, 0, 0, 150); //first 0 is start point, 150 is end point horizontal
+        TranslateAnimation anim = new TranslateAnimation(0, 150, 0, 0); //first 0 is start point, 150 is end point horizontal
         anim.setDuration(250); // 1000 ms = 1second
-        sendButton.startAnimation(anim);
+        saveButton.startAnimation(anim);
         recipesButton.startAnimation(anim);
-        sendButton.setVisibility(View.GONE);
+        saveButton.setVisibility(View.GONE);
         recipesButton.setVisibility(View.GONE);
     }
     public static void showSendButton() {
-        TranslateAnimation anim = new TranslateAnimation(0, 0, 150, 0); //first 0 is start point, 150 is end point horizontal
+        TranslateAnimation anim = new TranslateAnimation(150, 0, 0, 0); //first 0 is start point, 150 is end point horizontal
         anim.setDuration(250); // 1000 ms = 1second
-        sendButton.startAnimation(anim);
+        saveButton.startAnimation(anim);
         recipesButton.startAnimation(anim);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                sendButton.setVisibility(View.VISIBLE);
+                saveButton.setVisibility(View.VISIBLE);
                 recipesButton.setVisibility(View.VISIBLE);
             }
         }, 250);
@@ -704,7 +707,7 @@ public class Tab1Activity extends Activity
                             @Override
                             public void onScrollStateChanged(AbsListView absListView, int scrollState) {
                                 setEnabled(scrollState != AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL);
-                                if(absListView.getChildAt(0).getTop() == 0) {
+                                if(absListView.getChildAt(0).getTop() == 0 ) {
                                     if(!atTop) {
                                         Tab1Activity.showSendButton();
                                         atTop = true;
@@ -750,6 +753,21 @@ public class Tab1Activity extends Activity
 
         batch_size.addTextChangedListener(change);
         efficiency.addTextChangedListener(change);
+
+
+//        saveButton.setOnTouchListener(new View.OnTouchListener() {
+//            public boolean onTouch(View v, MotionEvent me){
+//                ViewGroup.MarginLayoutParams marginParams = new ViewGroup.MarginLayoutParams(saveButton.getLayoutParams());
+//                int left = (int) me.getRawX() - (v.getWidth() / 2);
+//                int top = (int) me.getRawY() - (v.getHeight());
+//                marginParams.setMargins(left, top, 0, 0);
+//                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(marginParams);
+//                saveButton.setLayoutParams(layoutParams);
+//                return true;
+//            }
+//        });
+
+
     }
 
 }
