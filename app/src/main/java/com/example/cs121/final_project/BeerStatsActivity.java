@@ -14,7 +14,9 @@ public class BeerStatsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Double data = DataHolder.getInstance().getIBU();
-        System.out.println(data);
+        Double data = DataHolder.getInstance().getOG();
+        System.out.println("OG = " + data);
+        data = DataHolder.getInstance().getFG();
+        System.out.println("FG = " + data);
     }
 }

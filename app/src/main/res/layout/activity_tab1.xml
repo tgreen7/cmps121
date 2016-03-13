@@ -372,16 +372,6 @@
         android:text="Read Recipe"
         android:onClick="readFileInEditor"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="fawipejfw"
-        android:id="@+id/textView3"
-        android:layout_above="@+id/sendButton"
-        android:layout_alignLeft="@+id/batch_layout"
-        android:layout_alignStart="@+id/batch_layout"
-        android:layout_marginBottom="113dp" />
-
 
 </RelativeLayout>
 

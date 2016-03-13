@@ -32,6 +32,8 @@ import static com.example.cs121.final_project.Constant.FIRST_COLUMN;
 import static com.example.cs121.final_project.Constant.FOURTH_COLUMN;
 import static com.example.cs121.final_project.Constant.SECOND_COLUMN;
 import static com.example.cs121.final_project.Constant.THIRD_COLUMN;
+import static com.example.cs121.final_project.Constant.FIFTH_COLUMN;
+import static com.example.cs121.final_project.Constant.Attenuation;
 
 public class PickYeastActivity extends AppCompatActivity implements PickYeastDialog.MyDialogFragmentListener,
         DialogInterface.OnDismissListener {
@@ -101,10 +103,12 @@ public class PickYeastActivity extends AppCompatActivity implements PickYeastDia
                 Map<String, Object> map = (Map<String, Object>) parent.getItemAtPosition(position);
                 String name = (String) map.get("First");
                 String company = (String) map.get("Second");
-                String type = (String) map.get("Third");
-                String form = (String) map.get("Fourth");
+                String type = (String) map.get("Fourth");
+                String form = (String) map.get("Fifth");
+                String ID = map.get("Third").toString();
+                String Attenu = map.get("Attenu").toString();
 
-                PickYeastDialog cdd = new PickYeastDialog(PickYeastActivity.this, name, company, type, form);
+                PickYeastDialog cdd = new PickYeastDialog(PickYeastActivity.this, name, company, type, form, ID, Attenu);
                 cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 cdd.setOnDismissListener(PickYeastActivity.this);
                 cdd.show();
@@ -140,8 +144,10 @@ public class PickYeastActivity extends AppCompatActivity implements PickYeastDia
             HashMap temp = new HashMap();
             temp.put(FIRST_COLUMN, cursor.getString(1));
             temp.put(SECOND_COLUMN, cursor.getString(2));
-            temp.put(THIRD_COLUMN, YeastType[cursor.getInt(3)]);
-            temp.put(FOURTH_COLUMN, YeastForm[cursor.getInt(4)]);
+            temp.put(THIRD_COLUMN, cursor.getInt(5));
+            temp.put(FOURTH_COLUMN, YeastType[cursor.getInt(3)]);
+            temp.put(FIFTH_COLUMN, YeastForm[cursor.getInt(4)]);
+            temp.put(Attenuation, cursor.getInt(6));
             list.add(temp);
             cursor.moveToNext();
         }

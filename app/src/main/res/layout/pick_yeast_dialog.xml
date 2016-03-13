@@ -62,8 +62,6 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="start"
-        android:layout_marginBottom="20dp"
         android:paddingStart="20dp"
         android:paddingEnd="20dp">
 
@@ -73,7 +71,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/Type" />
+            android:text="ID"
+            android:textStyle="bold" />
 
         <EditText
             android:layout_marginStart="7dp"
@@ -82,7 +81,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
             android:backgroundTint="@color/gold"
-            android:id="@+id/typeText" />
+            android:id="@+id/IDtext" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -99,6 +98,55 @@
             android:textColor="@color/bright_white"
             android:backgroundTint="@color/gold"
             android:id="@+id/formText" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/Type" />
+
+        <EditText
+            android:layout_width="55dp"
+            android:inputType="text"
+            android:layout_height="wrap_content"
+            android:textColor="@color/bright_white"
+            android:backgroundTint="@color/gold"
+            android:id="@+id/typeText" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Attenuation"
+            android:paddingStart="10dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:layout_width="40dp"
+            android:inputType="text"
+            android:layout_height="wrap_content"
+            android:textColor="@color/bright_white"
+            android:backgroundTint="@color/gold"
+            android:id="@+id/attenuation"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="%"
+            android:id="@+id/textView3" />
 
 
     </LinearLayout>
@@ -171,7 +219,6 @@
             android:background="@drawable/buttonshape"/>
 
     </LinearLayout>
-
 
 
 </LinearLayout>

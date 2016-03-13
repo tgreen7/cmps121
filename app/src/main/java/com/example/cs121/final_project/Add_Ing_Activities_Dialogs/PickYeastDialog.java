@@ -27,10 +27,10 @@ public class PickYeastDialog extends Dialog implements
 
     public Spinner amount_type;
 
-    public String name_text, company_text, type_text, form_text;
-    public EditText name, company, type, amount, form;
+    public String name_text, company_text, type_text, form_text, ID_text, Attenu_text;
+    public EditText name, company, type, amount, form, ID, Attenu;
 
-    public PickYeastDialog (Activity a, String name, String company, String type, String form) {
+    public PickYeastDialog (Activity a, String name, String company, String type, String form, String ID, String Attenu) {
         super(a);
         // TODO Auto-generated constructor stub
         this.c = a;
@@ -38,6 +38,8 @@ public class PickYeastDialog extends Dialog implements
         this.company_text = company;
         this.type_text = type;
         this.form_text = form;
+        this.Attenu_text = Attenu;
+        this.ID_text = ID;
     }
 
     @Override
@@ -54,11 +56,15 @@ public class PickYeastDialog extends Dialog implements
         form = (EditText) findViewById(R.id.formText);
         type = (EditText) findViewById(R.id.typeText);
         amount = (EditText) findViewById(R.id.amountText);
+        ID = (EditText) findViewById(R.id.IDtext);
+        Attenu = (EditText) findViewById(R.id.attenuation);
 
         name.setText(name_text);
         type.setText(type_text);
         company.setText(company_text);
         form.setText(form_text);
+        ID.setText(ID_text);
+        Attenu.setText(Attenu_text);
 
         add.setOnClickListener(this);
         cancel.setOnClickListener(this);
@@ -110,7 +116,8 @@ public class PickYeastDialog extends Dialog implements
         Spinner spinner = (Spinner) findViewById(R.id.amountType);
         Item yeast = new Item(3, null, name.getText().toString(),
                 type.getText().toString(), company.getText().toString(), form.getText().toString(),
-                spinner.getSelectedItem().toString(), null, null,
+                spinner.getSelectedItem().toString(), Double.parseDouble(ID.getText().toString()),
+                Double.parseDouble(Attenu.getText().toString()),
                 Double.parseDouble(amount.getText().toString()), null, null);
         MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
         activity.setItem(yeast);

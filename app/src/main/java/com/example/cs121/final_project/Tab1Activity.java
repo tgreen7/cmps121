@@ -73,13 +73,33 @@ public class Tab1Activity extends Activity
     ListView lview;
     Item previtem;
     Integer prevpos;
+    Double oGravity, fGravity;
     Boolean undo;
-    EditText batch_size;
+    EditText batch_size, efficiency, boil_time;
+    Spinner spinner;
     public static Button sendButton;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab1);
+
+        sendButton = (Button) findViewById(R.id.sendButton);
+        efficiency = (EditText) findViewById(R.id.efficiency);
+        boil_time = (EditText) findViewById(R.id.boil_time);
+        batch_size = (EditText) findViewById(R.id.batch);
+        name = (EditText) findViewById(R.id.recipeName);
+
+        spinner = (Spinner) findViewById(R.id.spinner_types);
+        ArrayAdapter<CharSequence> spin_adapter = ArrayAdapter.createFromResource(this,
+                R.array.beer_types_array, android.R.layout.simple_spinner_item);
+        spin_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spin_adapter);
+
+        spinner = (Spinner) findViewById(R.id.spinner_styles);
+        spin_adapter = ArrayAdapter.createFromResource(this,
+                R.array.beer_styles_array, android.R.layout.simple_spinner_item);
+        spin_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spin_adapter);
 
         main_activity = this;
         undo = false;
@@ -124,151 +144,13 @@ public class Tab1Activity extends Activity
 
         }
 
-        sendButton = (Button) findViewById(R.id.sendButton);
-
-        Spinner spinner = (Spinner) findViewById(R.id.spinner_types);
-// Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> spin_adapter = ArrayAdapter.createFromResource(this,
-                R.array.beer_types_array, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
-        spin_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
-        spinner.setAdapter(spin_adapter);
-
-
-        spinner = (Spinner) findViewById(R.id.spinner_styles);
-// Create an ArrayAdapter using the string array and a default spinner layout
-        spin_adapter = ArrayAdapter.createFromResource(this,
-                R.array.beer_styles_array, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
-        spin_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
-        spinner.setAdapter(spin_adapter);
-
-
-        EditText efficiency = (EditText) findViewById(R.id.efficiency);
-        EditText boil_time = (EditText) findViewById(R.id.boil_time);
-        batch_size = (EditText) findViewById(R.id.batch);
-
-        name = (EditText) findViewById(R.id.recipeName);
-
         efficiency.setText("70");
         boil_time.setText("60");
         batch_size.setText("5.00");
 
-        lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Item myItem = itemList.get(position);
-                index = position;
+        updateGravity();
 
-                switch (myItem.ing_type) {
-                    case 1: {
-                        EditGrainDialog cdd = new EditGrainDialog(Tab1Activity.this, myItem);
-                        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        cdd.setOnDismissListener(Tab1Activity.this);
-                        cdd.show();
-                        break;
-                    }
-                    case 2: {
-                        EditHopDialog cdd = new EditHopDialog(Tab1Activity.this, myItem);
-                        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        cdd.setOnDismissListener(Tab1Activity.this);
-                        cdd.show();
-                        break;
-                    }
-                    case 3: {
-                        EditYeastDialog cdd = new EditYeastDialog(Tab1Activity.this, myItem);
-                        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        cdd.setOnDismissListener(Tab1Activity.this);
-                        cdd.show();
-                        break;
-                    }
-                    case 4: {
-                        EditMiscDialog cdd = new EditMiscDialog(Tab1Activity.this, myItem);
-                        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        cdd.setOnDismissListener(Tab1Activity.this);
-                        cdd.show();
-                        break;
-                    }
-                    default:
-                        break;
-                }
-            }
-        });
-        onClickWrapper = new OnClickWrapper("superactivitytoast", new SuperToast.OnClickListener() {
-
-            @Override
-            public void onClick(View view, Parcelable token) {
-                undo = true;
-                switch (previtem.ing_type) {
-                    case 1:
-                        putGrain(previtem, false);
-                        break;
-                    case 2:
-                        putHop(previtem, false);
-                        break;
-                    case 3:
-                        putYeast(previtem, false);
-                        break;
-                    case 4:
-                        putMisc(previtem, false);
-                        break;
-                }
-            }
-
-        });
-
-        SwipeDismissListViewTouchListener touchListener =
-                new SwipeDismissListViewTouchListener(
-                        lview,
-                        new SwipeDismissListViewTouchListener.DismissCallbacks() {
-                            @Override
-                            public boolean canDismiss(int position) {
-                                return true;
-                            }
-
-                            @Override
-                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-                                if (superActivityToast != null)
-                                    superActivityToast.dismiss();
-                                for (int position : reverseSortedPositions) {
-                                    previtem = itemList.get(position);
-                                    prevpos = position;
-                                    itemList.remove(position);
-                                    list.remove(position);
-                                    superActivityToast = new SuperActivityToast(Tab1Activity.this, SuperToast.Type.BUTTON);
-                                    superActivityToast.setDuration(SuperToast.Duration.EXTRA_LONG);
-                                    superActivityToast.setText("Ingredient Removed");
-                                    superActivityToast.setButtonIcon(SuperToast.Icon.Dark.UNDO, "UNDO");
-                                    superActivityToast.setOnClickWrapper(onClickWrapper);
-                                    superActivityToast.show();
-                                }
-                                adapter.notifyDataSetChanged();
-                            }
-                        });
-        lview.setOnTouchListener(touchListener);
-        // Setting this scroll listener is required to ensure that during ListView scrolling,
-        // we don't look for swipes.
-        lview.setOnScrollListener(touchListener.makeScrollListener());
-
-        batch_size.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
-                updateIBUs();
-            }
-        });
+        setListeners();
     }
 
     public static void hideSendButton() {
@@ -338,8 +220,7 @@ public class Tab1Activity extends Activity
             itemList.add(newItem);
             list.add(newRow);
         }
-
-        adapter.notifyDataSetChanged();
+        updateGravity();
     }
 
     public void putHop(Item newItem, boolean edit) {
@@ -386,7 +267,7 @@ public class Tab1Activity extends Activity
             itemList.add(newItem);
             list.add(newRow);
         }
-        adapter.notifyDataSetChanged();
+        updateIBUs();
     }
 
     public void putMisc (Item newItem, boolean edit) {
@@ -563,8 +444,8 @@ public class Tab1Activity extends Activity
                     buf.append(str+"\n");
                 }
                 in.close();
-                TextView txtEditor = (TextView) findViewById(R.id.textView3);
-                txtEditor.setText(buf.toString());
+//                TextView txtEditor = (TextView) findViewById(R.id.textView3);
+//                txtEditor.setText(buf.toString());
             }
         }
         catch (java.io.FileNotFoundException e) {
@@ -576,7 +457,7 @@ public class Tab1Activity extends Activity
     }
 
     public Double parseIBU(Double weight, Integer time, Double dbl1) {
-        Double eq1 = Math.pow(0.000125, (1.00-1));
+        Double eq1 = Math.pow(0.000125, (oGravity-1));
         eq1 *= 1.65;
         Double eq2 = 1 - (Math.pow(Math.E, (-0.04*time)));
         eq2 /= 4.15;
@@ -600,8 +481,170 @@ public class Tab1Activity extends Activity
         DataHolder.getInstance().setIBU(total);
     }
     public void updateGravity(){
+        Double total = 0.0;
+        Double attenu = 0.0;
+        Integer attcount = 0;
+        for(int i = itemList.size() - 1; i >= 0; i--){
+            Item item = itemList.get(i);
+            if(item.ing_type == 1){
+                Double result = item.dbl2 * 1000;
+                result -= 1000;
+                result *= (item.weight / 16);
+                total += result;
+            }
+            if(item.ing_type == 3){
+                attenu += item.dbl2;
+                attcount++;
+            }
+        }
+
+        System.out.println("Points = " + total);
+        if (total == 0) {
+            oGravity = 1.0;
+            DataHolder.getInstance().setOG(1.0);
+            updateIBUs();
+        }else{
+            Double eff;
+            if(efficiency.getText().toString().equals("")) eff = 0.0;
+            else eff = Double.parseDouble(efficiency.getText().toString());
+            total *= (eff / 100);
+            System.out.println("After Eff = " + total);
+            if (batch_size.getText().toString().equals("")) total = 0.0;
+            else total /= Double.parseDouble(batch_size.getText().toString());
+            System.out.println("After Ferm = " + total);
+            total = (total / 1000) + 1;
+            oGravity = total;
+        }
+
+        if (attenu == 0) fGravity = oGravity;
+        else {
+            Double attresult = 1 - ((attenu / attcount)/100);
+            total = (total - 1) * 1000;
+            total *= attresult;
+            total = (total / 1000) + 1;
+            fGravity = total;
+        }
+        DataHolder.getInstance().setFG(fGravity);
+        DataHolder.getInstance().setOG(oGravity);
+        updateIBUs();
 
     }
+    private void setListeners() {
+        lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Item myItem = itemList.get(position);
+                index = position;
 
+                switch (myItem.ing_type) {
+                    case 1: {
+                        EditGrainDialog cdd = new EditGrainDialog(Tab1Activity.this, myItem);
+                        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        cdd.setOnDismissListener(Tab1Activity.this);
+                        cdd.show();
+                        break;
+                    }
+                    case 2: {
+                        EditHopDialog cdd = new EditHopDialog(Tab1Activity.this, myItem);
+                        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        cdd.setOnDismissListener(Tab1Activity.this);
+                        cdd.show();
+                        break;
+                    }
+                    case 3: {
+                        EditYeastDialog cdd = new EditYeastDialog(Tab1Activity.this, myItem);
+                        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        cdd.setOnDismissListener(Tab1Activity.this);
+                        cdd.show();
+                        break;
+                    }
+                    case 4: {
+                        EditMiscDialog cdd = new EditMiscDialog(Tab1Activity.this, myItem);
+                        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        cdd.setOnDismissListener(Tab1Activity.this);
+                        cdd.show();
+                        break;
+                    }
+                    default:
+                        break;
+                }
+            }
+        });
+        onClickWrapper = new OnClickWrapper("superactivitytoast", new SuperToast.OnClickListener() {
+
+            @Override
+            public void onClick(View view, Parcelable token) {
+                undo = true;
+                switch (previtem.ing_type) {
+                    case 1:
+                        putGrain(previtem, false);
+                        break;
+                    case 2:
+                        putHop(previtem, false);
+                        break;
+                    case 3:
+                        putYeast(previtem, false);
+                        break;
+                    case 4:
+                        putMisc(previtem, false);
+                        break;
+                }
+            }
+
+        });
+
+        SwipeDismissListViewTouchListener touchListener =
+                new SwipeDismissListViewTouchListener(
+                        lview,
+                        new SwipeDismissListViewTouchListener.DismissCallbacks() {
+                            @Override
+                            public boolean canDismiss(int position) {
+                                return true;
+                            }
+
+                            @Override
+                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                                if (superActivityToast != null)
+                                    superActivityToast.dismiss();
+                                for (int position : reverseSortedPositions) {
+                                    previtem = itemList.get(position);
+                                    prevpos = position;
+                                    itemList.remove(position);
+                                    list.remove(position);
+                                    superActivityToast = new SuperActivityToast(Tab1Activity.this, SuperToast.Type.BUTTON);
+                                    superActivityToast.setDuration(SuperToast.Duration.EXTRA_LONG);
+                                    superActivityToast.setText("Ingredient Removed");
+                                    superActivityToast.setButtonIcon(SuperToast.Icon.Dark.UNDO, "UNDO");
+                                    superActivityToast.setOnClickWrapper(onClickWrapper);
+                                    superActivityToast.show();
+                                }
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+        lview.setOnTouchListener(touchListener);
+        // Setting this scroll listener is required to ensure that during ListView scrolling,
+        // we don't look for swipes.
+        lview.setOnScrollListener(touchListener.makeScrollListener());
+
+        TextWatcher change = new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                updateGravity();
+            }
+        };
+
+        batch_size.addTextChangedListener(change);
+        efficiency.addTextChangedListener(change);
+    }
 
 }

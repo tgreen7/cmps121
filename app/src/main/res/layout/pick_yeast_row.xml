@@ -61,5 +61,17 @@
             android:paddingEnd="3dp">
         </TextView>
 
+        <TextView
+            android:id="@+id/FifthText"
+            android:text="@string/holder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="3dp"
+            android:paddingStart="3dp"
+            android:paddingRight="3dp"
+            android:paddingEnd="3dp">
+        </TextView>
+
     </LinearLayout>
 </FrameLayout>

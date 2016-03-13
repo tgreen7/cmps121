@@ -27,6 +27,7 @@
     <string name="add"><b>ADD</b></string>
     <string name="cancel"><b>CANCEL</b></string>
     <string name="save"><b>SAVE</b></string>
+    <string name="id">ID</string>
 
     <string-array name="beer_types_array">
         <item>All Grain</item>

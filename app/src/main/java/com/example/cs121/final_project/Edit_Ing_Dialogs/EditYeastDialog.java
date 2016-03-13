@@ -28,7 +28,8 @@ public class EditYeastDialog extends Dialog implements
 
     public String name_text, company_text, type_text, form_text, unit_text;
     public Double org_amount;
-    public EditText name, company, type, amount, form;
+    public Integer org_attenu, org_id;
+    public EditText name, company, type, amount, form, Attenu, ID;
 
     public EditYeastDialog(Activity a, Item item) {
         super(a);
@@ -39,6 +40,8 @@ public class EditYeastDialog extends Dialog implements
         this.form_text = item.str2;
         this.unit_text = item.str3;
         this.org_amount = item.weight;
+        this.org_attenu = item.dbl2.intValue();
+        this.org_id = item.dbl1.intValue();
     }
 
     @Override
@@ -46,7 +49,6 @@ public class EditYeastDialog extends Dialog implements
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.pick_yeast_dialog);
-
 
         add = (Button) findViewById(R.id.addItem);
         cancel = (Button) findViewById(R.id.cancel);
@@ -56,11 +58,16 @@ public class EditYeastDialog extends Dialog implements
         form = (EditText) findViewById(R.id.formText);
         type = (EditText) findViewById(R.id.typeText);
         amount = (EditText) findViewById(R.id.amountText);
+        ID = (EditText) findViewById(R.id.IDtext);
+        Attenu = (EditText) findViewById(R.id.attenuation);
+
 
         name.setText(name_text);
         type.setText(type_text);
         company.setText(company_text);
         form.setText(form_text);
+        ID.setText(org_id.toString());
+        Attenu.setText(org_attenu.toString());
         amount.setText(org_amount.toString());
 
 
@@ -116,7 +123,8 @@ public class EditYeastDialog extends Dialog implements
         Spinner spinner = (Spinner) findViewById(R.id.amountType);
         Item yeast = new Item(3, null, name.getText().toString(),
                 type.getText().toString(), company.getText().toString(), form.getText().toString(),
-                spinner.getSelectedItem().toString(), null, null,
+                spinner.getSelectedItem().toString(), Double.parseDouble(ID.getText().toString()),
+                Double.parseDouble(Attenu.getText().toString()),
                 Double.parseDouble(amount.getText().toString()), null, null);
         MyDialogFragmentListener activity = (MyDialogFragmentListener) c;
         activity.putYeast(yeast, true);
