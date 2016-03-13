@@ -426,7 +426,7 @@ public class Tab1Activity extends Activity
         }
         if (lb == 0) result[0] = String.format("%.1f oz", weight);
         else if (weight == 0) result[0] = lb + " lb";
-        else result[0] = lb + " lb " + String.format("%.0f oz", weight);
+        else result[0] = lb + " lb \n" + String.format("%.1f oz", weight);
 
         if (time >= 1440) {
             int days = time/1440;
