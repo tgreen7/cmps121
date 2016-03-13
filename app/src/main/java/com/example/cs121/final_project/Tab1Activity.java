@@ -424,9 +424,9 @@ public class Tab1Activity extends Activity
             lb += 1;
             weight -= 16;
         }
-        if (lb == 0) result[0] = String.format("%.2f oz", weight);
+        if (lb == 0) result[0] = String.format("%.1f oz", weight);
         else if (weight == 0) result[0] = lb + " lb";
-        else result[0] = lb + " lb " + String.format("%.1f oz", weight);
+        else result[0] = lb + " lb " + String.format("%.0f oz", weight);
 
         if (time >= 1440) {
             int days = time/1440;
@@ -439,7 +439,7 @@ public class Tab1Activity extends Activity
         String[] result = new String[2];
         if (weight >= 28.3495f){
             Float oz = weight / 28.3495f;
-            result[0] = String.format("%.2f oz", oz);
+            result[0] = String.format("%.1f oz", oz);
         }else result[0] = weight + " g";
 
         if (time >= 1440) {

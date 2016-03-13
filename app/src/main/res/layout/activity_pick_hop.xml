@@ -23,7 +23,8 @@
             android:paddingLeft="3dp"
             android:paddingStart="3dp"
             android:paddingRight="3dp"
-            android:paddingEnd="3dp">
+            android:paddingEnd="3dp"
+            android:layout_weight="1">
         </TextView>
     </LinearLayout>
 

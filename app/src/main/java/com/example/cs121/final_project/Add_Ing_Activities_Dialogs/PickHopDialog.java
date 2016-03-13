@@ -63,6 +63,7 @@ public class PickHopDialog extends Dialog implements
         name.setText(name_text);
         alpha.setText(alpha_text);
         type.setText(type_text);
+        boilTime.setText("60");
 
         add.setOnClickListener(this);
         cancel.setOnClickListener(this);
@@ -86,11 +87,13 @@ public class PickHopDialog extends Dialog implements
         if(dry.isChecked()){
             time.setText("days");
             boil.setText("");
+            boilTime.setText("2");
             wort.setChecked(false);
         }
         else {
             time.setText("min");
             boil.setText("Boil Time");
+            boilTime.setText("60");
         }
     }
 
@@ -98,6 +101,7 @@ public class PickHopDialog extends Dialog implements
         if(wort.isChecked()){
             time.setText("min");
             boil.setText("Boil Time");
+            if(dry.isChecked()) boilTime.setText("60");
             dry.setChecked(false);
         }
     }

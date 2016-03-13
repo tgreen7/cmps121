@@ -125,7 +125,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
             android:backgroundTint="@color/gold"
-            android:id="@+id/amountText" />
+            android:id="@+id/amountText"
+            android:textAlignment="center" />
 
         <Spinner
             android:layout_width="wrap_content"

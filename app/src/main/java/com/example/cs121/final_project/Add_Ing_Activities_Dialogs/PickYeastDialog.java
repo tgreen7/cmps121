@@ -46,7 +46,6 @@ public class PickYeastDialog extends Dialog implements
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.pick_yeast_dialog);
 
-
         add = (Button) findViewById(R.id.addItem);
         cancel = (Button) findViewById(R.id.cancel);
 
@@ -60,7 +59,6 @@ public class PickYeastDialog extends Dialog implements
         type.setText(type_text);
         company.setText(company_text);
         form.setText(form_text);
-
 
         add.setOnClickListener(this);
         cancel.setOnClickListener(this);
