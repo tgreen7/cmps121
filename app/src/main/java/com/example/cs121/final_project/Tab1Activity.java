@@ -15,6 +15,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -685,6 +686,7 @@ public class Tab1Activity extends Activity
                                     superActivityToast.setOnClickWrapper(onClickWrapper);
                                     superActivityToast.show();
                                 }
+
                                 updateData();
                                 adapter.notifyDataSetChanged();
                             }

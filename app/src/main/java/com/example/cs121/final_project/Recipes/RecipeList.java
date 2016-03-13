@@ -55,19 +55,16 @@ public class RecipeList extends AppCompatActivity {
 
         // ListView Item Click Listener
         recipeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 // ListView Clicked item value
-                System.out.println(recipeList.getItemAtPosition(position));
-//                String itemValue = (String) recipeList.getItemAtPosition(position);
-//                Intent resultIntent = new Intent();
-//                resultIntent.putExtra("recipeName", itemValue);
-//                setResult(Activity.RESULT_OK, resultIntent);
-//                finish();
+                String itemValue = ((MetaInfo) recipeList.getItemAtPosition(position)).name;
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("recipeName", itemValue);
+                setResult(Activity.RESULT_OK, resultIntent);
+                finish();
             }
-
         });
     }
 
