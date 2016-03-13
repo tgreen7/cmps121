@@ -5,8 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -26,6 +28,7 @@ import java.util.Iterator;
 
 import android.app.Activity;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickGrainActivity;
 import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickHopActivity;
@@ -447,6 +450,29 @@ public class Tab1Activity extends Activity
             result[1] = days + " days";
         } else result[1] = time + " min";
         return result;
+    }
+
+    public void sendEmail(View view) {
+        Log.i("Send email", "");
+
+        String[] TO = {"greenmachine777@gmail.com"};
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+
+
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your Beer Recipe");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            finish();
+            Log.i("Sent email", "");
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(Tab1Activity.this,
+                    "There is no email client installed.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }
