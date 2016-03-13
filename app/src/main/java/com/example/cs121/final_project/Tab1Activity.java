@@ -15,6 +15,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -244,6 +245,17 @@ public class Tab1Activity extends Activity
         // we don't look for swipes.
         lview.setOnScrollListener(touchListener.makeScrollListener());
 
+        // see if lview is scrollable
+//        ViewTreeObserver observer = lview.getViewTreeObserver();
+//        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//            @Override
+//            public void onGlobalLayout() {
+//                if (!willMyListScroll()) {
+//                    showSendButtonImm();
+//                }
+//            }
+//        });
+
         batch_size.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -305,6 +317,9 @@ public class Tab1Activity extends Activity
             }
         }, 250);
     }
+//    private void showSendButtonImm() {
+//        sendButton.setVisibility(View.VISIBLE);
+//    }
 
     public void onSaveInstanceState(Bundle savedState) {
 
@@ -321,6 +336,12 @@ public class Tab1Activity extends Activity
         // Do whatever
         closeInput(getWindow().getDecorView());
     }
+
+//    boolean willMyListScroll() {
+//        int pos = lview.getLastVisiblePosition();
+//        if(lview.getChildAt(pos) == null) return false;
+//        return((lview.getChildAt(pos).getBottom() > lview.getHeight()));
+//    }
 
 
     public static void closeInput(final View caller) {
