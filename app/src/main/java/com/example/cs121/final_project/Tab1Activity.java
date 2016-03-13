@@ -379,7 +379,7 @@ public class Tab1Activity extends Activity
                                 if (recipeName.equals(rec.name)){
                                     name.setText(rec.name);
                                     efficiency.setText(rec.effic.toString());
-                                    boil_time.setText( rec.boilTime.toString());
+                                    boil_time.setText( String.format("%.0f", rec.boilTime));
                                     batch_size.setText(rec.batch.toString());
 
                                     type.setSelection(0);
