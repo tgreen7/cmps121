@@ -40,9 +40,6 @@ public class MainActivity extends TabActivity
         tabHost.addTab(tab1);
         tabHost.addTab(tab2);
 
-        tabHost.getTabWidget().getChildAt(0).getLayoutParams().height = 80;
-        tabHost.getTabWidget().getChildAt(1).getLayoutParams().height = 80;
-
         tabHost.getTabWidget().setDividerDrawable(null);
 
 

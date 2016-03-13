@@ -129,7 +129,6 @@ public class Tab1Activity extends Activity
             batch_size.setText("5.00");
 
             updateGravity();
-
             setListeners();
         }
     }
