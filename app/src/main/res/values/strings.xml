@@ -29,6 +29,7 @@
     <string name="cancel"><b>CANCEL</b></string>
     <string name="save"><b>SAVE</b></string>
     <string name="id">ID</string>
+    <string name="BeerStats"> Original Gravity\nTotal IBU\'s\nApprox. %ABV\nFinal Gravity</string>
 
     <string-array name="beer_types_array">
         <item>All Grain</item>

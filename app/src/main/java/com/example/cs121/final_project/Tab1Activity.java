@@ -70,7 +70,7 @@ public class Tab1Activity extends Activity
     ListView lview;
     Item previtem;
     Integer prevpos;
-    Double oGravity, fGravity;
+    Double oGravity, fGravity, color;
     Boolean undo;
     EditText name, batch_size, efficiency, boil_time;
     Spinner type, style;
@@ -124,7 +124,7 @@ public class Tab1Activity extends Activity
             boil_time.setText("60");
             batch_size.setText("5.00");
 
-            updateGravity();
+            updateData();
             setListeners();
         }
     }
@@ -229,7 +229,7 @@ public class Tab1Activity extends Activity
             itemList.add(newItem);
             list.add(newRow);
         }
-        updateGravity();
+        updateData();
     }
 
     public void putHop(Item newItem, boolean edit) {
@@ -276,7 +276,7 @@ public class Tab1Activity extends Activity
             itemList.add(newItem);
             list.add(newRow);
         }
-        updateIBUs();
+        updateData();
     }
 
     public void putMisc (Item newItem, boolean edit) {
@@ -541,26 +541,29 @@ public class Tab1Activity extends Activity
         adapter.notifyDataSetChanged();
         DataHolder.getInstance().setIBU(total);
     }
-    public void updateGravity(){
-        Double total = 0.0;
-        Double attenu = 0.0;
-        Integer attcount = 0;
+    public void updateData(){
+        Double gTotal = 0.0;
+        Double aTotal = 0.0;
+        Double cTotal = 0.0;
+        Integer aAverage = 0;
         for(int i = itemList.size() - 1; i >= 0; i--){
             Item item = itemList.get(i);
             if(item.ing_type == 1){
                 Double result = item.dbl2 * 1000;
                 result -= 1000;
                 result *= (item.weight / 16);
-                total += result;
+                gTotal += result;
+                if (batch_size.getText().toString().equals("")) cTotal += 0.0;
+                else cTotal += (item.dbl1 * (item.weight / 16))/Double.parseDouble(batch_size.getText().toString());
             }
             if(item.ing_type == 3){
-                attenu += item.dbl2;
-                attcount++;
+                aTotal += item.dbl2;
+                aAverage++;
             }
         }
 
-        System.out.println("Points = " + total);
-        if (total == 0) {
+        System.out.println("Points = " + gTotal);
+        if (gTotal == 0) {
             oGravity = 1.0;
             DataHolder.getInstance().setOG(1.0);
             updateIBUs();
@@ -568,23 +571,26 @@ public class Tab1Activity extends Activity
             Double eff;
             if(efficiency.getText().toString().equals("")) eff = 0.0;
             else eff = Double.parseDouble(efficiency.getText().toString());
-            total *= (eff / 100);
-            System.out.println("After Eff = " + total);
-            if (batch_size.getText().toString().equals("")) total = 0.0;
-            else total /= Double.parseDouble(batch_size.getText().toString());
-            System.out.println("After Ferm = " + total);
-            total = (total / 1000) + 1;
-            oGravity = total;
+            gTotal *= (eff / 100);
+            System.out.println("After Eff = " + gTotal);
+            if (batch_size.getText().toString().equals("")) gTotal = 0.0;
+            else gTotal /= Double.parseDouble(batch_size.getText().toString());
+            System.out.println("After Ferm = " + gTotal);
+            gTotal = (gTotal / 1000) + 1;
+            oGravity = gTotal;
         }
 
-        if (attenu == 0) fGravity = oGravity;
+        if (aTotal == 0) fGravity = oGravity;
         else {
-            Double attresult = 1 - ((attenu / attcount)/100);
-            total = (total - 1) * 1000;
-            total *= attresult;
-            total = (total / 1000) + 1;
-            fGravity = total;
+            Double attresult = 1 - ((aTotal / aAverage)/100);
+            gTotal = (gTotal - 1) * 1000;
+            gTotal *= attresult;
+            gTotal = (gTotal / 1000) + 1;
+            fGravity = gTotal;
         }
+        cTotal = Math.pow(cTotal, 0.6859);
+        color = cTotal * 1.4922;
+        DataHolder.getInstance().setColor(color);
         DataHolder.getInstance().setFG(fGravity);
         DataHolder.getInstance().setOG(oGravity);
         updateIBUs();
@@ -679,6 +685,7 @@ public class Tab1Activity extends Activity
                                     superActivityToast.setOnClickWrapper(onClickWrapper);
                                     superActivityToast.show();
                                 }
+                                updateData();
                                 adapter.notifyDataSetChanged();
                             }
                         });
@@ -700,7 +707,7 @@ public class Tab1Activity extends Activity
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                updateGravity();
+                updateData();
             }
         };
 
