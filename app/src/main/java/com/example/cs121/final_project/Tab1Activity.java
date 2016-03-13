@@ -380,8 +380,8 @@ public class Tab1Activity extends Activity
                                 if (recipeName.equals(rec.name)){
                                     name.setText(rec.name);
                                     efficiency.setText(rec.effic.toString());
-                                    boil_time.setText(rec.boilTime.toString());
-                                    batch_size.setText(rec.boilTime.toString());
+                                    boil_time.setText( rec.boilTime.toString());
+                                    batch_size.setText(rec.batch.toString());
 
                                     type.setSelection(0);
                                     int i = 0;
@@ -676,7 +676,7 @@ public class Tab1Activity extends Activity
                                     itemList.remove(position);
                                     list.remove(position);
                                     superActivityToast = new SuperActivityToast(Tab1Activity.this, SuperToast.Type.BUTTON);
-                                    superActivityToast.setDuration(SuperToast.Duration.EXTRA_LONG);
+                                    superActivityToast.setDuration(SuperToast.Duration.LONG);
                                     superActivityToast.setText("Ingredient Removed");
                                     superActivityToast.setButtonIcon(SuperToast.Icon.Dark.UNDO, "UNDO");
                                     superActivityToast.setOnClickWrapper(onClickWrapper);

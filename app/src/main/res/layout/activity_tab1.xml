@@ -47,7 +47,7 @@
             android:text="@string/efficiency"/>
         <EditText
             android:id="@+id/efficiency"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:layout_width="0dp"
             android:ems="2"
             android:layout_weight="1"
@@ -129,7 +129,7 @@
             android:text="@string/boil_time"/>
         <EditText
             android:id="@+id/boil_time"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:layout_width="0dp"
             android:ems="2"
             android:layout_weight="1"
