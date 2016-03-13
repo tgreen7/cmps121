@@ -5,15 +5,21 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import static com.example.cs121.final_project.Constant.FIFTH_COLUMN;
@@ -22,12 +28,18 @@ import static com.example.cs121.final_project.Constant.SECOND_COLUMN;
 import static com.example.cs121.final_project.Constant.THIRD_COLUMN;
 import static com.example.cs121.final_project.Constant.FOURTH_COLUMN;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
 import android.app.Activity;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickGrainActivity;
 import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickHopActivity;
@@ -63,9 +75,9 @@ public class Tab1Activity extends Activity
     Integer prevpos;
     Boolean undo;
     EditText batch_size;
+    public static Button sendButton;
 
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab1);
 
@@ -77,36 +89,42 @@ public class Tab1Activity extends Activity
         lview.setAdapter(adapter);
 
         if (savedInstanceState != null) {
-            ArrayList<Item> values = (ArrayList<Item>)  savedInstanceState.getSerializable("myItems");
+            ArrayList<Item> values = (ArrayList<Item>) savedInstanceState.getSerializable("myItems");
             if (values != null) {
                 itemList = values;
                 Iterator<Item> iter = itemList.iterator();
 //                System.out.println(iter.next().name);
-                while(iter.hasNext()) {
+                while (iter.hasNext()) {
                     Item t = iter.next();
-                    switch (t.ing_type){
-                        case 1: putGrain(t, false);
+                    switch (t.ing_type) {
+                        case 1:
+                            putGrain(t, false);
                             break;
 
-                        case 2: putHop(t, false);
+                        case 2:
+                            putHop(t, false);
                             break;
 
-                        case 3: putYeast(t, false);
+                        case 3:
+                            putYeast(t, false);
                             break;
 
-                        case 4: putMisc(t, false);
+                        case 4:
+                            putMisc(t, false);
                             break;
 
-                        default: break;
+                        default:
+                            break;
 
                     }
                 }
             }
-        }
-        else {
+        } else {
             itemList = new ArrayList<Item>();
 
         }
+
+        sendButton = (Button) findViewById(R.id.sendButton);
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner_types);
 // Create an ArrayAdapter using the string array and a default spinner layout
@@ -128,9 +146,9 @@ public class Tab1Activity extends Activity
         spinner.setAdapter(spin_adapter);
 
 
-        EditText efficiency =(EditText) findViewById(R.id.efficiency);
-        EditText boil_time =(EditText) findViewById(R.id.boil_time);
-        batch_size =(EditText) findViewById(R.id.batch);
+        EditText efficiency = (EditText) findViewById(R.id.efficiency);
+        EditText boil_time = (EditText) findViewById(R.id.boil_time);
+        batch_size = (EditText) findViewById(R.id.batch);
 
         name = (EditText) findViewById(R.id.recipeName);
 
@@ -183,7 +201,7 @@ public class Tab1Activity extends Activity
             @Override
             public void onClick(View view, Parcelable token) {
                 undo = true;
-                switch (previtem.ing_type){
+                switch (previtem.ing_type) {
                     case 1:
                         putGrain(previtem, false);
                         break;
@@ -251,7 +269,25 @@ public class Tab1Activity extends Activity
                 updateIBUs();
             }
         });
+    }
 
+    public static void hideSendButton() {
+        TranslateAnimation anim = new TranslateAnimation(0, 0, 0, 150); //first 0 is start point, 150 is end point horizontal
+        anim.setDuration(250); // 1000 ms = 1second
+        sendButton.startAnimation(anim);
+        sendButton.setVisibility(View.GONE);
+    }
+    public static void showSendButton() {
+        TranslateAnimation anim = new TranslateAnimation(0, 0, 150, 0); //first 0 is start point, 150 is end point horizontal
+        anim.setDuration(250); // 1000 ms = 1second
+        sendButton.startAnimation(anim);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                sendButton.setVisibility(View.VISIBLE);
+            }
+        }, 250);
     }
 
     public void onSaveInstanceState(Bundle savedState) {
@@ -467,6 +503,76 @@ public class Tab1Activity extends Activity
             result[1] = days + " days";
         } else result[1] = time + " min";
         return result;
+    }
+
+    public void sendEmail(View view) {
+        Log.i("Send email", "");
+
+        String[] TO = {"greenmachine777@gmail.com"};
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+
+
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your Beer Recipe");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            Log.i("Sent email", "");
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(Tab1Activity.this,
+                    "There is no email client installed.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void saveText (View view) {
+        try {
+            OutputStreamWriter out = new OutputStreamWriter(openFileOutput("TextFile", 0));
+            EditText name = (EditText) findViewById(R.id.recipeName);
+            String text = name.getText().toString();
+            out.write(text);
+            out.write('\n');
+            out.close();
+            Toast.makeText(this, "The contents are saved in the file.", Toast.LENGTH_LONG).show();
+        } catch (Throwable t) {
+
+            Toast.makeText(this, "Exception: " + t.toString(), Toast.LENGTH_LONG).show();
+
+        }
+        //Toast.makeText(this, "Save not implemented yet.", Toast.LENGTH_SHORT).show();
+    }
+
+    public void readFileInEditor(View view)
+    {
+        try {
+            InputStream in = openFileInput("TextFile");
+
+            if (in != null) {
+
+                InputStreamReader tmp=new InputStreamReader(in);
+
+                BufferedReader reader=new BufferedReader(tmp);
+
+                String str;
+
+                StringBuilder buf=new StringBuilder();
+
+                while ((str = reader.readLine()) != null) {
+                    buf.append(str+"\n");
+                }
+                in.close();
+                TextView txtEditor = (TextView) findViewById(R.id.textView3);
+                txtEditor.setText(buf.toString());
+            }
+        }
+        catch (java.io.FileNotFoundException e) {
+// that's OK, we probably haven't created it yet
+        }
+        catch (Throwable t) {
+            Toast.makeText(this, "Exception: " + t.toString(), Toast.LENGTH_LONG).show();
+        }
     }
 
     public Double parseIBU(Double weight, Integer time, Double dbl1) {
