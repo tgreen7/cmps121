@@ -383,9 +383,9 @@ public class Tab1Activity extends Activity
                             for (MetaInfo rec : values){
                                 if (recipeName.equals(rec.name)){
                                     name.setText(rec.name);
-                                    efficiency.setText(rec.effic.toString());
+                                    efficiency.setText(String.format("%.1f", rec.effic));
                                     boil_time.setText( String.format("%.0f", rec.boilTime));
-                                    batch_size.setText(rec.batch.toString());
+                                    batch_size.setText(String.format("%.2f", rec.batch));
 
                                     type.setSelection(0);
                                     int i = 0;

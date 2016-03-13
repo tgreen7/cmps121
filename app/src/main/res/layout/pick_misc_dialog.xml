@@ -86,12 +86,12 @@
 
         <EditText
             android:layout_width="35dp"
-            android:inputType="numberDecimal"
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
             android:backgroundTint="@color/gold"
             android:id="@+id/timeBox"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:inputType="number" />
 
         <Spinner
             android:layout_width="wrap_content"
