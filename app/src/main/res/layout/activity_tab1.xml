@@ -350,14 +350,16 @@
         android:id="@+id/listView"
         android:layout_gravity="center_horizontal"
         android:divider="@null"
+        android:dividerHeight="0dp"
         android:layout_below="@+id/headers"
-        android:dividerHeight="0dp"/>
+        />
 
     <ImageButton
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:text="Save Recipe"
         android:id="@+id/sendButton"
         android:onClick="saveText"
@@ -369,7 +371,8 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" 
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:text="View Recipes"
         android:src="@drawable/open"
         android:background="@null"

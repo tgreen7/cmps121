@@ -34,6 +34,7 @@
             android:padding="0dp"
             android:layout_gravity="start"
             android:onClick="closeActivity"
+            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:scaleType="fitCenter"
             style="@style/Base.TextAppearance.AppCompat.Button"
@@ -99,6 +100,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/bright_white"
                     android:paddingStart="20dp"
+                    android:paddingLeft="20dp"
                     android:textSize="15sp"
                     android:text="Add a grain." />
             </LinearLayout>
@@ -125,6 +127,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/bright_white"
                     android:paddingStart="20dp"
+                    android:paddingLeft="20dp"
                     android:textSize="15sp"
                     android:text="Add a hop."/>
             </LinearLayout>
@@ -151,6 +154,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/bright_white"
                     android:paddingStart="20dp"
+                    android:paddingLeft="20dp"
                     android:textSize="15sp"
                     android:text="Add a yeast."/>
             </LinearLayout>
@@ -177,6 +181,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/bright_white"
                     android:paddingStart="20dp"
+                    android:paddingLeft="20dp"
                     android:textSize="15sp"
                     android:text="Add a miscellaneous ingredient."/>
 

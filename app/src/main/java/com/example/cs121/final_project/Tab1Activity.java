@@ -6,24 +6,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import static com.example.cs121.final_project.Constant.FIFTH_COLUMN;
@@ -32,18 +27,12 @@ import static com.example.cs121.final_project.Constant.SECOND_COLUMN;
 import static com.example.cs121.final_project.Constant.THIRD_COLUMN;
 import static com.example.cs121.final_project.Constant.FOURTH_COLUMN;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import android.app.Activity;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickGrainActivity;
@@ -54,6 +43,8 @@ import com.example.cs121.final_project.Edit_Ing_Dialogs.EditGrainDialog;
 import com.example.cs121.final_project.Edit_Ing_Dialogs.EditHopDialog;
 import com.example.cs121.final_project.Edit_Ing_Dialogs.EditMiscDialog;
 import com.example.cs121.final_project.Edit_Ing_Dialogs.EditYeastDialog;
+import com.example.cs121.final_project.Recipes.MetaInfo;
+import com.example.cs121.final_project.Recipes.RecipeList;
 import com.github.johnpersano.supertoasts.SuperActivityToast;
 import com.github.johnpersano.supertoasts.SuperToast;
 import com.github.johnpersano.supertoasts.util.OnClickWrapper;
@@ -399,11 +390,9 @@ public class Tab1Activity extends Activity
                                         style.setSelection((i+1));
                                         i++;
                                     }
+                                    break;
                                 }
                             }
-                            System.out.println(values.get(0).name);
-                            EditText nameT = (EditText) findViewById(R.id.recipeName);
-                            nameT.setText(recipeName);
                         }
                     }
 
@@ -468,24 +457,27 @@ public class Tab1Activity extends Activity
         if(name.getText().toString().equals("")){
             Toast.makeText(this, "Please enter a name for your recipe.", Toast.LENGTH_LONG).show();
             return;
-        }
-        if(itemList.isEmpty()){
+        } else if(itemList.isEmpty()){
             Toast.makeText(this, "Please add at least once ingredient to your recipe.", Toast.LENGTH_LONG).show();
             return;
-
+        } else if (efficiency.getText().toString().equals("")) {
+            Toast.makeText(this, "Please give your recipe an efficiency", Toast.LENGTH_LONG).show();
+            return;
+        } else if(boil_time.getText().toString().equals("")){
+            Toast.makeText(this, "Please set the boil time of your recipe", Toast.LENGTH_LONG).show();
+            return;
+        } else if (batch_size.getText().toString().equals("")) {
+            Toast.makeText(this, "Please give your recipe a batch size.", Toast.LENGTH_LONG).show();
+            return;
         }
+
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         SharedPreferences.Editor prefsEditor = prefs.edit();
 
         MetaInfo info = new MetaInfo(name.getText().toString(), Double.parseDouble(efficiency.getText().toString()),
                 type.getSelectedItem().toString(), style.getSelectedItem().toString(),
                 Double.parseDouble(boil_time.getText().toString()), Double.parseDouble(batch_size.getText().toString()));
-
-//        use.setSelection(0);
-//        while(!(use_text.equals(use.getSelectedItem().toString()))) {
-//            use.setSelection((i+1));
-//            i++;
-//        }
 
         ArrayList<MetaInfo> recipeNames;
         Gson gson = new Gson();

@@ -1,4 +1,4 @@
-package com.example.cs121.final_project;
+package com.example.cs121.final_project.Recipes;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,8 +10,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.RecipeListAdapter;
+import com.example.cs121.final_project.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -37,17 +38,20 @@ public class RecipeList extends AppCompatActivity {
             recipes = new ArrayList<MetaInfo>();
         }
 
-        ArrayList<String> recipeNames = new ArrayList<>();
-        for(int i = 0; i < recipes.size(); i++) {
-            recipeNames.add(recipes.get(i).name);
-        }
+//        ArrayList<String> recipeNames = new ArrayList<>();
+//        for(int i = 0; i < recipes.size(); i++) {
+//            recipeNames.add(recipes.get(i).name);
+//        }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, recipeNames);
-
-
-        // Assign adapter to ListView
+        final RecipeListAdapter adapter = new RecipeListAdapter(this, recipes);
         recipeList.setAdapter(adapter);
+
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//                android.R.layout.simple_list_item_1, android.R.id.text1, recipeNames);
+//
+//
+//        // Assign adapter to ListView
+//        recipeList.setAdapter(adapter);
 
         // ListView Item Click Listener
         recipeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -56,14 +60,19 @@ public class RecipeList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 // ListView Clicked item value
-                String itemValue = (String) recipeList.getItemAtPosition(position);
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("recipeName", itemValue);
-                setResult(Activity.RESULT_OK, resultIntent);
-                finish();
+                System.out.println(recipeList.getItemAtPosition(position));
+//                String itemValue = (String) recipeList.getItemAtPosition(position);
+//                Intent resultIntent = new Intent();
+//                resultIntent.putExtra("recipeName", itemValue);
+//                setResult(Activity.RESULT_OK, resultIntent);
+//                finish();
             }
 
         });
+    }
+
+    public void closeActivity(View v) {
+        finish();
     }
 
 }

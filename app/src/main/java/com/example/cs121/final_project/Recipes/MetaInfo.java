@@ -1,4 +1,4 @@
-package com.example.cs121.final_project;
+package com.example.cs121.final_project.Recipes;
 
 import java.io.Serializable;
 

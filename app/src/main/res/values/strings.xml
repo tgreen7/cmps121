@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Brew Calculator</string>
     <string name="recipe"><b>Recipe Builder</b></string>
+    <string name="my_recipes"><b>My Recipes</b></string>
     <string name="help"><b>Help</b></string>
     <string name="Amount"><b>Amount</b></string>
     <string name="Name"><b>Name</b></string>

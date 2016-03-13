@@ -46,7 +46,7 @@
             android:theme="@style/PickTheme" />
         <activity android:name=".BeerStatsActivity" />
         <activity android:name=".HelpActivity" />
-        <activity android:name=".RecipeList"></activity>
+        <activity android:name=".Recipes.RecipeList"></activity>
     </application>
 
 </manifest>
