@@ -28,7 +28,7 @@ public class PickGrainDialog extends Dialog implements
     public Spinner use, time_type;
 
     public String name_text, type_text, color_text, potential_text;
-    public EditText name, alpha, type, boilTime, weight_oz, weight_lb, time, color, potential;
+    public EditText name, type, weight_oz, weight_lb, time, color, potential;
 
     public PickGrainDialog(Activity a, String name, String type, String color, String potential) {
         super(a);
@@ -53,7 +53,6 @@ public class PickGrainDialog extends Dialog implements
         name = (EditText) findViewById(R.id.nameText);
         time = (EditText) findViewById(R.id.time_box);
         type = (EditText) findViewById(R.id.typeText);
-        boilTime = (EditText) findViewById(R.id.boil);
         weight_lb = (EditText) findViewById(R.id.weight_lb);
         weight_oz = (EditText) findViewById(R.id.weight_oz);
         color = (EditText) findViewById(R.id.colorText);
@@ -63,6 +62,7 @@ public class PickGrainDialog extends Dialog implements
         type.setText(type_text);
         color.setText(color_text);
         potential.setText(potential_text);
+        time.setText("60");
 
 
         add.setOnClickListener(this);

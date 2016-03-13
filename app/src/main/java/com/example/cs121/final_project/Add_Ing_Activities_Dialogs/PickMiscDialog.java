@@ -28,7 +28,7 @@ public class PickMiscDialog extends Dialog implements
     public Spinner use_type, time_type, amount_type;
 
     public String name_text, type_text, use_text;
-    public EditText name, alpha, type, boilTime, weight, time, color, potential;
+    public EditText name, type, weight, time;
 
     public PickMiscDialog(Activity a, String name, String type, String use) {
         super(a);
@@ -50,17 +50,13 @@ public class PickMiscDialog extends Dialog implements
         cancel = (Button) findViewById(R.id.cancel);
 
         name = (EditText) findViewById(R.id.nameText);
-        alpha = (EditText) findViewById(R.id.alphaText);
         type = (EditText) findViewById(R.id.typeText);
-        boilTime = (EditText) findViewById(R.id.boil);
         weight = (EditText) findViewById(R.id.amountText);
-        color = (EditText) findViewById(R.id.colorText);
-        potential = (EditText) findViewById(R.id.potentialText);
         time = (EditText) findViewById(R.id.timeBox);
 
         name.setText(name_text);
         type.setText(type_text);
-
+        time.setText("60");
 
         add.setOnClickListener(this);
         cancel.setOnClickListener(this);

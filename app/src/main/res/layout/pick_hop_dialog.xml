@@ -42,7 +42,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
             android:backgroundTint="@color/gold"
-            android:id="@+id/alphaText" />
+            android:id="@+id/alphaText"
+            android:textAlignment="center" />
 
     </LinearLayout>
 
@@ -119,7 +120,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
             android:backgroundTint="@color/gold"
-            android:id="@+id/boil" />
+            android:id="@+id/boil"
+            android:textAlignment="center" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -139,7 +141,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
             android:backgroundTint="@color/gold"
-            android:id="@+id/weight" />
+            android:id="@+id/weight"
+            android:textAlignment="center" />
 
         <Spinner
             android:layout_width="wrap_content"

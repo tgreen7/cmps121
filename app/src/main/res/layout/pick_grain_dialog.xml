@@ -64,7 +64,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
             android:backgroundTint="@color/gold"
-            android:id="@+id/colorText" />
+            android:id="@+id/colorText"
+            android:textAlignment="center" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -79,7 +80,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
             android:backgroundTint="@color/gold"
-            android:id="@+id/potentialText" />
+            android:id="@+id/potentialText"
+            android:textAlignment="center" />
 
     </LinearLayout>
 
@@ -118,7 +120,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
             android:backgroundTint="@color/gold"
-            android:id="@+id/time_box" />
+            android:id="@+id/time_box"
+            android:textAlignment="center" />
 
         <Spinner
             android:layout_width="wrap_content"
@@ -149,7 +152,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
             android:backgroundTint="@color/gold"
-            android:id="@+id/weight_lb" />
+            android:id="@+id/weight_lb"
+            android:textAlignment="center" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -163,7 +167,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
             android:backgroundTint="@color/gold"
-            android:id="@+id/weight_oz" />
+            android:id="@+id/weight_oz"
+            android:textAlignment="center" />
 
         <TextView
             android:layout_width="wrap_content"

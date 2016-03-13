@@ -12,7 +12,7 @@
         android:theme="@style/Search"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:background="#7e2d16">
+        android:background="@color/dark_red">
         <TextView
             android:layout_width="wrap_content"
             android:gravity="center_horizontal"
@@ -25,7 +25,8 @@
             android:paddingStart="3dp"
             android:paddingRight="3dp"
             android:paddingEnd="3dp"
-            android:autoText="true">
+            android:autoText="true"
+            android:layout_weight="1">
         </TextView>
 
 
