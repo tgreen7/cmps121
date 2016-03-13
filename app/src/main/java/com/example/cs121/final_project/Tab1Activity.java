@@ -85,9 +85,14 @@ public class Tab1Activity extends Activity
     Spinner type, style;
     public static ImageButton sendButton;
 
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab1);
+
+//        this can be used to wipe shared preferences
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+//        prefs.edit().clear().apply();
 
         sendButton = (ImageButton) findViewById(R.id.sendButton);
         efficiency = (EditText) findViewById(R.id.efficiency);
@@ -459,6 +464,7 @@ public class Tab1Activity extends Activity
     }
 
     public void saveText (View view) {
+
         if(name.getText().toString().equals("")){
             Toast.makeText(this, "Please enter a name for your recipe.", Toast.LENGTH_LONG).show();
             return;
@@ -487,7 +493,7 @@ public class Tab1Activity extends Activity
         boolean in = false;
         if (json != null) {
             Type type = new TypeToken<ArrayList<MetaInfo>>() {}.getType();
-            recipeNames  = (ArrayList<MetaInfo>) gson.fromJson(json, type);
+            recipeNames  = gson.fromJson(json, type);
             if (recipeNames != null) {
                 for(int i = 0; i < recipeNames.size(); i++) {
                     if (recipeNames.get(i).name.equals(info.name)) {
@@ -516,7 +522,7 @@ public class Tab1Activity extends Activity
         gson = new Gson();
         json = gson.toJson(itemList);
         prefsEditor.putString(info.name, json);
-        prefsEditor.commit();
+        prefsEditor.apply();
     }
 
     public Double parseIBU(Double weight, Integer time, Double dbl1) {
