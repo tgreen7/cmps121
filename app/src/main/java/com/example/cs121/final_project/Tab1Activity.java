@@ -72,7 +72,7 @@ public class Tab1Activity extends Activity
     ListView lview;
     Item previtem;
     Integer prevpos;
-    Double oGravity, fGravity, color;
+    Double oGravity, fGravity, color, attenuation;
     Boolean undo;
     EditText name, batch_size, efficiency, boil_time;
     Spinner type, style;
@@ -96,6 +96,7 @@ public class Tab1Activity extends Activity
         type = (Spinner) findViewById(R.id.spinner_types);
         style = (Spinner) findViewById(R.id.spinner_styles);
 
+        DataHolder.getInstance().setMainInfo(new String[7]);
         main_activity = this;
         undo = false;
         lview = (ListView) findViewById(R.id.listView);
@@ -585,7 +586,7 @@ public class Tab1Activity extends Activity
                 aAverage++;
             }
         }
-
+        attenuation = aTotal/aAverage;
         System.out.println("Points = " + gTotal);
         if (gTotal == 0) {
             oGravity = 1.0;
@@ -617,6 +618,7 @@ public class Tab1Activity extends Activity
         DataHolder.getInstance().setColor(color);
         DataHolder.getInstance().setFG(fGravity);
         DataHolder.getInstance().setOG(oGravity);
+        updateDataHolder();
         updateIBUs();
 
     }
@@ -734,9 +736,54 @@ public class Tab1Activity extends Activity
                 updateData();
             }
         };
+        TextWatcher store_fields = new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
 
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                updateDataHolder();
+            }
+        };
+        AdapterView.OnItemSelectedListener spinupdate = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                updateDataHolder();            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                updateDataHolder();            }
+
+        };
+
+
+
+
+        name.addTextChangedListener(store_fields);
+        boil_time.addTextChangedListener(store_fields);
         batch_size.addTextChangedListener(change);
         efficiency.addTextChangedListener(change);
+        type.setOnItemSelectedListener(spinupdate);
+        style.setOnItemSelectedListener(spinupdate);
+    }
+
+    private void updateDataHolder() {
+        String[] send = new String[7];
+        send[0] = name.getText().toString();
+        send[1] = batch_size.getText().toString();
+        send[2] = style.getSelectedItem().toString();
+        send[3] = type.getSelectedItem().toString();
+        send[4] = boil_time.getText().toString();
+        send[5] = efficiency.getText().toString();
+        send[6] = String.format("%.1f", attenuation);
+        DataHolder.getInstance().setMainInfo(send);
     }
 
 }

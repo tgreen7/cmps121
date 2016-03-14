@@ -7,6 +7,7 @@ import android.app.Application;
  */
 public class DataHolder {
     private String data;
+    private String[] MainInfo;
     private Double IBU, OG, FG, Color;
 
     public Double getIBU() {return IBU;}
@@ -20,6 +21,9 @@ public class DataHolder {
 
     public Double getColor() {return Color;}
     public void setColor(Double Color) {this.Color = Color;}
+
+    public String[] getMainInfo() {return MainInfo;}
+    public void setMainInfo(String[] MainInfo) {this.MainInfo = MainInfo;}
 
     private static final DataHolder holder = new DataHolder();
     public static DataHolder getInstance() {return holder;}
