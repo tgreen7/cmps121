@@ -1,5 +1,6 @@
 package com.example.cs121.final_project;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -76,7 +77,7 @@ public class Tab1Activity extends Activity
     Boolean undo;
     EditText name, batch_size, efficiency, boil_time;
     Spinner type, style;
-    public static ImageButton saveButton, recipesButton;
+    public static ImageButton saveButton, recipesButton, clearButton;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -89,6 +90,7 @@ public class Tab1Activity extends Activity
 
         saveButton = (ImageButton) findViewById(R.id.saveButton);
         recipesButton = (ImageButton) findViewById(R.id.showRecipesButton);
+        clearButton = (ImageButton) findViewById(R.id.clearButton);
         efficiency = (EditText) findViewById(R.id.efficiency);
         boil_time = (EditText) findViewById(R.id.boil_time);
         batch_size = (EditText) findViewById(R.id.batch);
@@ -156,17 +158,47 @@ public class Tab1Activity extends Activity
         adapter.notifyDataSetChanged();
     }
 
+    public void relaunchDialog (View view) {
+
+        new AlertDialog.Builder(this, 3)
+                .setTitle("Clear Recipe")
+                .setMessage("All unsaved changes will be lost.")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        relaunch();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .show();
+
+    }
+    private void relaunch() {
+        Intent intent = new Intent(this, MainActivity.class);
+        finish();
+        startActivity(intent);
+    }
+
+
+//    code for hiding and showing buttons
     static boolean hidden = false;
     static boolean showing = false;
     public static void hideSendButton() {
         if(hidden) return;
         hidden = true;
-        TranslateAnimation anim = new TranslateAnimation(0, 150, 0, 0); //first 0 is start point, 150 is end point horizontal
+        TranslateAnimation anim = new TranslateAnimation(0, 0, 0, 250); //first 0 is start point, 150 is end point horizontal
         anim.setDuration(250); // 1000 ms = 1second
         saveButton.startAnimation(anim);
         recipesButton.startAnimation(anim);
+        clearButton.startAnimation(anim);
+
         saveButton.setVisibility(View.GONE);
         recipesButton.setVisibility(View.GONE);
+        clearButton.setVisibility(View.GONE);
     }
     public static void showSendButtonDelayed() {
         if(!hidden) return;
@@ -180,24 +212,23 @@ public class Tab1Activity extends Activity
         }, 1000);
     }
     public static void showSendButton() {
-        TranslateAnimation anim = new TranslateAnimation(150, 0, 0, 0); //first 0 is start point, 150 is end point horizontal
+        TranslateAnimation anim = new TranslateAnimation(0, 0, 250, 0); //first 0 is start point, 150 is end point horizontal
         anim.setDuration(250); // 1000 ms = 1second
         saveButton.startAnimation(anim);
         recipesButton.startAnimation(anim);
+        clearButton.startAnimation(anim);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 saveButton.setVisibility(View.VISIBLE);
                 recipesButton.setVisibility(View.VISIBLE);
+                clearButton.setVisibility(View.VISIBLE);
                 hidden = false;
                 showing = false;
             }
         }, 250);
     }
-//    private void showSendButtonImm() {
-//        sendButton.setVisibility(View.VISIBLE);
-//    }
 
     public void onSaveInstanceState(Bundle savedState) {
 
@@ -214,12 +245,6 @@ public class Tab1Activity extends Activity
         // Do whatever
         closeInput(getWindow().getDecorView());
     }
-
-//    boolean willMyListScroll() {
-//        int pos = lview.getLastVisiblePosition();
-//        if(lview.getChildAt(pos) == null) return false;
-//        return((lview.getChildAt(pos).getBottom() > lview.getHeight()));
-//    }
 
 
     public static void closeInput(final View caller) {

@@ -71,7 +71,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name_layout"
-        android:id="@+id/Spinnerlayout">
+        android:id="@+id/Spinnerlayout"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -360,25 +361,38 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:text="Save Recipe"
-        android:id="@+id/saveButton"
-        android:onClick="saveText"
-        android:src="@drawable/save"
+        android:text="Clear"
+        android:id="@+id/clearButton"
+        android:onClick="relaunchDialog"
+        android:src="@drawable/trash"
         android:background="@null"
         android:scaleType="fitCenter" />
 
     <ImageButton
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_above="@+id/saveButton"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+        android:id="@+id/saveButton"
+        android:text="Save Recipe"
+        android:src="@drawable/save"
+        android:background="@null"
+        android:onClick="saveText"
+        android:scaleType="fitCenter"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/clearButton"
+        android:layout_toLeftOf="@+id/clearButton" />
+
+    <ImageButton
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:id="@+id/showRecipesButton"
         android:text="View Recipes"
         android:src="@drawable/open"
         android:background="@null"
         android:onClick="launchRecipes"
-        android:scaleType="fitCenter"/>
+        android:scaleType="fitCenter"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/saveButton"
+        android:layout_toLeftOf="@+id/saveButton" />
 
 
 
