@@ -804,8 +804,8 @@ public class RecipeBuilder extends Activity
         send[1] = batch_size.getText().toString();
         send[2] = style.getSelectedItem().toString();
         send[3] = type.getSelectedItem().toString();
-        send[4] = boil_time.getText().toString() + " min";
-        send[5] = efficiency.getText().toString() + "%";
+        send[4] = boil_time.getText().toString();
+        send[5] = efficiency.getText().toString();
         send[6] = String.format("%.1f%%", attenuation);
         DataHolder.getInstance().setMainInfo(send);
     }

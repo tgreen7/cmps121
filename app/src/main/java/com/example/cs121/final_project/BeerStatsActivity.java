@@ -45,7 +45,7 @@ public class BeerStatsActivity extends AppCompatActivity {
         if (info[4].equals("")) info[4] = "0";
         if (info[5].equals("")) info[5] = "0";
         info1.setText(info[0] + "\n" + info[1] + " gal\n" + info[2] + "\n" + info[3]);
-        info2.setText(info[4] + "\n" + info[5] + "\n" + info[6]);
+        info2.setText(info[4] + " min\n" + info[5] + "%\n" + info[6]);
         colorOut.setText(String.format("%.1f", DataHolder.getInstance().getColor()) + " SRM");
         if(color >= 40) {
             beerimage.setImageResource(R.drawable.beer_40_up);
