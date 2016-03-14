@@ -8,10 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.RecipeListAdapter;
 import com.example.cs121.final_project.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -38,20 +36,9 @@ public class RecipeList extends AppCompatActivity {
             recipes = new ArrayList<MetaInfo>();
         }
 
-//        ArrayList<String> recipeNames = new ArrayList<>();
-//        for(int i = 0; i < recipes.size(); i++) {
-//            recipeNames.add(recipes.get(i).name);
-//        }
 
         final RecipeListAdapter adapter = new RecipeListAdapter(this, recipes);
         recipeList.setAdapter(adapter);
-
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-//                android.R.layout.simple_list_item_1, android.R.id.text1, recipeNames);
-//
-//
-//        // Assign adapter to ListView
-//        recipeList.setAdapter(adapter);
 
         // ListView Item Click Listener
         recipeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
