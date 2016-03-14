@@ -19,6 +19,7 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:id="@+id/BeerImage"
             android:src="@drawable/hop"
             android:scaleType="fitCenter"
             android:contentDescription="color"

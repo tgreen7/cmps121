@@ -12,12 +12,14 @@ public class MetaInfo implements Serializable {
     public String style;
     public Double boilTime;
     public Double batch;
-    public MetaInfo (String name, Double effic, String type, String style, Double boilTime, Double batch ){
+    public Double color;
+    public MetaInfo (String name, Double effic, String type, String style, Double boilTime, Double batch, Double color ){
         this.name = name;
         this.effic = effic;
         this.type = type;
         this.style = style;
         this.boilTime = boilTime;
         this.batch = batch;
+        this.color = color;
     }
 }

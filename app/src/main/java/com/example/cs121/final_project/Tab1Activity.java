@@ -54,8 +54,6 @@ import com.github.johnpersano.supertoasts.SuperToast;
 import com.github.johnpersano.supertoasts.util.OnClickWrapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-//Meep Meep
-//Meep
 
 public class Tab1Activity extends Activity
         implements EditGrainDialog.MyDialogFragmentListener, EditHopDialog.MyDialogFragmentListener,
@@ -503,7 +501,7 @@ public class Tab1Activity extends Activity
 
         MetaInfo info = new MetaInfo(name.getText().toString(), Double.parseDouble(efficiency.getText().toString()),
                 type.getSelectedItem().toString(), style.getSelectedItem().toString(),
-                Double.parseDouble(boil_time.getText().toString()), Double.parseDouble(batch_size.getText().toString()));
+                Double.parseDouble(boil_time.getText().toString()), Double.parseDouble(batch_size.getText().toString()), color);
 
         ArrayList<MetaInfo> recipeNames;
         Gson gson = new Gson();
@@ -739,21 +737,6 @@ public class Tab1Activity extends Activity
 
         batch_size.addTextChangedListener(change);
         efficiency.addTextChangedListener(change);
-
-
-//        saveButton.setOnTouchListener(new View.OnTouchListener() {
-//            public boolean onTouch(View v, MotionEvent me){
-//                ViewGroup.MarginLayoutParams marginParams = new ViewGroup.MarginLayoutParams(saveButton.getLayoutParams());
-//                int left = (int) me.getRawX() - (v.getWidth() / 2);
-//                int top = (int) me.getRawY() - (v.getHeight());
-//                marginParams.setMargins(left, top, 0, 0);
-//                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(marginParams);
-//                saveButton.setLayoutParams(layoutParams);
-//                return true;
-//            }
-//        });
-
-
     }
 
 }
