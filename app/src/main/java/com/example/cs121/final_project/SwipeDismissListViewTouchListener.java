@@ -19,7 +19,6 @@ package com.example.cs121.final_project;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
-import android.app.ActionBar;
 import android.graphics.Rect;
 import android.os.SystemClock;
 import android.view.MotionEvent;
@@ -176,7 +175,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
         switch (motionEvent.getActionMasked()) {
             case MotionEvent.ACTION_DOWN: {
                 if (view.getId() == R.id.listView){
-                    Tab1Activity.hideSendButton();
+                    RecipeBuilder.hideSendButton();
                 }
 
                 if (mPaused) {
@@ -239,7 +238,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
 
             case MotionEvent.ACTION_UP: {
                 if (view.getId() == R.id.listView){
-                    Tab1Activity.showSendButtonDelayed();
+                    RecipeBuilder.showSendButtonDelayed();
                 }
                 if (mVelocityTracker == null) {
                     break;

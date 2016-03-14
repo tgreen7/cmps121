@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.example.cs121.final_project.Item;
 import com.example.cs121.final_project.R;
-import com.example.cs121.final_project.Tab1Activity;
 
 /**
  * Created by Halsifer on 3/9/16.

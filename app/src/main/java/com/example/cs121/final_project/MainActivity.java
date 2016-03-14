@@ -3,13 +3,10 @@ package com.example.cs121.final_project;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class MainActivity extends TabActivity
@@ -31,7 +28,7 @@ public class MainActivity extends TabActivity
         // Set the Tab name and Activity
         // that will be opened when particular Tab will be selected
         tab1.setIndicator("Recipe");
-        tab1.setContent(new Intent(this, Tab1Activity.class));
+        tab1.setContent(new Intent(this, RecipeBuilder.class));
 
         tab2.setIndicator("Beer Stats");
         tab2.setContent(new Intent(this, BeerStatsActivity.class));

@@ -106,7 +106,7 @@ public class RecipeList extends AppCompatActivity {
         new AlertDialog.Builder(this, 3)
                 .setTitle("Delete Recipe")
                 .setMessage("Are you Sure?")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         finishRemove(recipeName);

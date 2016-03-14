@@ -13,17 +13,13 @@ import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import static com.example.cs121.final_project.Constant.FIFTH_COLUMN;
@@ -56,7 +52,7 @@ import com.github.johnpersano.supertoasts.util.OnClickWrapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class Tab1Activity extends Activity
+public class RecipeBuilder extends Activity
         implements EditGrainDialog.MyDialogFragmentListener, EditHopDialog.MyDialogFragmentListener,
         EditYeastDialog.MyDialogFragmentListener, EditMiscDialog.MyDialogFragmentListener,
         DialogInterface.OnDismissListener
@@ -164,7 +160,7 @@ public class Tab1Activity extends Activity
         new AlertDialog.Builder(this, 3)
                 .setTitle("Clear Recipe")
                 .setMessage("All unsaved changes will be lost.")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         relaunch();
@@ -659,30 +655,30 @@ public class Tab1Activity extends Activity
 
                 switch (myItem.ing_type) {
                     case 1: {
-                        EditGrainDialog cdd = new EditGrainDialog(Tab1Activity.this, myItem);
+                        EditGrainDialog cdd = new EditGrainDialog(RecipeBuilder.this, myItem);
                         cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        cdd.setOnDismissListener(Tab1Activity.this);
+                        cdd.setOnDismissListener(RecipeBuilder.this);
                         cdd.show();
                         break;
                     }
                     case 2: {
-                        EditHopDialog cdd = new EditHopDialog(Tab1Activity.this, myItem);
+                        EditHopDialog cdd = new EditHopDialog(RecipeBuilder.this, myItem);
                         cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        cdd.setOnDismissListener(Tab1Activity.this);
+                        cdd.setOnDismissListener(RecipeBuilder.this);
                         cdd.show();
                         break;
                     }
                     case 3: {
-                        EditYeastDialog cdd = new EditYeastDialog(Tab1Activity.this, myItem);
+                        EditYeastDialog cdd = new EditYeastDialog(RecipeBuilder.this, myItem);
                         cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        cdd.setOnDismissListener(Tab1Activity.this);
+                        cdd.setOnDismissListener(RecipeBuilder.this);
                         cdd.show();
                         break;
                     }
                     case 4: {
-                        EditMiscDialog cdd = new EditMiscDialog(Tab1Activity.this, myItem);
+                        EditMiscDialog cdd = new EditMiscDialog(RecipeBuilder.this, myItem);
                         cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        cdd.setOnDismissListener(Tab1Activity.this);
+                        cdd.setOnDismissListener(RecipeBuilder.this);
                         cdd.show();
                         break;
                     }
@@ -732,7 +728,7 @@ public class Tab1Activity extends Activity
                                     prevpos = position;
                                     itemList.remove(position);
                                     list.remove(position);
-                                    superActivityToast = new SuperActivityToast(Tab1Activity.this, SuperToast.Type.BUTTON);
+                                    superActivityToast = new SuperActivityToast(RecipeBuilder.this, SuperToast.Type.BUTTON);
                                     superActivityToast.setDuration(SuperToast.Duration.LONG);
                                     superActivityToast.setText("Ingredient Removed");
                                     superActivityToast.setButtonIcon(SuperToast.Icon.Dark.UNDO, "UNDO");
