@@ -158,13 +158,28 @@ public class Tab1Activity extends Activity
         adapter.notifyDataSetChanged();
     }
 
+    static boolean hidden = false;
+    static boolean showing = false;
     public static void hideSendButton() {
+        if(hidden) return;
+        hidden = true;
         TranslateAnimation anim = new TranslateAnimation(0, 150, 0, 0); //first 0 is start point, 150 is end point horizontal
         anim.setDuration(250); // 1000 ms = 1second
         saveButton.startAnimation(anim);
         recipesButton.startAnimation(anim);
         saveButton.setVisibility(View.GONE);
         recipesButton.setVisibility(View.GONE);
+    }
+    public static void showSendButtonDelayed() {
+        if(!hidden) return;
+        if(showing) return;
+        showing = true;
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showSendButton();
+            }
+        }, 1000);
     }
     public static void showSendButton() {
         TranslateAnimation anim = new TranslateAnimation(150, 0, 0, 0); //first 0 is start point, 150 is end point horizontal
@@ -177,6 +192,8 @@ public class Tab1Activity extends Activity
             public void run() {
                 saveButton.setVisibility(View.VISIBLE);
                 recipesButton.setVisibility(View.VISIBLE);
+                hidden = false;
+                showing = false;
             }
         }, 250);
     }
@@ -669,7 +686,7 @@ public class Tab1Activity extends Activity
 
         });
 
-        final SwipeDismissListViewTouchListener touchListener =
+        SwipeDismissListViewTouchListener touchListener =
                 new SwipeDismissListViewTouchListener(
                         lview,
                         new SwipeDismissListViewTouchListener.DismissCallbacks() {
@@ -694,40 +711,9 @@ public class Tab1Activity extends Activity
                                     superActivityToast.setOnClickWrapper(onClickWrapper);
                                     superActivityToast.show();
                                 }
-
-                                updateData();
                                 adapter.notifyDataSetChanged();
                             }
-                        }){
-                    @Override
-                    public AbsListView.OnScrollListener makeScrollListener() {
-                        return new AbsListView.OnScrollListener() {
-                            boolean atTop = true;
-                            boolean hidden = false;
-                            @Override
-                            public void onScrollStateChanged(AbsListView absListView, int scrollState) {
-                                setEnabled(scrollState != AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL);
-                                if(absListView.getChildAt(0).getTop() == 0 ) {
-                                    if(!atTop) {
-                                        Tab1Activity.showSendButton();
-                                        atTop = true;
-                                        hidden = false;
-                                    }
-                                } else {
-                                    if(!hidden) {
-                                        Tab1Activity.hideSendButton();
-                                        atTop = false;
-                                        hidden= true;
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
-                            }
-                        };
-                    }
-                };
+                        });
 
         lview.setOnTouchListener(touchListener);
         // Setting this scroll listener is required to ensure that during ListView scrolling,
