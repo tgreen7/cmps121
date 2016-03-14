@@ -70,7 +70,10 @@ public class PickMiscActivity extends AppCompatActivity implements PickMiscDialo
 
                 // TODO Auto-generated method stub
                 String query = searchQuery.getText().toString();
-                if (!query.equals("")) {
+                if (query.contains("'")){
+                    list.clear();
+                    adapter.notifyDataSetChanged();
+                } else if (!query.equals("")) {
 //                    System.out.println(query);
                     populateList(query);
                     adapter.notifyDataSetChanged();

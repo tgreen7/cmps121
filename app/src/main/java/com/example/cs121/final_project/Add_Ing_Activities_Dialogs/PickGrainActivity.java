@@ -76,7 +76,10 @@ public class PickGrainActivity extends AppCompatActivity implements PickGrainDia
 
                 // TODO Auto-generated method stub
                 String query = searchQuery.getText().toString();
-                if (!query.equals("")) {
+                if (query.contains("'")){
+                    list.clear();
+                    adapter.notifyDataSetChanged();
+                } else if (!query.equals("")) {
 //                    System.out.println(query);
                     populateList(query);
                     adapter.notifyDataSetChanged();
