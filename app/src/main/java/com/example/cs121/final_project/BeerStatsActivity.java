@@ -41,7 +41,10 @@ public class BeerStatsActivity extends AppCompatActivity {
         info = DataHolder.getInstance().getMainInfo();
         color = DataHolder.getInstance().getColor();
         if (info[0].equals("")) info[0] = "Untitled Recipe";
-        info1.setText(info[0] + "\n" + info[1] + "\n" + info[2] + "\n" + info[3]);
+        if (info[1].equals("")) info[1] = "0";
+        if (info[4].equals("")) info[4] = "0";
+        if (info[5].equals("")) info[5] = "0";
+        info1.setText(info[0] + "\n" + info[1] + " gal\n" + info[2] + "\n" + info[3]);
         info2.setText(info[4] + "\n" + info[5] + "\n" + info[6]);
         colorOut.setText(String.format("%.1f", DataHolder.getInstance().getColor()) + " SRM");
         if(color >= 40) {
