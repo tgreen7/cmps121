@@ -40,9 +40,10 @@ public class BeerStatsActivity extends AppCompatActivity {
         IBU = DataHolder.getInstance().getIBU();
         info = DataHolder.getInstance().getMainInfo();
         color = DataHolder.getInstance().getColor();
+        if (info[0].equals("")) info[0] = "Untitled Recipe";
         info1.setText(info[0] + "\n" + info[1] + "\n" + info[2] + "\n" + info[3]);
         info2.setText(info[4] + "\n" + info[5] + "\n" + info[6]);
-        colorOut.setText(String.format("%.1f", DataHolder.getInstance().getColor()) + "SRM");
+        colorOut.setText(String.format("%.1f", DataHolder.getInstance().getColor()) + " SRM");
         if(color >= 40) {
             beerimage.setImageResource(R.drawable.beer_40_up);
         } else if (color >= 35) {
