@@ -6,13 +6,14 @@ import android.widget.TextView;
 
 public class BeerStatsActivity extends AppCompatActivity {
 
-    TextView StatOutput;
+    TextView StatOutput, colorOut;
     Double OG, FG, ABV, IBU;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beer_stats);
         StatOutput = (TextView) findViewById(R.id.statOutput);
+        colorOut = (TextView) findViewById(R.id.colorOut);
         Double OG = 0.0;
         Double FG = 0.0;
         Double IBU = 0.0;
