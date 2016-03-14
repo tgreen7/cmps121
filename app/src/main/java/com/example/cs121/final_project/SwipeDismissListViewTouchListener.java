@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
+/** Borrowed from <a href="https://github.com/JakeWharton/SwipeToDismissNOA">Jake Wharton git</a>
  * A {@link View.OnTouchListener} that makes the list items in a {@link ListView}
  * dismissable. {@link ListView} is given special treatment because by default it handles touches
  * for its list items... i.e. it's in charge of drawing the pressed state (the list selector),
@@ -175,7 +175,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
         switch (motionEvent.getActionMasked()) {
             case MotionEvent.ACTION_DOWN: {
                 if (view.getId() == R.id.listView){
-                    RecipeBuilder.hideSendButton();
+                    RecipeBuilder.hideButtons();
                 }
 
                 if (mPaused) {
@@ -238,7 +238,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
 
             case MotionEvent.ACTION_UP: {
                 if (view.getId() == R.id.listView){
-                    RecipeBuilder.showSendButtonDelayed();
+                    RecipeBuilder.showButtonsDelayed();
                 }
                 if (mVelocityTracker == null) {
                     break;

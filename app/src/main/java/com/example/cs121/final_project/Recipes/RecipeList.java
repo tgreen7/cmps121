@@ -92,6 +92,10 @@ public class RecipeList extends AppCompatActivity {
         recipeList.setOnScrollListener(touchListener.makeScrollListener());
     }
 
+    /**
+     * removes recipe from shared preferences
+     * @param recipeName recipe to be removed
+     */
     public void finishRemove(String recipeName){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         SharedPreferences.Editor prefsEditor = prefs.edit();
@@ -102,6 +106,12 @@ public class RecipeList extends AppCompatActivity {
         prefsEditor.apply();
     }
 
+    /**
+     * confirms that user really wants to remove recipe
+     * @param position position of item to be removed
+     * @param recipeName recipe to be removed
+     * @param save info that must be put back into list if user cancels
+     */
     public void remove(final int position, final String recipeName, final MetaInfo save) {
         new AlertDialog.Builder(this, 3)
                 .setTitle("Delete Recipe")
@@ -122,6 +132,10 @@ public class RecipeList extends AppCompatActivity {
                 .show();
     }
 
+    /**
+     * closes the activity
+     * @param v current view
+     */
     public void closeActivity(View v) {
         finish();
     }

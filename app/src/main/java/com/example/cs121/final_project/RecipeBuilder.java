@@ -78,7 +78,7 @@ public class RecipeBuilder extends Activity
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab1);
+        setContentView(R.layout.activity_recipe_builder);
 
 //        this can be used to wipe shared preferences
 //        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
@@ -131,6 +131,11 @@ public class RecipeBuilder extends Activity
         }
     }
 
+    /**
+     * Repopulates the itemList and view with the
+     * Arraylist of values passed in
+     * @param values the ArrayList of new items to populate the view
+     */
     private void repopulateList(ArrayList<Item> values) {
         itemList.clear();
         list.clear();
@@ -155,6 +160,11 @@ public class RecipeBuilder extends Activity
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     * Launches a dialog to ask user if they would like to clear
+     * recipe (restart activity)
+     * @param view
+     */
     public void relaunchDialog (View view) {
 
         new AlertDialog.Builder(this, 3)
@@ -174,6 +184,10 @@ public class RecipeBuilder extends Activity
                 .show();
 
     }
+
+    /**
+     * Restarts the activity
+     */
     private void relaunch() {
         Intent intent = new Intent(this, MainActivity.class);
         finish();
@@ -184,7 +198,13 @@ public class RecipeBuilder extends Activity
 //    code for hiding and showing buttons
     static boolean hidden = false;
     static boolean showing = false;
-    public static void hideSendButton() {
+
+    /**
+     * Hides the buttons on the bottom of view
+     * called from custom scroll listener of
+     * of {@link SwipeDismissListViewTouchListener}
+     */
+    public static void hideButtons() {
         if(hidden) return;
         hidden = true;
         TranslateAnimation anim = new TranslateAnimation(0, 0, 0, 250); //first 0 is start point, 150 is end point horizontal
@@ -197,18 +217,28 @@ public class RecipeBuilder extends Activity
         recipesButton.setVisibility(View.GONE);
         clearButton.setVisibility(View.GONE);
     }
-    public static void showSendButtonDelayed() {
+
+    /**
+     * Calls show send button
+     * called from custom scroll listener of
+     * of {@link SwipeDismissListViewTouchListener}
+     */
+    public static void showButtonsDelayed() {
         if(!hidden) return;
         if(showing) return;
         showing = true;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                showSendButton();
+                showButtons();
             }
         }, 1000);
     }
-    public static void showSendButton() {
+
+    /**
+     * Shows bottom buttons
+     */
+    public static void showButtons() {
         TranslateAnimation anim = new TranslateAnimation(0, 0, 250, 0); //first 0 is start point, 150 is end point horizontal
         anim.setDuration(250); // 1000 ms = 1second
         saveButton.startAnimation(anim);
@@ -227,6 +257,10 @@ public class RecipeBuilder extends Activity
         }, 250);
     }
 
+    /**
+     * Stores the current items of item list into saved state
+     * @param savedState the state of app to be saved
+     */
     public void onSaveInstanceState(Bundle savedState) {
 
         super.onSaveInstanceState(savedState);
@@ -237,6 +271,10 @@ public class RecipeBuilder extends Activity
 
     }
 
+    /**
+     * Calls closeInput every time a dialog is closed
+     * @param dialog
+     */
     @Override
     public void onDismiss(DialogInterface dialog) {
         // Do whatever
@@ -244,6 +282,10 @@ public class RecipeBuilder extends Activity
     }
 
 
+    /**
+     * This will close the softkeyboard
+     * @param caller the current view
+     */
     public static void closeInput(final View caller) {
         caller.postDelayed(new Runnable() {
             @Override
@@ -254,6 +296,11 @@ public class RecipeBuilder extends Activity
         }, 100);
     }
 
+    /**
+     * puts a Grain item into the itemList
+     * @param newItem item to be put
+     * @param edit is the user editing a item already in the list
+     */
     public void putGrain(Item newItem, boolean edit) {
         HashMap newRow = new HashMap();
         String[] dataEntry = parseGrain(newItem.weight, newItem.time);
@@ -278,6 +325,11 @@ public class RecipeBuilder extends Activity
         updateData();
     }
 
+    /**
+     * puts a Hop item into the itemList
+     * @param newItem item to be put
+     * @param edit is the user editing a item already in the list
+     */
     public void putHop(Item newItem, boolean edit) {
         HashMap newRow = new HashMap();
 
@@ -303,6 +355,11 @@ public class RecipeBuilder extends Activity
         updateIBUs();
     }
 
+    /**
+     * puts a Yeast item into the itemList
+     * @param newItem item to be put
+     * @param edit is the user editing a item already in the list
+     */
     public void putYeast(Item newItem, boolean edit) {
         HashMap newRow = new HashMap();
         newRow.put(FIRST_COLUMN, newItem.weight + " " + newItem.str3);
@@ -325,6 +382,11 @@ public class RecipeBuilder extends Activity
         updateData();
     }
 
+    /**
+     * puts a Miscellaneous item into the itemList
+     * @param newItem item to be put
+     * @param edit is the user editing a item already in the list
+     */
     public void putMisc (Item newItem, boolean edit) {
         HashMap newRow = new HashMap();
 
@@ -352,23 +414,42 @@ public class RecipeBuilder extends Activity
     }
 
 
-
+    /**
+     * Starts the activity to select a grain
+     * @param view the view we are calling from
+     */
     public void startGrain(View view) {
         Intent intent = new Intent(this, PickGrainActivity.class);
         startActivityForResult(intent, 1);
     }
+    /**
+     * Starts the activity to select a hop
+     * @param view the view we are calling from
+     */
     public void startHop(View view) {
         Intent intent = new Intent(this, PickHopActivity.class);
         startActivityForResult(intent, 2);
     }
+    /**
+     * Starts the activity to select a yeast
+     * @param view the view we are calling from
+     */
     public void startYeast(View view) {
         Intent intent = new Intent(this, PickYeastActivity.class);
         startActivityForResult(intent, 3);
     }
+    /**
+     * Starts the activity to select a misc
+     * @param view the view we are calling from
+     */
     public void startMisc(View view) {
         Intent intent = new Intent(this, PickMiscActivity.class);
         startActivityForResult(intent, 4);
     }
+
+    /**
+     * When an activity is finished this will handle the results passed back
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -461,6 +542,12 @@ public class RecipeBuilder extends Activity
     }
 
 
+    /**
+     * parses and formats the grain item
+     * @param weight given in pounds or ounces, converts
+     * @param time given in days or seconds, converts
+     * @return
+     */
     public String[] parseGrain(Double weight, int time){
         String[] result = new String[2];
         int lb = 0;
@@ -493,12 +580,22 @@ public class RecipeBuilder extends Activity
         return result;
     }
 
+    /**
+     * launches the recipe view
+     * @param view current view
+     */
     public void launchRecipes(View view) {
         Intent intent = new Intent(this, RecipeList.class);
         startActivityForResult(intent, 5);
     }
 
-    public void saveText (View view) {
+
+    /**
+     * Saves recipe to Shared preferences so that the user
+     * may view a list of recipes
+     * @param view current view
+     */
+    public void saveRecipe (View view) {
 
         if(name.getText().toString().equals("")){
             Toast.makeText(this, "Please enter a name for your recipe.", Toast.LENGTH_LONG).show();
@@ -563,6 +660,13 @@ public class RecipeBuilder extends Activity
         prefsEditor.apply();
     }
 
+    /**
+     * Parses the IBU
+     * @param weight amount given
+     * @param time time
+     * @param dbl1
+     * @return returns the parsed IBU
+     */
     public Double parseIBU(Double weight, Integer time, Double dbl1) {
         Double eq1 = Math.pow(0.000125, (oGravity-1));
         eq1 *= 1.65;
@@ -646,6 +750,10 @@ public class RecipeBuilder extends Activity
         updateIBUs();
 
     }
+
+    /**
+     * Sets listeners for listview and others
+     */
     private void setListeners() {
         lview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -786,9 +894,6 @@ public class RecipeBuilder extends Activity
                 updateDataHolder();            }
 
         };
-
-
-
 
         name.addTextChangedListener(store_fields);
         boil_time.addTextChangedListener(store_fields);

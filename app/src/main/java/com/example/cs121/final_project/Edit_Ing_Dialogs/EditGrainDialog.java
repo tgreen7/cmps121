@@ -16,6 +16,7 @@ import com.example.cs121.final_project.R;
 
 /**
  * Created by Halsifer on 3/9/16.
+ * EditGrainDialog shows a dialog to edit a grain item
  */
 public class EditGrainDialog extends Dialog implements android.view.View.OnClickListener {
     public Activity c;
@@ -105,6 +106,11 @@ public class EditGrainDialog extends Dialog implements android.view.View.OnClick
         }
     }
 
+    /**
+     * makes sure that dialog is filled so that user cant add an empty
+     * item
+     * @return true if any field is empty
+     */
     public boolean checkEmpty() {
         if(name.getText().toString().trim().length() == 0) {
             Toast.makeText(c, "Please enter a name.",
@@ -140,6 +146,9 @@ public class EditGrainDialog extends Dialog implements android.view.View.OnClick
         return false;
     }
 
+    /**
+     * sends the item to activity
+     */
     public void sendItem() {
         if(checkEmpty()) {
             return;

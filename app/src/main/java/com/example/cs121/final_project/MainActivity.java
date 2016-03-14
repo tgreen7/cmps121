@@ -60,6 +60,10 @@ public class MainActivity extends TabActivity
         });
     }
 
+    /**
+     * This launches the helpScreen activity
+     * @param v the view is passed
+     */
     public void helpScreen(View v) {
         Intent intent = new Intent(this, HelpActivity.class);
         startActivity(intent);
