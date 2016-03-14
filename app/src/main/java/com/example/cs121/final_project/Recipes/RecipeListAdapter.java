@@ -77,29 +77,29 @@ public class RecipeListAdapter extends BaseAdapter {
         holder.txtFirst.setText(info.name);
         holder.txtSecond.setText(info.style);
         if(info.color >= 40) {
-            holder.beer.setImageResource(R.drawable.wheat);
+            holder.beer.setImageResource(R.drawable.beer_40_up);
         } else if (info.color >= 35) {
-            holder.beer.setImageResource(R.drawable.wheat);
+            holder.beer.setImageResource(R.drawable.beer_35);
         } else if (info.color >= 29) {
-            holder.beer.setImageResource(R.drawable.wheat);
+            holder.beer.setImageResource(R.drawable.beer_29);
         } else if (info.color >= 24) {
-            holder.beer.setImageResource(R.drawable.wheat);
+            holder.beer.setImageResource(R.drawable.beer_24);
         } else if (info.color >= 20) {
-            holder.beer.setImageResource(R.drawable.wheat);
+            holder.beer.setImageResource(R.drawable.beer_20);
         } else if (info.color >= 17) {
-            holder.beer.setImageResource(R.drawable.wheat);
+            holder.beer.setImageResource(R.drawable.beer_17);
         } else if (info.color >= 13) {
-            holder.beer.setImageResource(R.drawable.wheat);
+            holder.beer.setImageResource(R.drawable.beer_13);
         } else if (info.color >= 10) {
-            holder.beer.setImageResource(R.drawable.wheat);
+            holder.beer.setImageResource(R.drawable.beer_10);
         } else if (info.color >= 8) {
-            holder.beer.setImageResource(R.drawable.wheat);
+            holder.beer.setImageResource(R.drawable.beer_8);
         } else if (info.color >= 6) {
-            holder.beer.setImageResource(R.drawable.wheat);
+            holder.beer.setImageResource(R.drawable.beer_6);
         } else if (info.color >= 4) {
-            holder.beer.setImageResource(R.drawable.wheat);
+            holder.beer.setImageResource(R.drawable.beer_4);
         } else if (info.color >= 2) {
-            holder.beer.setImageResource(R.drawable.wheat);
+            holder.beer.setImageResource(R.drawable.beer_2_3);
         }
 
         return convertView;

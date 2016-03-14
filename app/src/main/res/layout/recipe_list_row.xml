@@ -20,11 +20,10 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:id="@+id/BeerImage"
-            android:src="@drawable/hop"
+            android:src="@drawable/beer_none"
             android:scaleType="fitCenter"
             android:contentDescription="color"
             android:padding="0dp"
-            android:background="#c29624"
             android:layout_gravity="start" />
 
         <LinearLayout android:layout_width="match_parent"
