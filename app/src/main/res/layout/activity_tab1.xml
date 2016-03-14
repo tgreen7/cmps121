@@ -25,7 +25,7 @@
             android:text="@string/Name"/>
         <EditText
             android:id="@+id/recipeName"
-            android:inputType="text"
+            android:inputType="textCapWords|textAutoCorrect"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"/>
