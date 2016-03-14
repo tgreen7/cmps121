@@ -586,7 +586,6 @@ public class Tab1Activity extends Activity
                 aAverage++;
             }
         }
-        attenuation = aTotal/aAverage;
         System.out.println("Points = " + gTotal);
         if (gTotal == 0) {
             oGravity = 1.0;
@@ -605,8 +604,12 @@ public class Tab1Activity extends Activity
             oGravity = gTotal;
         }
 
-        if (aTotal == 0) fGravity = oGravity;
+        if (aTotal == 0) {
+            fGravity = oGravity;
+            attenuation = 0.0;
+        }
         else {
+            attenuation = aTotal / aAverage;
             Double attresult = 1 - ((aTotal / aAverage)/100);
             gTotal = (gTotal - 1) * 1000;
             gTotal *= attresult;
@@ -711,7 +714,7 @@ public class Tab1Activity extends Activity
                                     superActivityToast.setOnClickWrapper(onClickWrapper);
                                     superActivityToast.show();
                                 }
-                                adapter.notifyDataSetChanged();
+                                updateData();
                             }
                         });
 
@@ -780,9 +783,9 @@ public class Tab1Activity extends Activity
         send[1] = batch_size.getText().toString();
         send[2] = style.getSelectedItem().toString();
         send[3] = type.getSelectedItem().toString();
-        send[4] = boil_time.getText().toString();
-        send[5] = efficiency.getText().toString();
-        send[6] = String.format("%.1f", attenuation);
+        send[4] = boil_time.getText().toString() + " min";
+        send[5] = efficiency.getText().toString() + "%";
+        send[6] = String.format("%.1f%%", attenuation);
         DataHolder.getInstance().setMainInfo(send);
     }
 
