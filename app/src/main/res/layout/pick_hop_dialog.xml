@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:textColor="@color/bright_white"
+            android:textCursorDrawable="@drawable/custom_cursor"
             android:backgroundTint="@color/gold"
             android:id="@+id/nameText" />
 
@@ -38,6 +39,7 @@
 
         <EditText
             android:layout_width="50dp"
+            android:textCursorDrawable="@drawable/custom_cursor"
             android:inputType="numberDecimal"
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
@@ -62,6 +64,7 @@
             android:text="@string/Type"
             android:id="@+id/type" />
         <EditText
+            android:textCursorDrawable="@drawable/custom_cursor"
             android:layout_width="100dp"
             android:inputType="text"
             android:layout_height="wrap_content"
@@ -115,6 +118,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Boil Time" />
         <EditText
+            android:textCursorDrawable="@drawable/custom_cursor"
             android:layout_width="30dp"
             android:inputType="number"
             android:layout_height="wrap_content"
@@ -136,6 +140,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Weight"/>
         <EditText
+            android:textCursorDrawable="@drawable/custom_cursor"
             android:layout_width="30dp"
             android:inputType="numberDecimal"
             android:layout_height="wrap_content"

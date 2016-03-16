@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorHighlight">@color/highlight</item>
     </style>
     <style name="PickTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -22,12 +23,11 @@
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
-    <style name="CustomDialogueStyle">
+    <style name="CustomDialogueStyle" parent="AppTheme">
         <item name="android:capitalize">characters</item>
-        <item name="android:background">#571f0f</item>
+        <item name="android:background">#571f0f</item>q
         <item name="android:textSize">7pt</item>
         <item name="android:textColor">#ffffff</item>
-
     </style>
 
     <style name="Search" parent="Widget.AppCompat.SearchView">

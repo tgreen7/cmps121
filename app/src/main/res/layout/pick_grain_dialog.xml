@@ -21,6 +21,7 @@
             android:id="@+id/name" />
         <EditText
             android:layout_width="120dp"
+            android:textCursorDrawable="@drawable/custom_cursor"
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
             android:inputType="text"
@@ -38,6 +39,7 @@
 
         <EditText
             android:layout_width="60dp"
+            android:textCursorDrawable="@drawable/custom_cursor"
             android:inputType="text"
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
@@ -61,6 +63,7 @@
             android:id="@+id/color" />
         <EditText
             android:layout_width="50dp"
+            android:textCursorDrawable="@drawable/custom_cursor"
             android:inputType="numberDecimal"
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
@@ -78,6 +81,7 @@
             android:id="@+id/potential" />
         <EditText
             android:layout_width="50dp"
+            android:textCursorDrawable="@drawable/custom_cursor"
             android:inputType="numberDecimal"
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
@@ -121,6 +125,7 @@
 
         <EditText
             android:layout_width="35dp"
+            android:textCursorDrawable="@drawable/custom_cursor"
             android:inputType="numberDecimal"
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
@@ -154,6 +159,7 @@
 
         <EditText
             android:layout_width="40dp"
+            android:textCursorDrawable="@drawable/custom_cursor"
             android:inputType="number"
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"
@@ -169,6 +175,7 @@
 
         <EditText
             android:layout_width="40dp"
+            android:textCursorDrawable="@drawable/custom_cursor"
             android:inputType="numberDecimal"
             android:layout_height="wrap_content"
             android:textColor="@color/bright_white"

@@ -394,9 +394,6 @@
         android:layout_toStartOf="@+id/saveButton"
         android:layout_toLeftOf="@+id/saveButton" />
 
-
-
-
 </RelativeLayout>
 
 
