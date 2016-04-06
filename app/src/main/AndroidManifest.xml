@@ -9,6 +9,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="stateAlwaysHidden">
+
+        <!--for backup saves-->
+        <!--<meta-data android:name="com.google.android.backup.api_key" android:value="AEdPqrEAAAAIl3yO4iNOPLbxGQ4P5tQLvDCcWCm6k8vHBTVg9Q" />-->
+        <!--add to up above-->
+        <!--android:backupAgent=".MyBackupAgent"-->
+        
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"

@@ -2,6 +2,7 @@ package com.example.cs121.final_project.Recipes;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.backup.BackupManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -35,9 +36,9 @@ public class RecipeList extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_list);
         final ListView recipeList = (ListView) findViewById(R.id.recipeList);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("MyRecipes", 0);
         Gson gson = new Gson();
-        String json = prefs.getString("MyRecipeNames", null);
+        String json = prefs.getString("RecipeMeta", null);
         if (json != null) {
             Type type = new TypeToken<ArrayList<MetaInfo>>() {}.getType();
             recipes  = (ArrayList<MetaInfo>) gson.fromJson(json, type);
@@ -97,13 +98,16 @@ public class RecipeList extends AppCompatActivity {
      * @param recipeName recipe to be removed
      */
     public void finishRemove(String recipeName){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("MyRecipes", 0);
         SharedPreferences.Editor prefsEditor = prefs.edit();
         Gson gson = new Gson();
         String json = gson.toJson(recipes);
-        prefsEditor.putString("MyRecipeNames", json);
+        prefsEditor.putString("RecipeMeta", json);
         prefsEditor.remove(recipeName);
         prefsEditor.apply();
+
+//        BackupManager bm = new BackupManager(getApplicationContext());
+//        bm.dataChanged();
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.example.cs121.final_project;
 
 import android.app.AlertDialog;
+import android.app.backup.BackupManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,10 +11,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
-import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -34,6 +35,7 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cs121.final_project.Add_Ing_Activities_Dialogs.PickGrainActivity;
@@ -74,7 +76,6 @@ public class RecipeBuilder extends Activity
     EditText name, batch_size, efficiency, boil_time;
     Spinner type, style;
     public static ImageButton saveButton, recipesButton, clearButton;
-
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -245,16 +246,26 @@ public class RecipeBuilder extends Activity
         recipesButton.startAnimation(anim);
         clearButton.startAnimation(anim);
 
-        new Handler().postDelayed(new Runnable() {
+        anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void run() {
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
                 saveButton.setVisibility(View.VISIBLE);
                 recipesButton.setVisibility(View.VISIBLE);
                 clearButton.setVisibility(View.VISIBLE);
                 hidden = false;
                 showing = false;
             }
-        }, 250);
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
     }
 
     /**
@@ -490,10 +501,10 @@ public class RecipeBuilder extends Activity
                 if (resultCode == Activity.RESULT_OK) {
                     String recipeName = data.getStringExtra("recipeName");
                     System.out.println(recipeName);
-                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+                    SharedPreferences prefs = getApplicationContext().getSharedPreferences("MyRecipes", 0);
 
                     Gson gson = new Gson();
-                    String json = prefs.getString("MyRecipeNames", null);
+                    String json = prefs.getString("RecipeMeta", null);
                     if (json != null) {
                         Type t = new TypeToken<ArrayList<MetaInfo>>() {}.getType();
                         ArrayList<MetaInfo> values  = (ArrayList<MetaInfo>) gson.fromJson(json, t);
@@ -589,6 +600,11 @@ public class RecipeBuilder extends Activity
         startActivityForResult(intent, 5);
     }
 
+//    public void requestBackup() {
+//        BackupManager bm = new BackupManager(getApplicationContext());
+//        bm.dataChanged();
+//    }
+
 
     /**
      * Saves recipe to Shared preferences so that the user
@@ -614,8 +630,7 @@ public class RecipeBuilder extends Activity
             return;
         }
 
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("MyRecipes", 0);
         SharedPreferences.Editor prefsEditor = prefs.edit();
 
         MetaInfo info = new MetaInfo(name.getText().toString(), Double.parseDouble(efficiency.getText().toString()),
@@ -624,7 +639,7 @@ public class RecipeBuilder extends Activity
 
         ArrayList<MetaInfo> recipeNames;
         Gson gson = new Gson();
-        String json = prefs.getString("MyRecipeNames", null);
+        String json = prefs.getString("RecipeMeta", null);
         boolean in = false;
         if (json != null) {
             Type type = new TypeToken<ArrayList<MetaInfo>>() {}.getType();
@@ -652,12 +667,14 @@ public class RecipeBuilder extends Activity
 
         gson = new Gson();
         json = gson.toJson(recipeNames);
-        prefsEditor.putString("MyRecipeNames", json);
+        prefsEditor.putString("RecipeMeta", json);
 
         gson = new Gson();
         json = gson.toJson(itemList);
         prefsEditor.putString(info.name, json);
         prefsEditor.apply();
+
+//        requestBackup();
     }
 
     /**
