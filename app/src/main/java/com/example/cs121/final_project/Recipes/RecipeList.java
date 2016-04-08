@@ -168,16 +168,16 @@ public class RecipeList extends AppCompatActivity {
                 for(int i = 0; i < values.size(); i++) {
                     Item t = values.get(i);
                     switch (t.ing_type){
-                        case 1: grains += "        " + t.weight + " " + t.weigh" of " + t.name + " for " + t.time + "\n";
+                        case 1: grains += "        " + t.weight + " of " + t.name + " for " + t.time + "\n";
                             break;
 
-                        case 2: hops += "        " + t.weight + " " + t.weigh" of " + t.name + " for " + t.time + "\n";
+                        case 2: hops += "        " + t.weight + " of " + t.name + " for " + t.time + "\n";
                             break;
 
-                        case 3: yeasts += "        " + t.weight + " " + t.weigh" of " + t.name +  "\n";
+                        case 3: yeasts += "        " + t.weight + " of " + t.name +  "\n";
                             break;
 
-                        case 4: misc += "        " + t.weight + " " + t.weigh" of " + t.name + " for " + t.time + "\n";
+                        case 4: misc += "        " + t.weight + " of " + t.name + " for " + t.time + "\n";
                             break;
 
                         default: break;
