@@ -2,8 +2,10 @@ package com.example.cs121.final_project;
 
 import android.app.TabActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TabHost;
 import android.widget.TextView;
@@ -11,6 +13,10 @@ import android.widget.TextView;
 
 public class MainActivity extends TabActivity
 {
+
+
+//    SharedPreferences prefs;
+//    SharedPreferences.OnSharedPreferenceChangeListener listener;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -20,6 +26,16 @@ public class MainActivity extends TabActivity
         // create the TabHost that will contain the Tabs
         final TabHost tabHost = (TabHost) findViewById(android.R.id.tabhost);
 
+//        prefs = getSharedPreferences("MyRecipes", MODE_PRIVATE);
+//
+//        listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+//            @Override
+//            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+//                Log.d("sharedpref", "The key '" + key + "' was changed");
+//            }
+//        };
+//
+//        prefs.registerOnSharedPreferenceChangeListener(listener);
 
 
         TabHost.TabSpec tab1 = tabHost.newTabSpec("First Tab");
@@ -59,6 +75,21 @@ public class MainActivity extends TabActivity
             }
         });
     }
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        prefs.registerOnSharedPreferenceChangeListener(listener);
+//    }
+//
+//
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        prefs.registerOnSharedPreferenceChangeListener(listener);
+//
+//    }
 
     /**
      * This launches the helpScreen activity

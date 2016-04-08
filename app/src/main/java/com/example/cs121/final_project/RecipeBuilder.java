@@ -542,8 +542,6 @@ public class RecipeBuilder extends Activity
                         if (values != null) {
                             System.out.println(values.get(0).name);
                             repopulateList(values);
-                            EditText nameT = (EditText) findViewById(R.id.recipeName);
-                            nameT.setText(recipeName);
                         }
                     }
                 }
